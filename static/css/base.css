@@ -1,0 +1,21 @@
+html {
+    height: 100%;
+    
+}
+
+body {
+    background-color: whitesmoke;
+}
+
+.text-white {
+    color:#fff !important;
+}
+
+.bg-blue {
+    color: rgb(0, 153, 255);
+}
+
+@media (min-width: 992px)
+.text-lg-right {
+    text-align: right!important;
+}
