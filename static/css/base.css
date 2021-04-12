@@ -4,7 +4,8 @@ html {
 }
 
 body {
-    background-color: whitesmoke;
+    height: calc(100vh - 164px);
+    font-family: 'Lato';
 }
 
 .text-white {
@@ -14,8 +15,26 @@ body {
 .bg-blue {
     color: rgb(0, 153, 255);
 }
+.main-logo-link {
+    width: fit-content;
+}
 
-@media (min-width: 992px)
-.text-lg-right {
-    text-align: right!important;
+.logo-font {
+    text-transform: uppercase;
+}
+
+
+/* fixed top navbar only on medium and up */
+@media (min-width: 992px) {
+    .fixed-top-desktop-only {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+    }
+
+    .header-container {
+        padding-top: 164px;
+    }
 }
