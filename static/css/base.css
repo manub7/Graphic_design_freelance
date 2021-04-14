@@ -23,6 +23,13 @@ body {
     text-transform: uppercase;
 }
 
+/*Slightly larger container on XL screens*/
+
+@media (min-width:1200px) {
+    .container {
+        max-width: 80%;
+    }
+}
 
 /* fixed top navbar only on medium and up */
 @media (min-width: 992px) {
