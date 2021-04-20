@@ -25,14 +25,17 @@ body {
 
 /*Slightly larger container on XL screens*/
 
-@media (min-width:1200px) {
+@media (min-width:992px) {
     .container {
         max-width: 80%;
+    }
+    .header-container {
+        padding-top: 164px;
     }
 }
 
 /* fixed top navbar only on medium and up */
-@media (min-width: 992px) {
+@media (max-width: 991px) {
     .fixed-top-desktop-only {
         position: fixed;
         top: 0;
