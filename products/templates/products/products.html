@@ -12,7 +12,57 @@
 
     <div class="container">
         <div class="row">
-            <div class="col">{{ products }}</div>
+            <div class="col text-center mt-3">
+                <h2 class="logo-font">Projects</h2>
+                <hr class="w-50 mb-1">
+            </div>
+        </div>
+        <div class="row">
+            <div class="product-container col-10 offset-1">
+                <div class="row mt-1 mb-2"></div>
+                <div class="row">
+                    {% for product in products %}
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                            <div class="card h-100 border-0">
+                                {% if product.image %}
+                                <a href="">
+                                    <img class="card-img-top mg-fluid.max-width: 100%"" style="max-height: 150px" src="/media/{{ product.image }}" alt="{{ product.name }}">
+                                </a>
+                                {% else %}
+                                <a href="">
+                                    <img class="card-img-top img-fluid. max-width: 100%" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+                                </a>
+                                {% endif %}
+                                <div class="card-body pb-0">
+                                    <p class="mb-0">{{ product.name }}</p>
+                                </div>
+                                <div class="card-footer bg-white pt-0 border-0 text-left">
+                                    <div class="row">
+                                        <div class="col">
+                                            <p class="lead mb-0 text-left font-weight-bold">£{{ product.price }}</p>
+                                            {% if product.category %}
+                                            <p class="small mt-1 mb-0">
+                                                <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}">
+                                                    {{ product.category.name }}
+                                                </a>
+                                            </p>
+                                            {% endif %}
+                                            {% if product.size %}
+                                            <p class="small mt-1 mb-0">
+                                                <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}">
+                                                    <i class="fas fa-ruler-combined mr-1"></i>{{ product.height }} x {{ product.width }} px
+                                                </a>
+                                            </p>
+                                            {% endif %}
+                                       </div>
+                                    </div>
+                                </div>         
+                                            
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 
