@@ -97,6 +97,9 @@ body {
     .header-container {
         padding-top: 164px;
     }
+    .dropdown-item ,.nav-item a {
+        color: black !important; 
+    }
 }
 
 /* fixed top navbar only on medium and up */
@@ -111,5 +114,15 @@ body {
 
     .header-container {
         padding-top: 84px;
+    }
+
+    #mobile-header {
+        background-color: #007bff;
+    }
+    .dropdown-menu {
+        background-color: #007bff
+    }
+    .dropdown-item ,.nav-item{
+        color: white; 
     }
 }
