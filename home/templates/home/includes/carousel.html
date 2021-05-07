@@ -3,12 +3,10 @@
     <div class="carousel-inner w-100 " role="listbox">
             {% for product in products  %}
                 <div class="carousel-item {% if forloop.first %} active {% endif %}">
-
-                    
                         <div class="text-center m-1 " >
                             {% if product.image %}
                             <div class="card-img-top">
-                               <a href="">
+                               <a href="{% url 'product_detail' product.id %}">
                                 <img class="img-fluid"  src="media/{{product.image}}" alt="{{ product.name }}">
                                 </a>
                             </div>
@@ -16,8 +14,8 @@
                                 <a href="#"><p class="text-black text-sm-left font-small flex-center">{{ product.name}}</p></a>
                             </div>
                             {% else %}
-                            <a href="">
-                                <img class=" img-fluid src="media/noimage.png" alt="{{ product.name }}">
+                            <a href="{% url 'product_detail' product.id %}">
+                                <img class=" img-fluid" src="media/noimage.png" alt="{{ product.name }}">
                             </a>
                             {% endif %}
                             

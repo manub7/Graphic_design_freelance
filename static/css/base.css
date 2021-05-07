@@ -26,10 +26,18 @@ body {
     text-transform: uppercase;
 }
 
-.container-carousel {
-     max-width: 95%;
+#img-detail {
+    height:100%;
+    width: 100%;
 }
+
+
+
 /* Carousel styling */
+
+.container-carousel {
+    max-width: 95%;
+}
 
 @media (max-width: 768px) {
     .carousel-inner .carousel-item > div {
