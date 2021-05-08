@@ -11,7 +11,7 @@
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="all-products-link">
                 <a href="" class="dropdown-item">By Size</a>
-                <a href="" class="dropdown-item ">By Category</a>
+                <a href="{% url 'products' %}?category=Icon,Logo,Poster" class="dropdown-item ">By Category</a>
                 <a href="{% url 'products' %}" class="dropdown-item">All Projects</a>
             </div>
         </li>
@@ -22,7 +22,7 @@
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="clothing-link">
                 <a href="" class="dropdown-item">By Size</a>
-                <a href="" class="dropdown-item">All Icons</a>
+                <a href="{% url 'products' %}?category=Icon" class="dropdown-item">All Icons</a>
             </div>
         </li>
 
@@ -32,7 +32,7 @@
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="homeware-link">
                 <a href="" class="dropdown-item">By Size</a>
-                <a href="" class="dropdown-item">All Logos</a>
+                <a href="{% url 'products' %}?category=Logo" class="dropdown-item">All Logos</a>
             </div>
         </li>
 
@@ -42,7 +42,7 @@
             </a>
             <div class="dropdown-menu  border-0" aria-labelledby="specials-link">
                 <a href="" class="dropdown-item">By Size</a>
-                <a href="" class="dropdown-item">All Posters</a>
+                <a href="{% url 'products'%}?category=Poster" class="dropdown-item">All Posters</a>
             </div>
         </li>
     </ul>

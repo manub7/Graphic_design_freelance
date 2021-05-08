@@ -32,7 +32,6 @@ body {
 }
 
 
-
 /* Carousel styling */
 
 .container-carousel {
@@ -301,4 +300,10 @@ footer {
         height: 16.25rem !important;
         width: fit-content !important;
     }
+}
+/* fixes the color apearance for the navbar on larger screen */
+@media (min-width:991px) {
+   #navbar { 
+       background-color: white;
+   }
 }
