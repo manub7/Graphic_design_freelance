@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 
-
-
 {% block page_header %}
     <div class="container header-container">
         <div class="row">
@@ -12,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
-
+    {% if not request.user.is_authenticated %}
     <div class="container-fluid " id="container-gallery">
         <div class="row">
             <div class="col text-center mt-3">
@@ -26,12 +24,12 @@
             </div>
         </div>
     </div>
-   
-    {% if 'client' not in request.session %}
+    {% endif %}
+    {% if not request.user.is_authenticated %}
     <div class="register-section mt-4 ">
         <div class="jumbotron  ">
         <div class="container">
-            <h1 class="display-4"><a class="btn btn-secondary" href="">Register</a></h1>
+            <h1 class="display-4"><a class="btn btn-secondary" href="{% url 'account_signup' %}">Register</a></h1>
             <p class="lead">Register now to make a request for graphical designs that addresses your needs!</p>
         </div>
         </div>

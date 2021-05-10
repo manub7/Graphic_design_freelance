@@ -66,7 +66,11 @@
                       <a href="#" class="text-white nav-link" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                         <div class="text-center">
                           <div><i class="fas fa-user fa-lg fa-white"></i></div>
+                          {% if request.user.is_authenticated %}
                           <p class="my-o">My Account</p>
+                          {% else %}
+                          <p class="my-o">Login</p>
+                          {% endif %}
                         </div>
                       </a>
                       <div class="dropdown-menu border-0" aria-labelledby="user-options">
@@ -83,10 +87,11 @@
                     </div>
 
                     </li>
+                    {% if request.user.is_authenticated %}
                     <li class="list-inline-item">
-                        <a href="" class="text-info font-weight-bold text-black nav-link">
+                        <a href="{% url 'design_requests' %}" class="text-info font-weight-bold text-black nav-link">
                             <div class="text-center">
-                                <div><i class="fas fa-hard-hat fa-lg text-white"></i></div>
+                                <div><i class="fas fa-pencil-alt fa-lg text-white"></i></div>
                                 <p class="my-o text-white">
                                   {% if grant_total %}
                                     ${{grant_total|floatformat:2}}
@@ -96,8 +101,8 @@
                                 </p>
                             </div>
                         </a>
-                    
                     </li>
+                    {% endif %}
                   </ul>
               </div>
 
