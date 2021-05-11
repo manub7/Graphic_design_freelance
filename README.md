@@ -51,9 +51,10 @@ At the begining of the project I first created a heroku account  and used the Gi
 followed by the variables configuration on the Heroku website where i have configured all sesitive data variables. 
 
 Each time I commit and push  to the server the HEROKU gets updated with the latest version. The only diffrence between the development and the production version 
-represents the debug tool which is turned off.  You can view the production version [here](https://cookbook-milestoneproject.herokuapp.com/)
+represents the debug tool which is turned off.  You can view the production version [here](TBC)
 
 
 ## Credits
 
 - The carousel display that has been well modified to suit my project can be found [here](https://stackoverflow.com/questions/20007610/bootstrap-carousel-multiple-frames-at-once)
+- The JS price calulation functionality for design request can be found[here](https://stackoverflow.com/questions/27745710/calculating-total-of-2-input-fields-in-jquery/27745734)
