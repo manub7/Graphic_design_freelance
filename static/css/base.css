@@ -105,6 +105,13 @@ body {
     width: 25rem ;
 }
 
+
+/* Design request form */
+
+#attachments-div {
+    display:none;
+}
+
 /* Footer */
 
 footer {

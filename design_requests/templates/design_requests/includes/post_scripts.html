@@ -1,0 +1,38 @@
+<script type="text/javascript">
+
+    $('#width').on('input',function(){ this.value = Math.abs(this.value) })
+    $('#height').on('input',function(){ this.value = Math.abs(this.value) })
+
+    /* Hides or unhides the attachement box depending of preferences */
+    $('#provide-source').click( function (e) {
+        if ($('#provide-source').is(":checked")){
+            $('#attachments-div').css("display","block")
+            }
+        else {
+            $('#attachments-div').css("display","none")
+        }
+        })
+    
+    /* Calculates the total price prior cheout */
+    $('#width').on('input',calc);
+        $('#height').on('input',calc);
+    
+    
+        function calc () {
+    
+            var width = parseFloat($('#width').val(),2);
+    
+            if ($('#height').val() === '') {
+                var height = 1
+            }
+            else {
+                var height = parseFloat($('#height').val(),2);
+            }
+            var size = width*height*3/1024;
+            var price_factor = JSON.parse({{price_factor}})
+    
+            var total = size * price_factor
+    
+            $('#total').val(total)
+        }     
+    </script>
