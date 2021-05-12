@@ -35,24 +35,7 @@
         <div class="form-group">
             <label for="width">Width</label>
             <div class="input-group mb-3">
-
-
-                <input type="number" class="form-control" id="width" name="width" placeholder="1920" required>
-
                 <input type="number" class="form-control" id="width" name="width" placeholder="1920  or min 50" min = "50"  required>
-
-
-                <input type="number" class="form-control" id="width" name="width" placeholder="1920" required>
-
-=======
-                <input type="number" class="form-control" id="width" name="width" placeholder="1920" required>
-
-=======
-                <input type="number" class="form-control" id="width" name="width" placeholder="1920" required>
-
-=======
-                <input type="number" class="form-control" id="width" name="width" placeholder="1920" required>
-
                 <div class="input-group-append">
                     <span class="input-group-text">px</span>
                 </div>
@@ -62,22 +45,7 @@
         <div class="form-group">
             <label for="height">Height</label>
             <div class="input-group mb-3">
-
-
-                <input type="number" class="form-control" id="height" name="height" placeholder="1080" required>
-
                 <input type="number" class="form-control" id="height" name="height" placeholder="1080  or min 50" min = "50"  required>
-
-
-                <input type="number" class="form-control" id="height" name="height" placeholder="1080" required>
-
-
-                <input type="number" class="form-control" id="height" name="height" placeholder="1080" required>
-
-
-                <input type="number" class="form-control" id="height" name="height" placeholder="1080" required>
-
-
                 <div class="input-group-append">
                     <span class="input-group-text">px</span>
                 </div>
@@ -99,21 +67,7 @@
         </div>
 
 
-
-        <div class="form-group">
-
         <div class="form-group" id="attachments-div">
-
-
-        <div class="form-group">
-
-
-        <div class="form-group">
-
-        <div class="form-group">
-
-        <div class="form-group">
-
             <label for="attachments">Attachments</label>
             <input type="file" class="form-control-file" id="attachments" name="attachments" multiple>
         </div>
@@ -129,66 +83,6 @@
 {% endblock %}
 
 {% block postloadjs %}
-<script type="text/javascript">
-
-$('#width').keyup(calc);
-    $('#height').keyup(calc);
-
-    function calc () {
-
-        var width = parseFloat($('#width').val(),2);
-
-        if ($('#height').val() === '') {
-            var height = 1
-        }
-        else {
-            var height = parseFloat($('#height').val(),2);
-        }
-        var size = width*height*3/1024;
-        var price_factor = JSON.parse({{price_factor}})
-
-<script type="text/javascript">
-
-$('#width').keyup(calc);
-    $('#height').keyup(calc);
-
-    function calc () {
-
-        var width = parseFloat($('#width').val(),2);
-
-        if ($('#height').val() === '') {
-            var height = 1
-        }
-        else {
-            var height = parseFloat($('#height').val(),2);
-        }
-        var size = width*height*3/1024;
-        var price_factor = JSON.parse({{price_factor}})
-
-        var total = size * price_factor
-
-        $('#total').val(total)
-    }     
-</script>
-
-
-        var total = size * price_factor
-
-
-
-
-
-
-
-        var total = size * price_factor
-
-        $('#total').val(total)
-    }     
-</script>
+{{ block.super }}
+{% include 'design_requests/includes/post_scripts.html' %}
 {% endblock %}
-
-
-        $('#total').val(total)
-    }     
-</script>
-

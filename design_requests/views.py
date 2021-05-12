@@ -9,7 +9,7 @@ from products.models import Category, Product
 
 
 
-def design_requests(request):
+def add_design_requests(request):
     
     price = 0
     width = 0 
@@ -18,8 +18,6 @@ def design_requests(request):
     
     if 'width' in request.POST:
          width = request.POST['width']
-
-
 
          print(width)
     if 'height' in request.POST:

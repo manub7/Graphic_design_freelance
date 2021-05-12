@@ -1,0 +1,56 @@
+<div class="container mt-5">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Category</th>
+                <th scope="col">Width</th>
+                <th scope="col">Height</th>
+                <th scope="col">Description</th>
+                <th scope="col">Provide source files</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product  in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.category.name }}</td>
+                <td>{{ product.width }}</td>
+                <td>{{ product.height }}</td>
+                <td>{{ product.description }}</td>
+                <td>
+                    
+                        <span class="text-success">
+                            <i class="fas fa-check"></i>
+                        </span>
+                    
+                        <span class="text-danger">
+                            <i class="fas fa-times"></i>
+                        </span>
+                    
+                </td>
+                <td>
+                
+                    <a href="" class="mr-2" target="_blank">
+                        <span class="text-primary">
+                            <i class="fas fa-download"></i>
+                        </span>
+                    </a>
+                    <a href="" class="mr-2">
+                        <span class="text-success">
+                            <i class="fas fa-pen-square"></i>
+                        </span>
+                    </a>
+                  
+                    <a href="#" class="mr-2">
+                        <span class="text-secondary">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

@@ -24,8 +24,6 @@
             </div>
         </div>
     </div>
-    {% endif %}
-    {% if not request.user.is_authenticated %}
     <div class="register-section mt-4 ">
         <div class="jumbotron  ">
         <div class="container">
@@ -34,6 +32,9 @@
         </div>
         </div>
     </div>
+    {% else %}
+    {% include 'home/includes/request_list.html' %}
+
     {% endif %}
 
     <footer class="bg-primary mt-0 fixed-bottom ">
