@@ -32,7 +32,6 @@ def design_requests(request):
     price = size * settings.PRICE_FACTOR
     print(price)
 
-         print(width)
 
     if 'height' in request.POST:
          height = request.POST['height']
