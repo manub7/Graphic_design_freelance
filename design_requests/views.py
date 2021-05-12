@@ -3,6 +3,7 @@ from decimal import Decimal
 from django.conf import settings
 from products.models import Category, Product
 
+<<<<<<< HEAD
 
 # Create your views here.
 
@@ -11,6 +12,9 @@ from products.models import Category, Product
 
 # Create your views here.
 
+=======
+# Create your views here.
+>>>>>>> parent of 3b3750f ( Fixed the jquery on the request design page and moved al js in the include folder)
 def design_requests(request):
     
     price = 0
@@ -20,7 +24,10 @@ def design_requests(request):
     
     if 'width' in request.POST:
          width = request.POST['width']
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 3b3750f ( Fixed the jquery on the request design page and moved al js in the include folder)
          print(width)
     if 'height' in request.POST:
          height = request.POST['height']
@@ -31,6 +38,7 @@ def design_requests(request):
 
     price = size * settings.PRICE_FACTOR
     print(price)
+<<<<<<< HEAD
 
          print(width)
 
@@ -48,6 +56,8 @@ def design_requests(request):
     price = size * settings.PRICE_FACTOR
     print(price)
 
+=======
+>>>>>>> parent of 3b3750f ( Fixed the jquery on the request design page and moved al js in the include folder)
     categories = Category.objects.all()
 
     context = {
