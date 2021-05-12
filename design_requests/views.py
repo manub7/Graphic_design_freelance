@@ -3,12 +3,14 @@ from decimal import Decimal
 from django.conf import settings
 from products.models import Category, Product
 
-<<<<<<< HEAD
+
 # Create your views here.
-=======
+
 # A view to create, calculate and capture a design request
 
->>>>>>> 3b3750f8b661db1e4ab50f186094dc315d01ec68
+
+# Create your views here.
+
 def design_requests(request):
     
     price = 0
@@ -18,7 +20,7 @@ def design_requests(request):
     
     if 'width' in request.POST:
          width = request.POST['width']
-<<<<<<< HEAD
+
          print(width)
     if 'height' in request.POST:
          height = request.POST['height']
@@ -29,13 +31,23 @@ def design_requests(request):
 
     price = size * settings.PRICE_FACTOR
     print(price)
-=======
+
+         print(width)
+
     if 'height' in request.POST:
          height = request.POST['height']
+         print(height)
      
     size = int(width) * int(height)*3/1024
+
     price = format(size * settings.PRICE_FACTOR,".2f")
->>>>>>> 3b3750f8b661db1e4ab50f186094dc315d01ec68
+
+
+    print(size)
+
+    price = size * settings.PRICE_FACTOR
+    print(price)
+
     categories = Category.objects.all()
 
     context = {

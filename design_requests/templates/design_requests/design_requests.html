@@ -35,11 +35,14 @@
         <div class="form-group">
             <label for="width">Width</label>
             <div class="input-group mb-3">
-<<<<<<< HEAD
+
                 <input type="number" class="form-control" id="width" name="width" placeholder="1920" required>
-=======
+
                 <input type="number" class="form-control" id="width" name="width" placeholder="1920  or min 50" min = "50"  required>
->>>>>>> 3b3750f8b661db1e4ab50f186094dc315d01ec68
+
+
+                <input type="number" class="form-control" id="width" name="width" placeholder="1920" required>
+
                 <div class="input-group-append">
                     <span class="input-group-text">px</span>
                 </div>
@@ -49,11 +52,14 @@
         <div class="form-group">
             <label for="height">Height</label>
             <div class="input-group mb-3">
-<<<<<<< HEAD
+
                 <input type="number" class="form-control" id="height" name="height" placeholder="1080" required>
-=======
+
                 <input type="number" class="form-control" id="height" name="height" placeholder="1080  or min 50" min = "50"  required>
->>>>>>> 3b3750f8b661db1e4ab50f186094dc315d01ec68
+
+
+                <input type="number" class="form-control" id="height" name="height" placeholder="1080" required>
+
                 <div class="input-group-append">
                     <span class="input-group-text">px</span>
                 </div>
@@ -74,11 +80,14 @@
             </div>
         </div>
 
-<<<<<<< HEAD
+
         <div class="form-group">
-=======
+
         <div class="form-group" id="attachments-div">
->>>>>>> 3b3750f8b661db1e4ab50f186094dc315d01ec68
+
+
+        <div class="form-group">
+
             <label for="attachments">Attachments</label>
             <input type="file" class="form-control-file" id="attachments" name="attachments" multiple>
         </div>
@@ -94,7 +103,7 @@
 {% endblock %}
 
 {% block postloadjs %}
-<<<<<<< HEAD
+
 <script type="text/javascript">
 
 $('#width').keyup(calc);
@@ -118,12 +127,12 @@ $('#width').keyup(calc);
         $('#total').val(total)
     }     
 </script>
-=======
 
-{{ block.super }}
-{% include 'design_requests/includes/post_scripts.html' %}
 
->>>>>>> 3b3750f8b661db1e4ab50f186094dc315d01ec68
-{% endblock %}
+        var total = size * price_factor
 
+
+        $('#total').val(total)
+    }     
+</script>
 
