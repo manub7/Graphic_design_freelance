@@ -1,0 +1,309 @@
+html {
+    height: 100%;
+    
+}
+
+body {
+    height: calc(100vh - 164px);
+    font-family: 'Lato';
+}
+
+.text-white {
+    color:#fff !important;
+}
+.text-black {
+    color:black !important;
+}
+
+.bg-blue {
+    color: rgb(0, 153, 255);
+}
+.main-logo-link {
+    width: fit-content;
+}
+
+.logo-font {
+    text-transform: uppercase;
+}
+
+#img-detail {
+    height:100%;
+    width: 100%;
+}
+
+
+/* Carousel styling */
+
+.container-carousel {
+    max-width: 95%;
+}
+
+@media (max-width: 768px) {
+    .carousel-inner .carousel-item > div {
+        display: none;
+    }
+    .carousel-inner .carousel-item > div:first-child {
+        display: block;
+    }
+}
+
+.carousel-inner .carousel-item.active,
+.carousel-inner .carousel-item-next,
+.carousel-inner .carousel-item-prev {
+    display: inline-flex;
+}
+
+/* medium - display 4  */
+
+@media (min-width: 768px) {
+
+    .carousel-inner .carousel-item-right.active,
+    .carousel-inner .carousel-item-next {
+      transform: translateX(50%);
+    }
+    
+    .carousel-inner .carousel-item-left.active, 
+    .carousel-inner .carousel-item-prev {
+      transform: translateX(-50%);
+    }
+}
+
+/* large - display 6 */
+@media (min-width: 768px) {
+    
+    .carousel-inner .carousel-item-right.active,
+    .carousel-inner .carousel-item-next {
+      transform: translateX(50%);
+    }
+    
+    .carousel-inner .carousel-item-left.active, 
+    .carousel-inner .carousel-item-prev {
+      transform: translateX(-50%);
+    }
+
+
+.carousel-inner .carousel-item-right,
+.carousel-inner .carousel-item-left{ 
+  transform: translateX(0);
+ }
+}
+
+.card-img {
+	height:200px;width: 150px; overflow: hidden;
+	background-repeat:no-repeat;
+	background-size: cover;
+	object-fit: fill;
+}
+
+.card-title {
+	height: 40px; width:150px;overflow: hidden;
+}
+
+
+.carousel-item a img {
+    height: 16.25rem ;
+    width: 25rem ;
+}
+
+/* Footer */
+
+footer {
+    border-color: transparent;
+    text-align: center;
+  }
+
+.row-foot {
+    justify-content: space-evenly;
+  }
+  
+.footer-icons {
+    height: 3.02rem;
+    width: 3.02rem;
+    text-align: center;
+    margin-bottom: 0.5em;
+    margin-left: 0.5em;
+    border-radius: 25%;
+    
+    text-justify: center;
+  }
+  
+  .footer-icons i {
+    line-height: 1.5;
+  
+    font-size: 20px;
+      }
+  
+  .footer-icons:hover i {
+    color: white;
+  }
+  
+
+  
+  .block-divider {
+    width: 100%;
+    height: 1.5px;
+    border: 0;
+    background-color: rgb(95, 94, 94);
+  }
+  footer p {
+    color: white;
+    font-size: 12px;
+    font-weight: lighter;
+    margin-bottom: 0;
+  }
+/*Slightly larger container on XL screens*/
+
+@media (min-width:992px) {
+    .container {
+        max-width: 80%;
+    }
+   
+    .header-container {
+        padding-top: 160px;
+    }
+    .dropdown-item ,.nav-item a {
+        color: black !important; 
+    }
+}
+
+/* fixed top navbar only on medium and up */
+@media (max-width: 441px) {
+    .fixed-top-desktop-only {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+    }
+    
+    .jumbotron {
+        margin-top: .3rem;
+    }
+
+    .header-container {
+        padding-top: 68px;
+    }
+
+    footer p {
+        color: white;
+        font-size: 8px;
+        font-weight: lighter;
+        margin-bottom: 0;
+      }
+
+    #mobile-header {
+        background-color: #007bff;
+    }
+    .dropdown-menu {
+        background-color: #007bff
+    }
+    .dropdown-item ,.nav-item{
+        color: white; 
+    }
+    body {
+        height: calc(100vh - 84px);
+    }
+    .display-4.logo-font.text-black {
+        font-size: 2rem;
+    }
+    .nav-link {
+        padding: 0.15rem;
+    }
+    .nav-link i.fa-lg {
+        font-size: 1rem;
+    }
+    .jumbotron  p {
+        font-size: .9rem;
+    }
+    .jumbotron {
+        margin-bottom: 48px;
+        padding: 1rem 1rem;
+    }
+     .carousel-inner a img {
+         height : 10rem !important;
+        
+     }
+
+     #container-carousel{
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+     }
+
+     .register-section {
+         margin-top: 0 !important;
+         margin-bottom: 49px !important;
+     }
+}
+
+@media (min-width:414px) and  (max-width: 1023px) {
+
+    .header-container {
+        padding-top: 160px;
+    }
+
+    .fixed-top-desktop-only {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+    }
+
+    #mobile-header {
+        background-color: #007bff;
+    }
+    .dropdown-menu {
+        background-color: #007bff
+    }
+    .dropdown-item ,.nav-item{
+        color: white; 
+    }
+    body {
+        height: calc(100vh - 84px);
+    }
+    .display-4.logo-font.text-black {
+        font-size: 2rem;
+    }
+    .nav-link {
+        padding: 0.15rem;
+    }
+    .nav-link i.fa-lg {
+        font-size: 1rem;
+    }
+    .jumbotron  p {
+        font-size: .9rem;
+    }
+    .jumbotron {
+        margin-bottom: 48px;
+        padding: 1rem 1rem;
+    }
+     
+    
+}
+
+/* fixes appearance issues for Ipad Pro*/
+
+@media (width:1024px) {
+    .header-container {
+        padding-top: 160px;
+    }
+
+    #container-gallery {
+       margin-top: 4rem;
+    }
+}
+
+/* fixes appearance issues for Ipad*/
+
+@media (width:768px) {
+    .carousel-item a img {
+        height: 16.25rem !important;
+        width: fit-content !important;
+    }
+}
+/* fixes the color apearance for the navbar on larger screen */
+@media (min-width:991px) {
+   #navbar { 
+       background-color: white;
+   }
+}
