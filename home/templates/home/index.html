@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% if not request.user.is_authenticated %}
+    <div class="container-fluid " id="container-gallery">
+        <div class="row">
+            <div class="col text-center mt-3">
+                <h2 class="logo-font">Gallery</h2>
+                <hr class="w-50 mb-1">
+            </div>
+        </div>
+        <div class="container-fluid text-center my-3" id="container-carousel">
+            <div class="row mx-auto my-auto">
+            {% include 'home/includes/carousel.html' %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if not request.user.is_authenticated %}
+    <div class="register-section mt-4 ">
+        <div class="jumbotron  ">
+        <div class="container">
+            <h1 class="display-4"><a class="btn btn-secondary" href="{% url 'account_signup' %}">Register</a></h1>
+            <p class="lead">Register now to make a request for graphical designs that addresses your needs!</p>
+        </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <footer class="bg-primary mt-0 fixed-bottom ">
+        <div class="container text-center">
+
+
+			<div class="row-foot text-center">
+				<div class="col-xs-12 col-sm-12 icons">
+
+                    <a class="footer-icons text-white ml-3" href="https://twitter.com/ManuBlaga" target="_blank">
+						<i class="fab fa-twitter alignment"></i>
+					</a>
+
+					<a class="footer-icons text-white ml-3" href="https://www.linkedin.com/in/emanuel-blaga" target="_blank">
+						<i class="fab fa-linkedin-in alignment"></i>
+					</a>
+					<a class="footer-icons text-white ml-3" href="https://www.github.com/manub7" target="_blank">
+						<i class="fab fa-github alignment"></i>
+					</a>
+					
+				</div>
+			</div>
+            
+            <div class="container text-white">
+                <p>Emanuel Blaga | Copyright 2021 | All rights reserved</p>
+            </div>
+		</div>
+
+        </div>
+       </div>
+    </footer>
+
+{% endblock %}
+
+
+
+{% block postloadjs %}
+
+
+<script>
+
+$('#products-carousel').carousel({
+    interval :3000
+    })
+
+    $('.carousel .carousel-item').each(function(){
+    var minPerSlide = 4;
+    var next = $(this).next();
+    if (!next.length) {
+    next = $(this).siblings(':first');
+    }
+    next.children(':first-child').clone().appendTo($(this));
+    
+    for (var i=0;i<minPerSlide;i++) {
+        next=next.next();
+        if (!next.length) {
+        	next = $(this).siblings(':first');
+      	}
+        
+        next.children(':first-child').clone().appendTo($(this));
+      }
+});
+</script>
+
+{% endblock %}
