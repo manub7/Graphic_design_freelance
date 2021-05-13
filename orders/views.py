@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.db.models.functions import Lower
 from .models import Order, Category
+from django.conf import settings
 
 # Create your views here.
 def all_orders(request):

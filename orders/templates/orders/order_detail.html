@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+ 
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-4 offset-lg-2">
+                <div class="image-container my-5">
+                    {% if order.processed_image %}
+                      <a href="{{ MEDIA_URL }}{{ order.processed_image }}" target="_blank">
+                        <img class="card-img-top img-fluid " id="img-detail" src="/media/{{ order.processed_image }}" alt="{{ order.name }}">
+                       </a>
+                    {% else %}
+                        <a href="">
+                          <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ order.name }}">
+                        </a>
+                    {% endif %}
+                </div>
+             </div>   
+                    <div class="col-12 col-md-6 col-lg-4 my-5">
+                        <div class="card-body pb-0 pt-0">
+                            <p class="mb-0">{{ order.name }}</p>
+                        </div>
+                        <div class="card-footer bg-white pt-0 border-0 text-left">
+                            <div class="row">
+                                <div class="col">
+                                    <p class="lead mb-0 text-left font-weight-bold">£{{ order.price }}</p>
+                                    {% if order.category %}
+                                    <p class="small mt-1 mb-0">
+                                        <a class="text-muted" href="{% url 'orders' %}?category={{ order.category.name }}">
+                                            {{ order.category.name }}
+                                        </a>
+                                    </p>
+                                    {% endif %}
+                                    {% if order.size %}
+                                    <p class="small mt-1 mb-0">
+                                        <a class="text-muted" href="{% url 'orders' %}?category={{ order.category.name }}">
+                                            <i class="fas fa-ruler-combined mr-1"></i>{{ order.height }} x {{ order.width }} px
+                                        </a>
+                                    </p>
+
+                                    <p class="small mt-1 mb-0">
+                                        {{ order.description }}
+                                    </p>
+                                    {% endif %}
+                    </div>
+
+        </div>
+    </div>
+
+{% endblock %}

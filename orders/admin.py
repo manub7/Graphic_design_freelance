@@ -7,6 +7,7 @@ from .models import Order, Category
 # Register your models here.
 class OrderAdmin(admin.ModelAdmin):
     list_display = (
+        
         'order_number',
         'name',
         'category',
