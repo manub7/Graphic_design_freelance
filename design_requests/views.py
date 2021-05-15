@@ -41,10 +41,14 @@ def add_design_requests(request):
     design_request['size'] = size
     price = format(size * settings.PRICE_FACTOR / 1000,".2f")
     design_request['price'] = price
-    if 'provide-source' in request.POST:
-         design_request['provide_source_files']  = True
-    else : 
-         design_request['provide_source_files']  = False
+
+    checked = request.POST.get("provide_source_files")
+    print(checked)
+
+    if (checked == None):
+         design_request['provide_source_files'] = False
+    else:  
+         design_request['provide_source_files'] = True
 
     if 'attachements' in request.POST:
          design_request['img_source']  = request.FILES
@@ -54,6 +58,7 @@ def add_design_requests(request):
     request.session['design_request'] = design_request
 
     if request.method == 'POST':
+       
         form = OrderForm(request.POST, request.FILES)
         if form.is_valid():
            form.save()
