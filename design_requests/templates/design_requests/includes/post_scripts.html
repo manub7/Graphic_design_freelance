@@ -31,8 +31,8 @@
             var size = width*height*3/1024;
             var price_factor = JSON.parse({{price_factor}})
 
-            var total = size * price_factor
+            var total = size * price_factor / 1000
 
-            $('#total').val(total)
+            $('#total').val(total.toFixed(2))
         }     
     </script>

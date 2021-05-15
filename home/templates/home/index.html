@@ -20,7 +20,9 @@
         </div>
         <div class="container-fluid text-center my-3" id="container-carousel">
             <div class="row mx-auto my-auto">
-            {% include 'home/includes/carousel.html' %}
+               
+               
+                {% include 'home/includes/carousel.html' %}
             </div>
         </div>
     </div>
@@ -33,10 +35,10 @@
         </div>
     </div>
     {% else %}
-    {% include 'home/includes/request_list.html' %}
-
-    {% endif %}
-
+    <div class="container-fluid">
+        {% include 'home/includes/request_list.html' %}
+    </div>
+   {% endif %}
     <footer class="bg-primary mt-0 fixed-bottom ">
         <div class="container text-center">
 
@@ -66,7 +68,6 @@
         </div>
        </div>
     </footer>
-
 {% endblock %}
 
 

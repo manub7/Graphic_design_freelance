@@ -1,14 +1,17 @@
 from django import forms
-from .widgets import CustomClearableFileInput
-from orders.models import Order
+
+from orders.models import Order, Category
 
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ('category',
-                  'width',
-                  'height',
-                  'description', 
-                  'provide_source_files'
-                  )
-    upload = forms.ImageField(label='Image', required=False, widget=CustomClearableFileInput)
+        fields = ('category','name','width','height', 'description')
+
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+        
+
+

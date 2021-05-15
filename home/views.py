@@ -1,13 +1,13 @@
 from django.shortcuts import render
-from products.models import Product
+from orders.models import Order
 
 
 # Create your views here.
 def index(request):
     """ A view to return the index page and first 8 products  """
-    products = Product.objects.all()
+    orders = Order.objects.all()
     
     context = {
-        'products': products,
+        'orders': orders,
     }
     return render(request, 'home/index.html', context)

@@ -78,7 +78,8 @@
                             {% if request.user.is_superuser %}
                                 <a href="" class="dropdown-item">Projects Management</a>
                             {% endif %}
-                            <a href="" class="dropdown-item">My Profile</a>
+                            <a href="{% url 'home' %}" class="dropdown-item">My Requests</a>
+                            <a href="" class="dropdown-item">My Profile</a>                    
                             <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
                         {% else %}
                             <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
@@ -93,11 +94,7 @@
                             <div class="text-center">
                                 <div><i class="fas fa-pencil-alt fa-lg text-white"></i></div>
                                 <p class="my-o text-white">
-                                  {% if grant_total %}
-                                    ${{grant_total|floatformat:2}}
-                                  {% else %}
-                                    £0.00
-                                  {% endif %}
+                                 Make a request
                                 </p>
                             </div>
                         </a>

@@ -16,12 +16,12 @@
             <div class="col-12 col-md-6 col-lg-4 offset-lg-2">
                 <div class="image-container my-5">
                     {% if order.processed_image %}
-                      <a href="{{ MEDIA_URL }}{{ order.processed_image }}" target="_blank">
-                        <img class="card-img-top img-fluid " id="img-detail" src="/media/{{ order.processed_image }}" alt="{{ order.name }}">
+                      <a href="{{ order.processed_image.url }}" target="_blank">
+                        <img class="card-img-top img-fluid " id="img-detail" src="{{ order.processed_image.url}}" alt="{{ order.name }}">
                        </a>
                     {% else %}
                         <a href="">
-                          <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ order.name }}">
+                          <img class="card-img-top img-fluid" src="/media/noimage.png" alt="{{ order.name }}">
                         </a>
                     {% endif %}
                 </div>
@@ -52,9 +52,30 @@
                                         {{ order.description }}
                                     </p>
                                     {% endif %}
+                                </div>  
+                                          
+                            </div>  
+                            
+                        </div>
+                        
                     </div>
-
+                    <div class="col-12  mb-5">
+                        <hr>
+                    </div>
+                                <div class="container">
+                                    {% if order.testimonial %}
+                                        <h4>Testimonial:</h4>
+                                        <p class="small mt-1 mb-0 border border-3 border-white">
+                                        {{ order.date }} <br />   
+                                        {{ order.client.user }} <br />
+                                        </p> 
+                                        <p class="small mt-1 mb-0 border rounded-3 pl-2">  {{ order.testimonial }}
+                                        </p>
+                                        {% endif %}
+                                </div>      
         </div>
+
     </div>
+    
 
 {% endblock %}

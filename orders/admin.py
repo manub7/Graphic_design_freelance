@@ -6,9 +6,12 @@ from .models import Order, Category
 
 # Register your models here.
 class OrderAdmin(admin.ModelAdmin):
+    
+    
     list_display = (
-        
+        'client',
         'order_number',
+        'date',
         'name',
         'category',
         'size',

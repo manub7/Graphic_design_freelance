@@ -25,6 +25,7 @@ class Order(models.Model):
     client = models.ForeignKey(Client, on_delete=models.SET_NULL,
                                      null=True, blank=True, related_name='orders')
     order_number = models.CharField(max_length=32, null=False, editable=False)
+    date = models.DateTimeField(auto_now_add=True)
     category = models.ForeignKey('Category', null =True, blank=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=254)
     description = models.TextField()
@@ -34,13 +35,29 @@ class Order(models.Model):
     price = models.DecimalField(max_digits = 13, decimal_places=2, editable=False, null = False, default=0 )
     provide_source_files = models.BooleanField(default=False)
     source_img = models.ImageField(null=True, blank=True)
+    image_url = models.URLField(max_length=1024, null=True, blank=True)
     processed_image = models.ImageField(null=True, blank=True)
     is_processed = models.BooleanField(default=False)
-    testimonial = models.TextField()
+    testimonial = models.TextField(default=False,null = False)
 
     def __str__(self):
         return self.name
     
+    def create(self,data,files,client):
+        
+
+        design_request = Order (
+            client=client,
+            category=category,
+            description=data['description'],
+            width=data['width'],
+            height=data['height'],
+            provide_source_files=True if 'provide_source_files' in data else False,
+            is_processed=False
+
+        )
+        design_request.save()
+        self.upload_attachements(file,design_request)
 
     def _generate_order_number(self):
         """
