@@ -23,4 +23,28 @@
                 <hr>
             </div>
         </div>
+        {{ profile }}
+        <hr>
+        {{ profile.user.email }}
+        <hr>
+        {{ profile.user.first_name }}
+        <hr>
+        {{ profile.user.last_name }}
+        <hr>
+        Superuser? {{ profile.user.is_superuser }}
+        <hr>
+        {{ profile.default_phone_number}}
+        <hr>
+        {{ profile.default_street_address1}}
+        <hr>
+        {{ profile.default_street_address2}}
+        <hr>
+        {{ profile.default_town_or_city}}
+        <hr>
+        {{ profile.default_county}}
+        <hr>
+        {{ profile.default_postcode}}
+        <hr>
+        {{ profile.default_country}}
+
 {% endblock %}

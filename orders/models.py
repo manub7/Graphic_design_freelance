@@ -38,7 +38,7 @@ class Order(models.Model):
     image_url = models.URLField(max_length=1024, null=True, blank=True)
     processed_image = models.ImageField(null=True, blank=True)
     is_processed = models.BooleanField(default=False)
-    testimonial = models.TextField(default=False,null = False)
+    testimonial = models.TextField(null =True, blank=True)
 
     def __str__(self):
         return self.name

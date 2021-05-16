@@ -47,7 +47,10 @@ INSTALLED_APPS = [
     'design_requests',
     'orders',
     'profiles',
-    'django_countries'
+    'django_countries',
+
+    #Crispy forms 
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -61,6 +64,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'graphic_design_freelance.urls'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 TEMPLATES = [
     {
@@ -78,6 +82,10 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'design_requests.context.design_request_context'
             ],
+            'builtins': [
+                'crispy_forms.templatetags.crispy_forms_tags',
+                'crispy_forms.templatetags.crispy_forms_field',
+            ]
         },
     },
 ]
