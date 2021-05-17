@@ -14,7 +14,6 @@
 {% endblock %}
 
 {% block content %}
-    <div class="overlay"></div>
     <div class="container">
         <div class="row">
             <div class="col">
@@ -23,28 +22,49 @@
                 <hr>
             </div>
         </div>
-        {{ profile }}
-        <hr>
-        {{ profile.user.email }}
-        <hr>
-        {{ profile.user.first_name }}
-        <hr>
-        {{ profile.user.last_name }}
-        <hr>
-        Superuser? {{ profile.user.is_superuser }}
-        <hr>
-        {{ profile.default_phone_number}}
-        <hr>
-        {{ profile.default_street_address1}}
-        <hr>
-        {{ profile.default_street_address2}}
-        <hr>
-        {{ profile.default_town_or_city}}
-        <hr>
-        {{ profile.default_county}}
-        <hr>
-        {{ profile.default_postcode}}
-        <hr>
-        {{ profile.default_country}}
-
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <p class="text-muted">My Billing Address</p>
+                <form class="mt-3" action="{% url 'profile' %}" method="POST" id = 'profile-update-form'>
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button class="btn btn-black rounded=0 text-uppercase float-right">Update Information</button>
+                </form>
+            </div>
+            <div class="col-12 col-lg-6">
+                <p class="text-muted">My Orders History</p>
+                <div class="order-history table-responsive">
+                    <table class="table table-sm table-borderless" >
+                        <thead>
+                            <tr>
+                                <th>Order number</th>
+                                <th>Date</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'order_history' order.order_number%}" title="{{order.order_number}}">
+                                        {{ order.order_number|truncatechars:6 }}</a>
+                                </td>
+                                <td>
+                                    {{ order.date|date:'Y-m-d' }}
+                               </td>
+                               <td>
+                                   {{ order.category }}
+                               </td>
+                               <td>
+                                   {{order.price}}
+                               </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div> 
+        </div>    
+    </div>
 {% endblock %}

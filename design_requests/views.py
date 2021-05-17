@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from decimal import Decimal
 from django.conf import settings
 from products.models import Category, Product
@@ -58,11 +58,10 @@ def add_design_requests(request):
     request.session['design_request'] = design_request
 
     if request.method == 'POST':
-       
         form = OrderForm(request.POST, request.FILES)
         if form.is_valid():
            form.save()
-      
+ 
           
     else:
         form = OrderForm()
@@ -80,3 +79,5 @@ def add_design_requests(request):
     print(request.session.get('design_request'))
 
     return render(request, 'design_requests/design_requests.html', context )
+
+    

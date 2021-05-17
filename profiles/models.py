@@ -8,6 +8,8 @@ from django_countries.fields import CountryField
 # Create your models here.
 class Client(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique = False)
+    default_first_name = models.CharField(max_length=20, null=True, blank=True)
+    default_last_name = models.CharField(max_length=20, null=True, blank=True)
     default_phone_number = models.CharField(max_length=20, null=True, blank=True)
     default_street_address1 = models.CharField(max_length=80, null=True, blank=True)
     default_street_address2 = models.CharField(max_length=80, null=True, blank=True)
@@ -26,6 +28,7 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     """
     Create or update the user profile
     """
+
     if created:
         Client.objects.create(user=instance)
         #Existing users: just save the profile

@@ -1,7 +1,13 @@
-class UserProfileForm(forms.ModelForm):
+from django import forms
+from .models import Client
+
+
+class ClientForm(forms.ModelForm):
     class Meta:
         model = Client
-        exclude = ('user',)
+        exclude = (
+            'user',
+        )
 
     def __init__(self, *args, **kwargs):
         """
@@ -10,6 +16,8 @@ class UserProfileForm(forms.ModelForm):
         """
         super().__init__(*args, **kwargs)
         placeholders = {
+            'default_first_name':'First_name',
+            'default_last_name':'Last_name',
             'default_phone_number': 'Phone Number',
             'default_postcode': 'Postal Code',
             'default_town_or_city': 'Town or City',
