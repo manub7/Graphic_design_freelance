@@ -11,7 +11,7 @@
                                 <th scope="col">Height</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Price</th>
-                                <th scope="col">Provide source files</th>
+                                <th scope="col">Provided source files</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -31,15 +31,15 @@
                                 <td>{{ order.description }}</td>
                                 <td>{{ order.price }}</td>
                                 <td>
-                                    
+                                    {% if order.source_img %}
                                         <span class="text-success">
                                             <i class="fas fa-check"></i>
                                         </span>
-                                    
+                                    {% else %}
                                         <span class="text-danger">
                                             <i class="fas fa-times"></i>
                                         </span>
-                                    
+                                    {% endif %}
                                 </td>
                                 <td>
                                     
@@ -79,7 +79,7 @@
                                 <th scope="col">Height</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Price</th>
-                                <th scope="col">Provide source files</th>
+                                <th scope="col">Provided source files</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -99,15 +99,15 @@
                                 <td>{{ order.description }}</td>
                                 <td>{{ order.price }}</td>
                                 <td>
-                                    
+                                    {% if order.source_img %}
                                         <span class="text-success">
                                             <i class="fas fa-check"></i>
                                         </span>
-                                    
+                                    {% else %}
                                         <span class="text-danger">
                                             <i class="fas fa-times"></i>
                                         </span>
-                                    
+                                    {% endif %}
                                 </td>
                                 <td>
                                     {% if order.is_processed %}

@@ -3,6 +3,7 @@ from django.db import models
 from profiles.models import Client
 from django.conf import settings
 from decimal import *
+from django_countries.fields import CountryField
 
 # Create your models here.
 
@@ -17,7 +18,7 @@ class Category(models.Model):
         return self.name
 
 
-def product_path (instance,filename):
+def order_directory_path (instance,filename):
     return 'media/'.format(filename)
 
 
@@ -39,26 +40,59 @@ class Order(models.Model):
     processed_image = models.ImageField(null=True, blank=True)
     is_processed = models.BooleanField(default=False)
     testimonial = models.TextField(null =True, blank=True)
+    first_name = models.CharField(max_length=20, null=True, blank=True)
+    last_name = models.CharField(max_length=20, null=True, blank=True)
+    phone_number = models.CharField(max_length=20, null=True, blank=True)
+    street_address1 = models.CharField(max_length=80, null=True, blank=True)
+    street_address2 = models.CharField(max_length=80, null=True, blank=True)
+    town_or_city = models.CharField(max_length=40, null=True, blank=True)
+    county = models.CharField(max_length=80, null=True, blank=True)
+    postcode = models.CharField(max_length=20, null=True, blank=True)
+    country = CountryField(blank_label='Country', null=True, blank=True)
+    upload = models.FileField(upload_to=order_directory_path, null=True)
 
     def __str__(self):
         return self.name
-    
-    def create(self,data,files,client):
-        
 
+    @classmethod
+    def upload_attachments(cls, files, design_request):
+        for file in files:
+            filename = 'media/' + str(design_request.id)
+
+            with open(filename, 'wb+') as destination:
+                for chunk in file.chunks():
+                    destination.write(chunk)
+        return None
+
+    @classmethod
+    def create(self,data,files,client):
+        category = Category.objects.filter(id=data['category']).get()
         design_request = Order (
             client=client,
             category=category,
-            description=data['description'],
+            name=data['name'],
+            description=data.get('description'),
             width=data['width'],
             height=data['height'],
             provide_source_files=True if 'provide_source_files' in data else False,
-            is_processed=False
-
+            source_img= image,
+            is_processed=False,
+            first_name = data['first_name'],
+            last_name = data['last_name'],
+            phone_number = data['phone_number'],
+            street_address1 = data.get('street_adress1'),
+            street_address2 = data.get('street_adress2'),
+            town_or_city = data['town_or_city'],
+            county = data['county'],
+            postcode = data['postcode'],
+            country = data['country'],
         )
         design_request.save()
-        self.upload_attachements(file,design_request)
 
+
+
+
+    @classmethod
     def _generate_order_number(self):
         """
         Generate a random, unique order number using UUID
@@ -70,8 +104,8 @@ class Order(models.Model):
         Override the original save method to set the order number
         if it hasn't been set already.
         """
-        self.size =self.width * self.height * 3 / 1024
-        self.price = self.size * settings.PRICE_FACTOR / 1000
+        self.size = int(self.width) * int(self.height) * 3 / 1024
+        self.price = int(self.size) * settings.PRICE_FACTOR / 1000
 
         if not self.order_number:
             self.order_number = self._generate_order_number()

@@ -17,6 +17,7 @@ class OrderAdmin(admin.ModelAdmin):
         'size',
         'price',
         'processed_image',
+        'source_img',
         'is_processed'
     )
 
