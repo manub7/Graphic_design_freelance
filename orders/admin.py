@@ -2,32 +2,22 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from .models import Order, Category
+from .models import Order
 
 # Register your models here.
 class OrderAdmin(admin.ModelAdmin):
     
     
     list_display = (
-        'client',
+        'design_request',
+        'price',
         'order_number',
         'date',
-        'name',
-        'category',
-        'size',
-        'price',
-        'processed_image',
-        'source_img',
-        'is_processed'
+        'client',
+        
     )
 
-    ordering = ('category',)
-
-class OrderCategoryAdmin(admin.ModelAdmin):
-    list_display = (
-        'name',
-    )
-
+    ordering = ('date',)
 
 admin.site.register(Order, OrderAdmin)
-admin.site.register(Category, OrderCategoryAdmin)
+

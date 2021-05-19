@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
 from django.db.models.functions import Lower
-from .models import Order, Category
+from design_requests.models import DesignRequest, Category
 from django.conf import settings
 
 
@@ -10,7 +10,7 @@ from django.conf import settings
 def all_orders(request):
     """ A view to show all projects in the portofolie including sorting and search queries  """
 
-    orders = Order.objects.all()
+    orders = DesignRequest.objects.all()
     query = None
     categories = None
     sort = None

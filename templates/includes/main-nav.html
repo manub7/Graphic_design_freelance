@@ -7,22 +7,22 @@
             </a>
         </li>
         <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link  mr-5" href="#" id="all-products-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="logo-font font-weight-bold nav-link  mr-5" href="#" id="all-orders-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                Portofolio
             </a>
-            <div class="dropdown-menu border-0" aria-labelledby="all-products-link">
-                <a href="{% url 'products' %}?sort=size&direction=asc" class="dropdown-item">By Size</a>
-                <a href="{% url 'products' %}?sort=category&direction=asc" class="dropdown-item ">By Category</a>
-                <a href="{% url 'products' %}" class="dropdown-item">All Projects</a>
+            <div class="dropdown-menu border-0" aria-labelledby="all-orders-link">
+                <a href="{% url 'orders' %}?sort=size&direction=asc" class="dropdown-item">By Size</a>
+                <a href="{% url 'orders' %}?sort=category&direction=asc" class="dropdown-item ">By Category</a>
+                <a href="{% url 'orders' %}" class="dropdown-item">All Projects</a>
             </div>
         </li>
 
         <li class="nav-item dropdown ">
-            <a class="logo-font font-weight-bold nav-link  mr-5" href="{% url 'products' %}?category=Icon" id="clothing-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="logo-font font-weight-bold nav-link  mr-5" href="{% url 'orders' %}?category=Icon" id="clothing-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Icons
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="icon-link">
-                <a href="{% url 'products' %}?category=Icon" class="dropdown-item">All Icons</a>
+                <a href="{% url 'orders' %}?category=Icon" class="dropdown-item">All Icons</a>
             </div>
         </li>
 
@@ -31,7 +31,7 @@
                 Logos
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="logo-link">
-                <a href="{% url 'products' %}?category=Logo" class="dropdown-item">All Logos</a>
+                <a href="{% url 'orders' %}?category=Logo" class="dropdown-item">All Logos</a>
             </div>
         </li>
 
@@ -40,7 +40,7 @@
                 Posters
             </a>
             <div class="dropdown-menu  border-0" aria-labelledby="poster-link">
-                <a href="{% url 'products'%}?category=Poster" class="dropdown-item">All Posters</a>
+                <a href="{% url 'orders'%}?category=Poster" class="dropdown-item">All Posters</a>
             </div>
         </li>
     </ul>

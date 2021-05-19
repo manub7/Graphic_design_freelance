@@ -19,6 +19,10 @@
                       <a href="{{ order.processed_image.url }}" target="_blank">
                         <img class="card-img-top img-fluid " id="img-detail" src="{{ order.processed_image.url}}" alt="{{ order.name }}">
                        </a>
+                    {% elif order.source_img %}
+                        <a href="{{ order.source_img.url }}" target="_blank">
+                            <img class="card-img-top img-fluid " id="img-detail" src="{{ order.source_img.url}}" alt="{{ order.name }}">
+                       </a>
                     {% else %}
                         <a href="">
                           <img class="card-img-top img-fluid" src="/media/noimage.png" alt="{{ order.name }}">

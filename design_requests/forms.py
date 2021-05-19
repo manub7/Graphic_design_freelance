@@ -1,14 +1,14 @@
 from django import forms
 from orders.widgets import CustomClearableFileInput
-from orders.models import Order, Category
+from .models import DesignRequest, Category
+from orders.models import Order
 from profiles.models import Client
 
 
 class OrderFormDesignRequest(forms.ModelForm):
     class Meta:
-        model = Order
+        model = DesignRequest
         fields = (
-            'client',
             'category',
             'name',
             'height',
@@ -17,6 +17,7 @@ class OrderFormDesignRequest(forms.ModelForm):
             'provide_source_files',
             'source_img',
             )
+
 
     source_img = forms.ImageField(label='attachments', required=False, widget=CustomClearableFileInput)
     #source_img = forms.ImageField('file')
@@ -62,20 +63,17 @@ class OrderFormDesignRequest(forms.ModelForm):
 class OrderFormCheckOut(forms.ModelForm):
     class Meta:
         model = Order
-        exclude = (
-            'client',
-            'order_number',
-            'date',
-            'size',
-            'price',
-            'processed_image',
-            'image_url',
-            'is_processed',
-            'testimonial',
-            'upload',
+        fields = (
+            'first_name',
+            'last_name',
+            'phone_number',
+            'street_address1',
+            'street_address2',
+            'town_or_city',
+            'county',
+            'postcode',
             )
 
-    source_img = forms.ImageField(label='Image', required=False, widget=CustomClearableFileInput)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -85,19 +83,9 @@ class OrderFormCheckOut(forms.ModelForm):
         """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        category = Category.objects.filter(name=self.fields['category'])
-    
-        self.fields['category'] = category
 
         super().__init__(*args, **kwargs)
         placeholders = {
-            'category':'Category',
-            'name':'Design Request Name',
-            'description': 'Design Request Description',
-            'height':'height',
-            'width':'width',
-            'provide_source_files':'Provide Source Files?',
-            'source_img':'Source Image',
             'first_name': 'First Name',
             'last_name': 'Last Name',
             'phone_number': 'Phone Number',
@@ -108,9 +96,9 @@ class OrderFormCheckOut(forms.ModelForm):
             'county': 'County, State or Locality',
         }
 
-        self.fields['category'].widget.attrs['autofocus'] = True
+        self.fields['first_name'].widget.attrs['autofocus'] = True
         for field in self.fields:
-            if field != 'country':
+            if field != 'country' :
                 if self.fields[field].required:
                     placeholder = f'{placeholders[field]} *'
                 else:
