@@ -1,20 +1,22 @@
+
 <script type="text/javascript">
+    /* This function specifys that only positive integers are accepted as input */
 
     $('#width').on('input',function(){ this.value = Math.abs(this.value) })
     $('#height').on('input',function(){ this.value = Math.abs(this.value) })
 
     /* Hides or unhides the attachement box depending of preferences */
-    $('#provide_source_files').click( function (e) {
-        if ($('#provide_source_files').is(":checked")){
-            $('#attachments-div').css("display","block")
+    $('#id_provide_source_files').click( function (e) {
+        if ($('#id_provide_source_files').is(":checked")){
+            $('#attachments').css("display","block")
             }
         else {
-            $('#attachments-div').css("display","none")
+            $('#attachments').css("display","none")
         }
         })
 
-    /* Calculates the total price prior cheout */
-    $('#width').on('input',calc);
+        
+        $('#width').on('input',calc);
         $('#height').on('input',calc);
 
 
@@ -28,11 +30,12 @@
             else {
                 var height = parseFloat($('#height').val(),2);
             }
-            var size = width*height*3/1024;
+            var size = width*height*3/1024
             var price_factor = JSON.parse({{price_factor}})
 
-            var total = size * price_factor / 1000
+            var total = size * parseInt(price_factor) / 1000
 
             $('#total').val(total.toFixed(2))
         }     
+
     </script>

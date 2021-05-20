@@ -5,6 +5,7 @@ from .models import DesignRequest, Category
 from profiles.models import Client
 from .forms import OrderFormDesignRequest, OrderFormCheckOut
 from orders.models import Order
+import json
 
 
 # def design_requests(request, item_id):
@@ -31,6 +32,7 @@ def add_design_requests(request):
     context = {
         'form': form,
         'categories': categories,
+        'price_factor':settings.PRICE_FACTOR,
     }
 
     return render(request, 'design_requests/design_requests.html', context)
@@ -50,7 +52,6 @@ def design_request_detail(request, design_request_id):
 def design_request_checkout(request, design_request_id):
     
     design_request = get_object_or_404(DesignRequest, pk=design_request_id)
-
     if request.method == "POST":
         client = Client.objects.get(user=request.user)
         order_form = OrderFormCheckOut(request.POST)
@@ -67,5 +68,8 @@ def design_request_checkout(request, design_request_id):
     context = {
         'design_request': design_request,
         'order_form': order_form,
+        'stripe_public_key':'pk_test_51IN1mAKgBHROkVrvsSTn1p7xjOP81z6uMSF1OhloutXVKTZHZfvEl7XAgw4LjXr28y1nSnoWe76fcsDAhdYepvoR000dTwA9qG',
+        'client_secret': 'test client secret',
     }
+
     return render(request, 'design_requests/design_request_checkout.html', context)

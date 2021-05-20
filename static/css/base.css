@@ -108,9 +108,11 @@ body {
 
 /* Design request form */
 
-#attachments-div {
+#attachments {
     display:none;
+    text-align:left;
 }
+
 
 
 

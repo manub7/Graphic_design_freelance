@@ -31,7 +31,7 @@
                 {% endfor %}
             </select>
         </div>
-
+        <input type="hidden" id="" name="variable" value="{{ price_factor }}">
         <div class="form-group">
             <label for="description">Name</label>
             <input type="text" class="form-control" id="name" rows="3" name="name" maxlength="50"  minlength="5" required></input>
@@ -63,7 +63,6 @@
         </div>
 
         <div class="form-group">
-          
            {% for field in form %}
                 {% if field.name == 'provide_source_files' %}
                     {{field  }}
@@ -75,10 +74,13 @@
  
         </div>
         {% for field in form %}
+
            {% if field.name == 'source_img' %}
             {{field}}
            {% endif %}
+
         {% endfor %}
+ 
         <div class="form-group">
             <label for="total"><strong>Total: £ </strong></label>
             <input type="text" name='total' id = 'total'>
@@ -92,5 +94,6 @@
 
 {% block postloadjs %}
 {{ block.super }}
+{{ price_factor|json_script:"price_factor" }}
 {% include 'design_requests/includes/post_scripts.html' %}
 {% endblock %}
