@@ -6,7 +6,6 @@
 
 {% block page_header %}
 <div class="container header-container">
-  <hr />
   <div class="row">
     <div class="col">
         <h2 class="logo-font mr-4 mb-2 text-center">Checkout</h2>
@@ -80,8 +79,7 @@
         action="{% url 'design_request_checkout' design_request.id %}"
         id="payment-form"
         method="POST"
-        id="payment-form"
-      >
+        id="payment-form">
         {% csrf_token %}
         <fieldset class="rounded px-3 mb-2">
           <legend class="fieldset-label small text-black px-2 w-auto">
@@ -100,7 +98,8 @@
             {{ order_form.town_or_city | as_crispy_field }} 
             {{ order_form.county | as_crispy_field }} 
             {{ order_form.postcode | as_crispy_field }} 
-  
+            {{ order_form.country | as_crispy_field }}
+
             {% if user.is_authenticated %}
           <div class="form-check form-check-inline float-right mr-0">
             <label class="form-check-label" for="id-save-info">Save this delivery information to my profile</label>
@@ -122,18 +121,20 @@
           <!-- Pass the client secret to the view so we can get the payment intent id -->
           <input type="hidden" value="{{ client_secret }}" name="client_secret">
         </fieldset>
-        <button id="submit-button submit" class="btn btn-black rounded-0">
-          <span class="font-weight-bold">Submit Payment</span>
-          <span class="icon">
-            <i class="fas fa-lock"></i>
-          </span>
-        </button>
-        <p class="small text-danger my-0">
-          <span class="icon">
-            <i class="fas fa-exclamation-circle"></i>
-          </span>
-          <span>Your card will be charged <strong>${{ design_request.price|floatformat:2 }}</strong></span>
-        </p>
+        <div class="submit-button text-right mt-2 mb-2">
+            <button class="btn btn-primary"  id="submit-button">
+                <span class="font-weight-bold">Submit Payment</span>
+                <span class="icon">
+                  <i class="fas fa-lock"></i>
+                </span>
+            </button>
+            <p class="small text-danger my-0">
+              <span class="icon">
+                <i class="fas fa-exclamation-circle"></i>
+              </span>
+              <span>Your card will be charged <strong>£{{ stripe_price|floatformat:2 }}</strong></span>
+            </p>
+        </div>
       </form>
     </div>
   </div>

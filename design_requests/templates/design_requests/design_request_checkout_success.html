@@ -1,0 +1,224 @@
+{% extends "base.html" %} {% load static %} 
+
+{% block extra_css %} 
+  <link rel="stylesheet" href="{% static 'design_requests/css/checkout.css' %}">
+{% endblock %}
+
+{% block page_header %}
+<div class="container header-container">
+  <div class="row">
+    <div class="col">
+      <hr>
+      <h2 class="logo-font mb-4">Thank You</h2>
+      <hr>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block content %}
+<div class="container mt-4 pb-6" id="checkout_success_container">
+  <div class="row">
+    <div class="col mb-3">
+        <p class="text-black">Your order information is below. A confirmation email will be sent to <strong>{{ order.client.user.email }}</strong>.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-lg-7">
+      <div class="order-confirmation-wrapper p-2 border">
+        <div class="row mb-2">
+          <div class="col">
+            <small class="text-muted">Order Info:</small>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-md-4">
+              <p class="mb-0 text-black font-weight-bold">Order Number</p>
+          </div>
+          <div class="col-12 col-md-8 text-md-right">
+              <p class="mb-0">{{ order.order_number }}</p>
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-md-4">
+            <p class="mb-0 text-black font-weight-bold">Order Date</p>
+        </div>
+        <div class="col-12 col-md-8 text-md-right">
+            <p class="mb-0">{{ order.date|date:'d/m/Y' }}</p>
+        </div>
+      </div>
+
+      <div class="row mb-2 mt-2">
+        <div class="col">
+            <small class="text-muted">Order Details:</small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 ">
+            <p class="small mb-0 text-black font-weight-bold">Request name : 
+              {{ order.design_request.name }}  
+            </p>
+          </div>
+          <div class="col-12  text-md-left">
+            <p class="small mb-0 text-black font-weight-bold"">Description: 
+              {{order.design_request.description}} 
+            </p>
+        </div>
+          <div class="col-12  text-md-left">
+              <p class="small mb-0 text-black font-weight-bold">Size: 
+                {{order.design_request.height}} x {{order.design_request.width}}
+              </p>
+          </div>
+      </div>
+      <div class="row mb-2 mt-2">
+        <div class="col">
+            <small class="text-muted">Billing address:</small>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-4">
+          <p class="mb-0 text-black font-weight-bold">Full Name</p>
+      </div>
+      <div class="col-12 col-md-8 text-md-right">
+          <p class="mb-0">{{ order.first_name}} {{ order.last_name}}</p>
+      </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-4">
+            <p class="mb-0 text-black font-weight-bold">Address 1</p>
+        </div>
+        <div class="col-12 col-md-8 text-md-right">
+            <p class="mb-0">{{ order.street_address1 }}</p>
+        </div>
+    </div>
+
+    {% if order.street_address2 %}
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <p class="mb-0 text-black font-weight-bold">Address 2</p>
+        </div>
+        <div class="col-12 col-md-8 text-md-right">
+            <p class="mb-0">{{ order.street_address1 }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if order.county %}
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <p class="mb-0 text-black font-weight-bold">County</p>
+        </div>
+        <div class="col-12 col-md-8 text-md-right">
+            <p class="mb-0">{{ order.county }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <p class="mb-0 text-black font-weight-bold">Town or City</p>
+        </div>
+        <div class="col-12 col-md-8 text-md-right">
+            <p class="mb-0">{{ order.town_or_city }}</p>
+        </div>
+    </div>
+
+    {% if order.postcode %}
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <p class="mb-0 text-black font-weight-bold">Postal Code</p>
+        </div>
+        <div class="col-12 col-md-8 text-md-right">
+            <p class="mb-0">{{ order.postcode }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <p class="mb-0 text-black font-weight-bold">Country</p>
+        </div>
+        <div class="col-12 col-md-8 text-md-right">
+            <p class="mb-0">{{ order.country }}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <p class="mb-0 text-black font-weight-bold">Phone Number</p>
+        </div>
+        <div class="col-12 col-md-8 text-md-right">
+            <p class="mb-0">{{ order.phone_number }}</p>
+        </div>
+      </div>
+
+      <div class="row mb-2 mt-2">
+        <div class="col">
+            <small class="text-muted">Billing Info:</small>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <p class="mb-0 text-black font-weight-bold">Order Total</p>
+        </div>
+        <div class="col-12 col-md-8 text-md-right">
+            <p class="mb-0">£{{ order.price }}</p>
+        </div>
+    </div>
+      </div>
+    </div>
+  
+    {% if order.design_request.source_img%}
+    <div class="col-12 col-md-5 text-md-left">
+        <p class="small mb-2">Provided Image: </p>
+        <a href="{{order.design_request.source_img.url}}">
+          <img
+            src="{{order.design_request.source_img.url}}"
+            style="height: 150px"
+            alt="Source Image"
+          />
+        </a>
+      </div>
+    </div>
+  {% endif %}
+  <div class="row">
+    <div class="col-12 col-lg-7 text-right">
+              {% if from_profile %}
+                  <a href="{% url 'profile' %}" class="btn btn-primary rounded-0 my-2">
+                      <span class="icon mr-2">
+                          <i class="fas fa-angle-left"></i>
+                      </span>
+                      <span class="text-uppercase">Back to Profile</span>
+                  </a>
+              {% else %}
+                  <a href="{% url 'design_request_list' %}" class="btn btn-primary rounded-0 my-2">
+                      <span class="icon mr-2">
+                          <i class="fas fa-home"></i>
+                      </span>
+                      <span class="text-uppercase">Back to your requests</span>
+                  </a>
+              {% endif %}
+    </div>
+  </div>
+
+
+
+  <div class="bottom-inside-container" id="bottom-inside-container"></div>
+</div>
+
+{% endblock %}
+{% block postloadjs %}
+    {{block.super}}
+    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+    {{ client_secret|json_script:"id_client_secret" }}
+    <script src="{% static 'design_requests/js/stripe.js' %}"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+         max = $(document).height() - $('#bottom-inside-container').offset().top;
+         $('#bottom-inside-container').css('max-height',max);
+      });
+  </script>
+{% endblock %}

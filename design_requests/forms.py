@@ -20,7 +20,7 @@ class OrderFormDesignRequest(forms.ModelForm):
 
 
     source_img = forms.ImageField(label='attachments', required=False, widget=CustomClearableFileInput)
-    #source_img = forms.ImageField('file')
+
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -36,7 +36,6 @@ class OrderFormDesignRequest(forms.ModelForm):
 
         super().__init__(*args, **kwargs)
         placeholders = {
-            'client':'Client',
             'category':'Category',
             'name':'Design Request Name',
             'description': 'Design Request Description',
@@ -57,7 +56,61 @@ class OrderFormDesignRequest(forms.ModelForm):
             self.fields[field].widget.attrs['class'] = 'stripe-style-input'
             self.fields[field].label = False
 
+
+class OrderFormDesignRequestSuser(forms.ModelForm):
+    class Meta:
+        model = DesignRequest
+        fields = (
+            'category',
+            'name',
+            'height',
+            'width',
+            'description',
+            'provide_source_files',
+            'source_img',
+            'is_processed',
+            'processed_image',
+            )
+
+    processed_image = forms.ImageField(label='attachments', required=False, widget=CustomClearableFileInput)
+  
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        """
+        Add placeholders and classes, remove auto-generated
+        labels and set autofocus on first field
+        """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        category = Category.objects.filter(name=self.fields['category'])
+        self.fields['category'] = category
         
+
+        super().__init__(*args, **kwargs)
+        placeholders = {
+            'category':'Category',
+            'name':'Design Request Name',
+            'description': 'Design Request Description',
+            'height':'height',
+            'width':'width',
+            'provide_source_files':'Provide Source Files?',
+            'source_img':'Source Image',
+            'is_processed': 'Is Processed',
+            'processed_image': 'Processed Image',
+            
+        }
+        
+        self.fields['category'].widget.attrs['autofocus'] = True
+        for field in self.fields:
+            if field != 'country':
+                if self.fields[field].required:
+                    placeholder = f'{placeholders[field]} *'
+                else:
+                    placeholder = placeholders[field]
+                self.fields[field].widget.attrs['placeholder'] = placeholder
+            self.fields[field].widget.attrs['class'] = 'stripe-style-input'
+            self.fields[field].label = False
 
 
 class OrderFormCheckOut(forms.ModelForm):
@@ -72,6 +125,7 @@ class OrderFormCheckOut(forms.ModelForm):
             'town_or_city',
             'county',
             'postcode',
+            'country',
             )
 
 

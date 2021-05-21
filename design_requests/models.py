@@ -25,9 +25,9 @@ class DesignRequest(models.Model):
 
     category = models.ForeignKey('Category', null =True, blank=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=254)
-    description = models.TextField()
     height = models.DecimalField(max_digits = 6, decimal_places=0)
     width = models.DecimalField(max_digits = 6, decimal_places=0)
+    description = models.TextField()
     size = models.DecimalField(max_digits = 13, decimal_places=0, editable=False, null = False, default=0 )
     price = models.DecimalField(max_digits = 13, decimal_places=2, editable=False, null = False, default=0 )
     provide_source_files = models.BooleanField(default=False)

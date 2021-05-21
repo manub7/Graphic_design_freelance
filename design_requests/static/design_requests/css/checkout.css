@@ -1,11 +1,11 @@
 @media (min-width: 414px) and (max-width: 1023px) {
     .header-container {
-        padding-top: 70px!important ;
+        padding-top: 110px!important ;
     }
 }
 @media (min-width: 1024px) {
     .header-container {
-        padding-top: 70px!important ;
+        padding-top: 110px!important ;
     }
 }
 

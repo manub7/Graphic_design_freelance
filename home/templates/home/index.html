@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
-    {% if not request.user.is_authenticated %}
+    
     <div class="container-fluid " id="container-gallery">
         <div class="row">
             <div class="col text-center mt-3">
@@ -26,6 +26,7 @@
             </div>
         </div>
     </div>
+    {% if not request.user.is_authenticated %}
     <div class="register-section mt-4 ">
         <div class="jumbotron  ">
         <div class="container">
@@ -35,8 +36,13 @@
         </div>
     </div>
     {% else %}
-    <div class="container-fluid">
-        {% include 'home/includes/request_list.html' %}
+    <div class="register-section mt-4 ">
+        <div class="jumbotron  ">
+        <div class="container">
+            <h1 class="display-4"><a class="btn btn-secondary" href="{% url 'design_request_list' %}">My requests</a></h1>
+            <p class="lead">Register now to make a request for graphical designs that addresses your needs!</p>
+        </div>
+        </div>
     </div>
    {% endif %}
     <footer class="bg-primary mt-0 fixed-bottom ">

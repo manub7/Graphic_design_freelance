@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+
 from django_countries.fields import CountryField
 
 # Create your models here.
@@ -30,6 +31,8 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     """
 
     if created:
+        self.user.first_name = self.first_name
+        self.user.last_name = self.last_name
         Client.objects.create(user=instance)
         #Existing users: just save the profile
     instance.client.save()

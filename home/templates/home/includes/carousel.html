@@ -1,21 +1,21 @@
 <div class="carousel slide  w-100 " id="orders-carousel" data-ride="carousel" >
     {% load static %}
     <div class="carousel-inner w-100 " role="listbox">
-            {% for order in orders  %}
+            {% for design_request in design_requests  %}
                 <div class="carousel-item {% if forloop.first %} active {% endif %}">
                         <div class="text-center m-1 " >
-                            {% if order.processed_image %}
+                            {% if design_request.processed_image %}
                             <div class="card-img-top">
-                               <a href="{% url 'order_detail' order.id %}">
-                                <img class="img-fluid"  src="{{order.processed_image.url}}" alt="{{ order.name }}">
+                               <a href="{% url 'design_request_detail' design_request.id %}">
+                                <img class="img-fluid"  src="{{design_request.processed_image.url}}" alt="{{ design_request.name }}">
                                 </a>
                             </div>
                             <div class="card-title">
                                 <a href="#"><p class="text-black text-sm-left font-small flex-center">{{ order.name}}</p></a>
                             </div>
                             {% else %}
-                            <a href="{% url 'order_detail' order.id %}">
-                                <img class=" img-fluid" src="media/noimage.png" alt="{{ order.name }}">
+                            <a href="{% url 'design_request_detail' design_request.id %}">
+                                <img class=" img-fluid" src="media/noimage.png" alt="{{ design_request.name }}">
                             </a>
                             {% endif %}
                             

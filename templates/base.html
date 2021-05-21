@@ -79,7 +79,7 @@
                             {% if request.user.is_superuser %}
                                 <a href="" class="dropdown-item">Projects Management</a>
                             {% endif %}
-                            <a href="{% url 'home' %}" class="dropdown-item">My Requests</a>
+                            <a href="{% url 'design_request_list' %}" class="dropdown-item">My Requests</a>
                             <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>                    
                             <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
                         {% else %}
