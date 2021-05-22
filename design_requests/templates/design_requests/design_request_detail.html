@@ -86,6 +86,7 @@
                     {% endfor %}                
                     </div>
             <div class="col-12 text-right mt-4">
+                <a class="btn btn-primary rounded-0" href="{% url 'order_detail' design_request_id %}">Back to order detail</a>
                 <a class="btn btn-primary rounded-0" href="{% url 'design_request_list' %}">Back to Request list</a>
                 <a class="btn btn-primary rounded-0" id="testimonial_button" href="{% url 'design_request_testimonial' design_request_id %}">Write a testimonial</a>
                 {% if user.is_superuser  %}

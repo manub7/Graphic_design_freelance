@@ -4,7 +4,9 @@
 {% block page_header %}
     <div class="container header-container">
         <div class="row">
-            <div class="col"></div>
+            <div class="col">
+                <h2 class="text-center ">Order details</h2>
+            </div>
         </div>
     </div>
 {% endblock %}
@@ -21,7 +23,7 @@
                        </a>
                     {% elif order.source_img %}
                         <a href="{{ order.source_img.url }}" target="_blank">
-                            <img class="card-img-top img-fluid " id="img-detail" src="{{ order.source_img.url}}" alt="{{ order.name }}">
+                            <img class="card-img-top img-fluid " id="img_detail" src="{{ order.source_img.url}}" alt="{{ order.name }}">
                        </a>
                     {% else %}
                         <a href="">
@@ -69,27 +71,31 @@
                                 <div class="container">
                                     {% if order.testimonial %}
                                         <h4>Testimonial</h4>
-                                        <p class="small mt-1 mb-0 border border-3 border-white">
+                                        <p class="small mt-1 mb-0 border ">
                                         {{ order.date }} <br />   
                                         {{ order.client.user }} <br />
                                         </p> 
-                                        <p class="small mt-1 mb-0 border rounded-3 pl-2">  {{ order.testimonial }}
-                                        </p>
+                                        <textarea class="small mt-1 mb-0 border rounded-3 pl-2">  {{ order.testimonial }}
+                                        </textarea>
                                         {% endif %}
                                 </div>      
             
         </div>
+        <div class="row">
         {% if from_profile %}
         <hr>
-        <div class= "col-12 mb-2">
-            <a href="{% url 'profile'%}" class ='btm btn-black border rounded-0 my-2'>Back to My Profile</a>
+        <div class= "col mb-2 text-right">
+            <a href="{% url 'profile'%}" class ='btn btn-primary rounded-0 '>Back to My Profile</a>
+            <a href="{% url 'design_request_detail' order.id %}" class ='btn btn-primary rounded-0 '>Request details </a>
         </div>
         {% else %}
         <hr>
-        <div class= "col-12 mb-2">  
-            <a href="{% url 'home'%}" class ='btm btn-black border rounded-0 my-2'>Back to Home </a>
+        <div class= "col mb-2 text-right">  
+            <a href="{% url 'home'%}" class ='btn btn-primary rounded-0 '>Back to Home </a>
+            <a href="{% url 'design_request_detail' order.id %}" class ='btn btn-primary rounded-0 '>Request details </a>
         </div>
         {% endif %}
+        </div>
     </div>
     
 
