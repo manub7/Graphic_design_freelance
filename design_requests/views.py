@@ -83,10 +83,24 @@ def design_request_detail(request, design_request_id):
 def design_request_process_request(request, design_request_id):
 
     design_request = get_object_or_404(DesignRequest, pk=design_request_id)
-    design_request_form =  OrderFormDesignRequestSuser(instance=design_request)
 
+    if request.method == 'POST':
+        design_request_form =  OrderFormDesignRequestSuser(request.POST, request.FILES,instance=design_request)
+
+        if design_request_form.is_valid():
+            design_request = design_request_form.save()
+
+            design_request.save()
+            messages.success(request, 'Successfully processed the design request processing !')
+            return redirect(reverse('design_request_detail', args=[design_request.id]) )
+        else:
+            messages.error(request, 'Failed to add product. Please ensure the form is valid.')
+    else:
+        design_request_form = OrderFormDesignRequestSuser(instance=design_request)
+    
     context = {
         'design_request_form': design_request_form,
+        'design_request':design_request,
     }
     return render(request, 'design_requests/design_request_process_request.html', context)
 
@@ -203,3 +217,26 @@ def design_request_checkout_success(request, order_number):
     }
 
     return render(request, template, context)
+
+def design_request_testimonial (request, design_request_id):
+
+    design_request = get_object_or_404(DesignRequest, pk=design_request_id)
+    if request.method == 'POST':
+        design_request_form =  OrderFormDesignRequestSuser(request.POST, request.FILES,instance=design_request)
+
+        if design_request_form.is_valid():
+            design_request = design_request_form.save()       
+            design_request.save()
+            messages.success(request, 'Thank you for your testimaonial ! Successfully added the testimonial !')
+            return redirect(reverse('design_request_detail', args=[design_request.id]) )
+        else:
+            messages.error(request, 'Failed to add the testimonial. Please ensure the form is valid.')
+    else:
+        design_request_form = OrderFormDesignRequestSuser(instance=design_request)
+
+        context = {
+        'design_request_form': design_request_form,
+        'design_request_id':design_request_id,
+    }
+    return render(request, 'design_requests/design_request_testimonial.html', context)
+

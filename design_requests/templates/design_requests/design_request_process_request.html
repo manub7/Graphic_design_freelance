@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %} 
+  <link rel="stylesheet" href="{% static 'design_requests/css/checkout.css' %}">
+{% endblock %}
+
 {% block page_header %}
     <div class="container header-container">
         <div class="row">
@@ -14,24 +18,74 @@
 {% block content %}
 
 <div class="container">
-    <div class="col-12 col-md-6">
-        <form method="POST" action="{% url 'add_design_requests' %}" class="form mb-2" enctype="multipart/form-data">
-            {% csrf_token %}
-            {% for field in design_request_form %}
-                {% if field.name != 'image' %}
-                    {{ field | as_crispy_field }}
-                {% else %}
-                    {{ field }}
-                {% endif %}
-            {% endfor %}
-            <div class="text-right">
-                <a class="btn btn-outline-black rounded-0" href="{% url 'design_request_list' %}">Cancel</a>
-                <a class="btn btn-outline-black rounded-0" href="">
+   
+        <form method="POST" action="{% url 'design_request_process_request' design_request.id %}" class="form mb-2" enctype="multipart/form-data">
+        <div class="row g-3">
+            <div class="col-md-6">
+                {% csrf_token %}
+                {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+                {% endfor %}
+                {% for field in design_request_form.visible_fields|slice:":5" %}
+                            {{ field | as_crispy_field }}
+                {% endfor %}
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                    {% for field in design_request_form %}
+                        {% if field.name == 'provide_source_files' %}
+                            {{field}}
+                        {% endif %}
+                    {% endfor %}
+                    <label class="form-check-label" for="provide_source_files">
+                        Provide source files
+                    </label>
+                    </div>
+                    <div class="mb-4">
+                    {% for field in design_request_form %}
+                        {% if field.name == 'source_img' %}
+                        <label class="form-check-label col-12  pl-0" for="processed_image">
+                            Source Image :
+                        </label>
+                         {{field}}  
+                        {% endif %}
+                    {% endfor %}       
+                    </div>
+                    <hr>
+                    <div class="mb-4">
+                    {% for field in design_request_form %}
+                        {% if field.name == 'is_processed' %}
+                            {{field }} 
+                        {% endif %}
+                    {% endfor %}
+                    <label class="form-check-label" for="is_processed">
+                        Processed 
+                    </label>
+                    </div>
+    
+                    <div class="mb-4">
+                    {% for field in design_request_form %}
+                        {% if field.name == 'processed_image' %}
+                        <label class="form-check-label col-12 pl-0" for="processed_image">
+                            Processed Image :
+                        </label>
+                         {{field}}
+                        {% endif %}
+                    {% endfor %}                
+                    </div>
+                
+                </div>
+            
+            <div class="col-12 text-right mt-4">
+                <a class="btn btn-primary rounded-0" href="{% url 'design_request_detail' design_request.id %}">Cancel</a>
+                <button type="submit" class="btn btn-primary">
                     Process Request
-                </a>
+               </button>
             </div>
+            </div>  
         </form>
-    </div>            
+
+
 </div>
     
 {% endblock %}

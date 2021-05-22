@@ -19,7 +19,7 @@
 
 <div class="container">
 
-        <form method="POST" action="" class="form mb-2" enctype="multipart/form-data">
+        <form method="POST" action="{% url 'design_request_testimonial' design_request_id %}" class="form mb-2" enctype="multipart/form-data">
             <div class="row g-3">
                 <div class="col-md-6">
                 {% csrf_token %}
@@ -86,8 +86,8 @@
                     {% endfor %}                
                     </div>
             <div class="col-12 text-right mt-4">
-                <a class="btn btn-primary rounded-0" href="{% url 'design_request_list' %}">Back to Request list</a>
-                <a class="btn btn-primary rounded-0" id="testimonial_button" href="{% url 'design_request_testimonial' design_request_id %}">Write a testimonial</a>
+                <a class="btn btn-primary rounded-0" href="{% url 'design_request_detail' design_request_id %}">Back</a>
+                <button type="submit" class="btn btn-primary rounded-0" id="testimonial_button">Submit testimonial</button>
                 {% if user.is_superuser  %}
                 <a class="btn btn-primary rounded-0" href="{% url 'design_request_process_request' design_request_id %}">
                    Process Request
@@ -103,15 +103,6 @@
 {% endblock %}
 
 {% block postloadjs %}
-    <script type="text/javascript">
-        if ($('#id_testimonial').val()) {
-            $('#testimonial_button').css("display","none")
-        } 
-        else {
-            $('#testimonial_div').css("display","none")
-            $('#testimonial_button').css("display","inline-block")
-        }
-    </script>
 {% endblock %}
 
 

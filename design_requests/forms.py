@@ -16,6 +16,9 @@ class OrderFormDesignRequest(forms.ModelForm):
             'description',
             'provide_source_files',
             'source_img',
+            'is_processed',
+            'processed_image',
+            'testimonial',
             )
 
 
@@ -43,6 +46,10 @@ class OrderFormDesignRequest(forms.ModelForm):
             'width':'width',
             'provide_source_files':'Provide Source Files?',
             'source_img':'Source Image',
+            'is_processed': 'Is Processed',
+            'processed_image': 'Processed Image',
+            'testimonial':"Your testimonial",
+            
         }
         
         self.fields['category'].widget.attrs['autofocus'] = True
@@ -70,24 +77,21 @@ class OrderFormDesignRequestSuser(forms.ModelForm):
             'source_img',
             'is_processed',
             'processed_image',
+            'testimonial',
             )
+    
+    source_img = forms.ImageField(label='source_img', required=False, widget=CustomClearableFileInput),
+    processed_image = forms.ImageField(label='processed_image', required=False, widget=CustomClearableFileInput),
 
-    processed_image = forms.ImageField(label='attachments', required=False, widget=CustomClearableFileInput)
   
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        """
-        Add placeholders and classes, remove auto-generated
-        labels and set autofocus on first field
-        """
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        category = Category.objects.filter(name=self.fields['category'])
-        self.fields['category'] = category
+        super(OrderFormDesignRequestSuser,self).__init__(*args, **kwargs)
+        self.fields['processed_image'] =  forms.ImageField(label='processed_image', required=False, widget=CustomClearableFileInput),
+
         
 
-        super().__init__(*args, **kwargs)
+        super(OrderFormDesignRequestSuser,self).__init__(*args, **kwargs)
         placeholders = {
             'category':'Category',
             'name':'Design Request Name',
@@ -98,6 +102,7 @@ class OrderFormDesignRequestSuser(forms.ModelForm):
             'source_img':'Source Image',
             'is_processed': 'Is Processed',
             'processed_image': 'Processed Image',
+            'testimonial':"Your testimonial",
             
         }
         
