@@ -53,6 +53,23 @@ body {
     display: inline-flex;
 }
 
+/* Toast messages */
+
+.message-container {
+    position: fixed;
+    top: 72px;
+    right: 15px;
+    z-index: 999999999999;
+}
+
+.custom-toast {
+    overflow: visible;
+}
+
+.toast-capper {
+    height: 2px;
+}
+
 /* medium - display 4  */
 
 @media (min-width: 768px) {

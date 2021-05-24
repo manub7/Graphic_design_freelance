@@ -60,16 +60,17 @@ def all_orders(request):
 
 
 
-def order_detail(request, design_request_id):
+def order_detail(request, design_request):
 
     """ A view to show the individual product detail  """
-    order = get_object_or_404(DesignRequest, design_request=design_request_id)
+    order = get_object_or_404(Order, design_request=design_request)
     #order = Order.objects.prefetch_related(
     #    Prefetch('design_request', queryset=DesignRequest.objects.filter(id_contains=design_request_id))).all()
    
     #print(order)
     context = {
             'order': order,
+            'from_profile':True,
         }
 
     return render(request, 'orders/order_detail.html', context)

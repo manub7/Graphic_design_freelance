@@ -14,9 +14,11 @@ def profile(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully')
-
-    form = ClientForm(instance=profile)
-    orders = profile.orders.all()
+        else:
+            messages.error(request, 'Please make sure the form is valid')
+    else:
+        form = ClientForm(instance=profile)
+        orders = profile.orders.all()
 
     template = 'profiles/profile.html'
     context = {
@@ -27,6 +29,7 @@ def profile(request):
     return render(request, template, context)
 
 def order_history(request,order_number):
+    
     order= get_object_or_404(Order,order_number=order_number)
 
     template = 'orders/order_detail.html'

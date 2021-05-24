@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %} 
+  <link rel="stylesheet" href="{% static 'orders/css/orders.css' %}">
+{% endblock %}
+
 {% block page_header %}
     <div class="container header-container">
         <div class="row">
@@ -17,45 +21,45 @@
         <div class="row">
             <div class="col-12 col-md-6 col-lg-4 offset-lg-2">
                 <div class="image-container my-5">
-                    {% if order.processed_image %}
-                      <a href="{{ order.processed_image.url }}" target="_blank">
-                        <img class="card-img-top img-fluid " id="img-detail" src="{{ order.processed_image.url}}" alt="{{ order.name }}">
+                    {% if order.design_request.processed_image %}
+                      <a href="{{ order.design_request.processed_image.url }}" target="_blank">
+                        <img class="card-img-top img-fluid " id="img-detail" src="{{ order.design_request.processed_image.url}}" alt="{{ order.design_request.name }}">
                        </a>
-                    {% elif order.source_img %}
-                        <a href="{{ order.source_img.url }}" target="_blank">
-                            <img class="card-img-top img-fluid " id="img_detail" src="{{ order.source_img.url}}" alt="{{ order.name }}">
+                    {% elif order.design_request.source_img %}
+                        <a href="{{ order.design_request.source_img.url }}" target="_blank">
+                            <img class="card-img-top img-fluid " id="img_detail" src="{{ order.design_request.source_img.url}}" alt="{{ order.design_request.name }}">
                        </a>
                     {% else %}
                         <a href="">
-                          <img class="card-img-top img-fluid" src="/media/noimage.png" alt="{{ order.name }}">
+                          <img class="card-img-top img-fluid" src="/media/noimage.png" alt="{{ order.design_request.name }}">
                         </a>
                     {% endif %}
                 </div>
              </div>   
                     <div class="col-12 col-md-6 col-lg-4 my-5">
                         <div class="card-body pb-0 pt-0">
-                            <p class="mb-0">{{ order.name }}</p>
+                            <p class="mb-0">{{ order.design_request.name }}</p>
                         </div>
                         <div class="card-footer bg-white pt-0 border-0 text-left">
                             <div class="row">
                                 <div class="col">
                                     <p class="lead mb-0 text-left font-weight-bold">£{{ order.price }}</p>
-                                    {% if order.category %}
+                                    {% if order.design_request.category %}
                                     <p class="small mt-1 mb-0">
                                         <a class="text-muted" href="{% url 'orders' %}?category={{ order.category.name }}">
-                                            {{ order.category.name }}
+                                            {{ order.design_request.category.name }}
                                         </a>
                                     </p>
                                     {% endif %}
-                                    {% if order.size %}
+                                    {% if order.design_request.size %}
                                     <p class="small mt-1 mb-0">
                                         <a class="text-muted" href="{% url 'orders' %}?category={{ order.category.name }}">
-                                            <i class="fas fa-ruler-combined mr-1"></i>{{ order.height }} x {{ order.width }} px
+                                            <i class="fas fa-ruler-combined mr-1"></i>{{ order.design_request.height }} x {{ order.design_request.width }} px
                                         </a>
                                     </p>
 
                                     <p class="small mt-1 mb-0">
-                                        {{ order.description }}
+                                        {{ order.design_request.description }}
                                     </p>
                                     {% endif %}
                                 </div>  
@@ -65,36 +69,40 @@
                         </div>
                         
                     </div>
-                    <div class="col-12  mb-2">
-                        <hr>
-                    </div>
-                                <div class="container">
-                                    {% if order.testimonial %}
+                    
+                    <div class="container mt-4">
+                    <div class="row">
+                                <div class="col-12">
+                                    <hr>
+                                    {% if order.design_request.testimonial %}
                                         <h4>Testimonial</h4>
-                                        <p class="small mt-1 mb-0 border ">
+                                        <p class="small mt-1 mb-0">
                                         {{ order.date }} <br />   
                                         {{ order.client.user }} <br />
                                         </p> 
-                                        <textarea class="small mt-1 mb-0 border rounded-3 pl-2">  {{ order.testimonial }}
+                                        <textarea class="small mt-1 mb-0 border rounded-3 pl-2">{{ order.design_request.testimonial }}
                                         </textarea>
                                         {% endif %}
                                 </div>      
-            
+                            </div>
+                        </div>
         </div>
+        <div class="container">
         <div class="row">
         {% if from_profile %}
         <hr>
         <div class= "col mb-2 text-right">
             <a href="{% url 'profile'%}" class ='btn btn-primary rounded-0 '>Back to My Profile</a>
-            <a href="{% url 'design_request_detail' order.id %}" class ='btn btn-primary rounded-0 '>Request details </a>
+            <a href="{% url 'design_request_detail' order.design_request.id %}" class ='btn btn-primary rounded-0 '>Request details </a>
         </div>
         {% else %}
         <hr>
         <div class= "col mb-2 text-right">  
             <a href="{% url 'home'%}" class ='btn btn-primary rounded-0 '>Back to Home </a>
-            <a href="{% url 'design_request_detail' order.id %}" class ='btn btn-primary rounded-0 '>Request details </a>
+            <a href="{% url 'design_request_detail' order.design_request.id %}" class ='btn btn-primary rounded-0 '>Request details </a>
         </div>
         {% endif %}
+        </div>
         </div>
     </div>
     

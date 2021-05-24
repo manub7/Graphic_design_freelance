@@ -34,6 +34,7 @@ def design_request_list(request):
 
     context = {
         'orders': orders,
+        'from_request_list':True,
     }
     return render(request, 'design_requests/design_request_list.html', context)
 
@@ -48,10 +49,10 @@ def add_design_requests(request):
         if form.is_valid():
             design_request = form.save()
             design_request.save()
-            #messages.success(request, 'Successfully added product!')
+            messages.success(request, 'Successfully added product!')
             return redirect(reverse('design_request_checkout', args=[design_request.id]))
-        # else:
-           # messages.error(request, 'Failed to add product. Please ensure the form is valid.')
+        else:
+            messages.error(request, 'Failed to add product. Please ensure the form is valid.')
     else:
         form = OrderFormDesignRequest()
 
@@ -82,6 +83,10 @@ def design_request_detail(request, design_request_id):
 
 def design_request_process_request(request, design_request_id):
 
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, only site owners can do that.')
+        return redirect(reverse('home'))
+
     design_request = get_object_or_404(DesignRequest, pk=design_request_id)
 
     if request.method == 'POST':
@@ -89,14 +94,14 @@ def design_request_process_request(request, design_request_id):
 
         if design_request_form.is_valid():
             design_request = design_request_form.save()
-
             design_request.save()
             messages.success(request, 'Successfully processed the design request processing !')
             return redirect(reverse('design_request_detail', args=[design_request.id]) )
         else:
-            messages.error(request, 'Failed to add product. Please ensure the form is valid.')
+            messages.error(request, 'Failed to process the deign request. Please ensure the form is valid.')
     else:
         design_request_form = OrderFormDesignRequestSuser(instance=design_request)
+        messages.info(request, f'You are processing {design_request.name}')
     
     context = {
         'design_request_form': design_request_form,
@@ -138,7 +143,11 @@ def design_request_checkout(request, design_request_id):
             order.price = design_request.price
             order.save()
             # Save the info to the user's profile if all is well
-            id_save_info = False if request.POST.get('#id-save-info') ==None  else True,
+            id_save_info = False if request.POST.get('#id-save-info') == None  else True,
+            
+            messages.success(request, f'Order successfully processed! \
+                                        Your order number is {order.order_number}. A confirmation \
+                                        email will be sent to {order.client.user.email}.')
             if id_save_info:
                 request.session['save_info'] = 'save-info' in request.POST
             return redirect(reverse('design_request_checkout_success', args=[order.order_number]))
@@ -164,6 +173,7 @@ def design_request_checkout(request, design_request_id):
  
 
     context = {
+        
         'stripe_price':stripe_price/100,
         'design_request': design_request,
         'order_form': order_form,
