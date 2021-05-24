@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpResponse
 from django.contrib import messages
 from django.conf import settings
 from .models import DesignRequest, Category
@@ -20,6 +20,7 @@ def design_request_list(request):
     """ A view to return the index page and show  images  """
     
     client = get_object_or_404(Client, user=request.user)
+    design_requests = DesignRequest.objects.all()
     orders = Order.objects.all()
     orders = client.orders.all()
     print(orders)
@@ -34,7 +35,7 @@ def design_request_list(request):
 
     context = {
         'orders': orders,
-        'from_request_list':True,
+        "design_requests": design_requests,
     }
     return render(request, 'design_requests/design_request_list.html', context)
 
@@ -49,7 +50,7 @@ def add_design_requests(request):
         if form.is_valid():
             design_request = form.save()
             design_request.save()
-            messages.success(request, 'Successfully added product!')
+            messages.success(request, 'Successfully added the design request to the list!')
             return redirect(reverse('design_request_checkout', args=[design_request.id]))
         else:
             messages.error(request, 'Failed to add product. Please ensure the form is valid.')
@@ -64,9 +65,77 @@ def add_design_requests(request):
 
     return render(request, 'design_requests/design_requests.html', context)
 
+def update_design_request(request, design_request_id):
+
+    design_request = get_object_or_404(DesignRequest, pk=design_request_id)
+    design_request_id = design_request_id
+  
+
+    if request.method == 'POST':
+        design_request_form = OrderFormDesignRequest(request.POST, request.FILES)
+
+        if design_request_form.is_valid:
+            design_request = design_request_form.save()
+            design_request.save()
+            messages.success(request,f'Successfully updated the  product!')
+            return redirect(reverse('design_request_detail', args=[design_request.id]))
+        else:
+            messages.error(request,f'Failed to add product. Please ensure the form is valid.')
+
+    else:
+        design_request_form =  OrderFormDesignRequest(instance=design_request)
+    
+
+    context = {
+        'design_request_form': design_request_form,
+        'design_request_id':design_request_id,
+    }
+    return render(request,'design_requests/update_design_request.html', context)
+
+
+def delete_design_request(request, design_request_id):
+    
+    client = get_object_or_404(Client, user=request.user)
+    design_request = get_object_or_404(DesignRequest, pk=design_request_id)
+    design_requests = DesignRequest.objects.all()
+    orders = Order.objects.all()
+    orders = client.orders.all()
+    template = 'design_requests/design_request_list.html'
+    context = {
+        'orders': orders,
+        "design_requests": design_requests,
+    }
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            orders = Order.objects.all()
+        else: 
+            orders = client.orders.all()
+
+    if  design_request.order_number:
+        messages.error(request, 'Sorry, only site owners can do that.')
+        return render(request,template, context)
+        
+    else:
+        design_request.delete()
+        messages.warning(request, f'Your design request was successfuly deleted')
+        return render(request,template, context)
 
 
 def design_request_detail(request, design_request_id):
+
+    design_request = get_object_or_404(DesignRequest, pk=design_request_id)
+    design_request_form =  OrderFormDesignRequest(instance=design_request)
+
+    context = {
+        'design_request_form': design_request_form,
+        'design_request':design_request,
+        'from_design_request_list':True,
+    }
+    return render(request, 'design_requests/design_request_detail.html', context)
+    
+
+
+def design_request_detail_from_profile(request, design_request_id):
 
     design_request = get_object_or_404(DesignRequest, pk=design_request_id)
     design_request_id = design_request_id
@@ -75,9 +144,9 @@ def design_request_detail(request, design_request_id):
     context = {
         'design_request_form': design_request_form,
         'design_request_id':design_request_id,
+        'from_profile':True,
     }
     return render(request, 'design_requests/design_request_detail.html', context)
-
 
 
 
@@ -116,9 +185,6 @@ def design_request_checkout(request, design_request_id):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
-    
-    
-
     client = Client.objects.get(user=request.user)
 
     if request.method == "POST":
@@ -142,6 +208,8 @@ def design_request_checkout(request, design_request_id):
             order.client = client
             order.price = design_request.price
             order.save()
+            design_request.order_number = order.order_number
+            design_request.save()
             # Save the info to the user's profile if all is well
             id_save_info = False if request.POST.get('#id-save-info') == None  else True,
             
@@ -152,7 +220,7 @@ def design_request_checkout(request, design_request_id):
                 request.session['save_info'] = 'save-info' in request.POST
             return redirect(reverse('design_request_checkout_success', args=[order.order_number]))
         else:
-            messages.error(request, 'There was an error with your form. \
+            messages.error(request, f'There was an error with your form. \
                 Please double check your information.')
 
     else:
@@ -166,7 +234,7 @@ def design_request_checkout(request, design_request_id):
                 )
     
     if not stripe_public_key:
-        messages.warning(request, 'Stripe public key is missing. \
+        messages.warning(request, f'Stripe public key is missing. \
             Did you forget to set it in your environment?')
 
     order_form = OrderFormCheckOut()
@@ -213,10 +281,9 @@ def design_request_checkout_success(request, order_number):
             client_form = ClientForm(profile_data, instance=client)
             if client_form.is_valid():
                 client_form.save()
-
-    messages.success(request, f'Order successfully processed! \
-        Your order number is {order_number}. A confirmation \
-        email will be sent to {order.client.user.email}.')
+                messages.success(request, f'Order successfully processed! \
+                    Your order number is {order_number}. A confirmation \
+                    email will be sent to {order.client.user.email}.')
 
     if 'save-info' in request.session:
         del request.session['save-info']

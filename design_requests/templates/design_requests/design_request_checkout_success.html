@@ -211,8 +211,7 @@
 {% endblock %}
 {% block postloadjs %}
     {{block.super}}
-    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
-    {{ client_secret|json_script:"id_client_secret" }}
+
     <script src="{% static 'design_requests/js/stripe.js' %}"></script>
     <script type="text/javascript">
       $(document).ready(function() {

@@ -36,6 +36,7 @@ class DesignRequest(models.Model):
     processed_image = models.ImageField(null=True, blank=True)
     is_processed = models.BooleanField(default=False)
     testimonial = models.TextField(null =True, blank=True, default=False)
+    order_number = models.CharField(max_length=32, null=False)
 
 
 

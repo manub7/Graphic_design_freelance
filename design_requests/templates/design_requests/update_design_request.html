@@ -87,25 +87,12 @@
                     </div>
             <div class="col-12 text-right mt-4">
                 <hr>
-                {% if from_profile %}
-                    <a href="{% url 'profile'%}" class ='btn btn-primary rounded-0 '>Back to My Profile</a>
-                {% endif %}
-                {% if from_design_request_list %}
-                <a class="btn btn-primary rounded-0" href="{% url 'design_request_list' %}">Request list</a>
-                {% endif %}
-                <a class="btn btn-primary rounded-0" id="testimonial_button" href="{% url 'design_request_testimonial' design_request.id %}">Write a testimonial</a>
-                {% if user.is_superuser  %}
-                <a class="btn btn-primary rounded-0" href="{% url 'design_request_process_request' design_request.id %}">
-                   Process Request
-                </a>
-                {% endif %}
-                {% if not design_request.order_number %}
-                    <a href="{% url 'update_design_request' design_request.id %}" class ='btn btn-primary rounded-0 '>Update Design Request</a>
-                    <a class="btn btn-primary rounded-0" href="{% url 'design_request_checkout' design_request.id %}">Checkout</a>
-                    <a class = "btn btn-danger" href="{% url 'delete_design_request' design_request.id %}">Delete Design Request</a>
-                {% endif %}
+                <button type="submit" class="btn btn-primary">Update</button>
             </div>
             </div>
+
+        </form>
+       
 </div>
 
 {% endblock %}
@@ -121,5 +108,3 @@
         }
     </script>
 {% endblock %}
-
-

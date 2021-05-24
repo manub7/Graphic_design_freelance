@@ -93,7 +93,7 @@
         <hr>
         <div class= "col mb-2 text-right">
             <a href="{% url 'profile'%}" class ='btn btn-primary rounded-0 '>Back to My Profile</a>
-            <a href="{% url 'design_request_detail' order.design_request.id %}" class ='btn btn-primary rounded-0 '>Request details </a>
+            <a href="{% url 'design_request_detail_from_profile' order.design_request.id %}" class ='btn btn-primary rounded-0 '>Request details </a>
         </div>
         {% else %}
         <hr>
