@@ -50,7 +50,7 @@
 
                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
                             <div class="card h-100 border-0">
-                                {% if design_request.processed_image %}
+                                {% if design_request.processed_image and design_request.is_processed %}
                                 <a href="{{ design_request.processed_image.url }}">
                                     <img class="card-img-top img-fluid.max-width: 100%" style="height: 200px" src="{{ design_request.processed_image.url }}" alt="{{ design_request.name }}">
                                 </a>

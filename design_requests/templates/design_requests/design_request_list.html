@@ -136,7 +136,7 @@
                                                     <i class="fas fa-download"></i>
                                                 </span>
                                             </a>
-                                            <a href="" class="mr-2">
+                                            <a href="{% url 'design_request_testimonial' design_request.id %}" class="mr-2">
                                                 <span class="text-success">
                                                     <i class="fas fa-pen-square"></i>
                                                 </span>
@@ -200,21 +200,19 @@
                                                     {% endif %}
                                                 </td>
                                                 <td>
-                                                    {% if design_request.is_processed %}
-                                                    <a href="" class="mr-2" target="_blank">
+                                                    <a href="{% url 'update_design_request' design_request.id %}" class="mr-2" target="_blank">
                                                         <span class="text-primary">
-                                                            <i class="fas fa-download"></i>
+                                                            <i class="fas fa-pencil-alt"></i>
                                                         </span>
                                                     </a>
-                                                    <a href="" class="mr-2">
-                                                        <span class="text-success">
-                                                            <i class="fas fa-pen-square"></i>
-                                                        </span>
-                                                    </a>
-                                                    {% endif %}
-                                                    <a href="#" class="mr-2">
+                                                    <a href="{% url 'design_request_checkout' design_request.id %}" class="mr-2">
                                                         <span class="text-secondary">
-                                                            <i class="fas fa-envelope"></i>
+                                                            <i class="fas fa-lock"></i>
+                                                        </span>
+                                                    </a>
+                                                    <a href="{% url 'delete_design_request' design_request.id %}" class="mr-2">
+                                                        <span class="text-danger">
+                                                            <i class="fas fa-times"></i>
                                                         </span>
                                                     </a>
                                                 </td>

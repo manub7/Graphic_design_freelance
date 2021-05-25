@@ -80,7 +80,7 @@ TEMPLATES = [
                 'django.template.context_processors.request', # required by allauth
                 'django.contrib.auth.context_processors.auth',  
                 'django.contrib.messages.context_processors.messages',
-                'design_requests.context.design_request_context'
+                'design_requests.context.design_requests_contents'
             ],
             'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',

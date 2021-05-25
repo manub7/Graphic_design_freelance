@@ -100,7 +100,16 @@
                             </div>
                         </a>
                     </li>
+                    <li class="list-inline-item">
+                      <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="{% url 'design_request_list_uncompleted' %}">
+                          <div class="text-center">
+                              <div class="col-12 text-center"><i class="far fa-folder-open fa-lg text-white"></i></div>
+                              <div class="col-12 text-center"><p class="my-0 text-white">( {{ uncomplete_items }} )</p></div>
+                          </div>
+                      </a>
+                  </li>
                     {% endif %}
+
                   </ul>
               </div>
 

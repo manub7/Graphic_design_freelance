@@ -8,7 +8,7 @@ from .forms import ClientForm
 def profile(request):
     """ Display users's profile  """
     profile = get_object_or_404(Client, user=request.user)
-
+    orders = profile.orders.all()
     if request.method == 'POST':
         form = ClientForm(request.POST, instance=profile)
         if form.is_valid():

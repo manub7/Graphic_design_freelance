@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %} 
+  <link rel="stylesheet" href="{% static 'design_requests/css/checkout.css' %}">
+{% endblock %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+{{ form|crispy }}
+
+<div class="overflow-auto">
+    <h2 class="logo-font text-center"> MY UNCOMPLETED REQUESTS </h2>
+    <div class="container-fluid mt-3">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Width</th>
+                    <th scope="col">Height</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Provided source files</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for design_request in design_requests %}
+                    {% if not design_request.order_number and not design_request.is_processed %}
+                        <tr>
+                            <td>{{ design_request.id }}</td>
+                            <td>
+                                <a href="{% url 'design_request_detail' design_request.id %}">
+                                {{ design_request.name }}
+                                </a>
+                            </td>
+                            <td>{{ design_request.category.name }}</td>
+                            <td>{{ design_request.width }}</td>
+                            <td>{{ design_request.height }}</td>
+                            <td>{{ design_request.description }}</td>
+                            <td>{{ design_request.price }}</td>
+                            <td>
+                                {% if design_request.source_img %}
+                                    <span class="text-success">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                {% else %}
+                                    <span class="text-danger">
+                                        <i class="fas fa-times"></i>
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td>
+                           
+                                <a href="{% url 'update_design_request' design_request.id %}" class="mr-2" target="_blank">
+                                    <span class="text-primary">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </span>
+                                </a>
+                                <a href="{% url 'design_request_checkout' design_request.id %}" class="mr-2">
+                                    <span class="text-secondary">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                </a>
+                                <a href="{% url 'delete_design_request' design_request.id %}" class="mr-2">
+                                    <span class="text-danger">
+                                        <i class="fas fa-times"></i>
+                                    </span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor%}
+    </tbody>
+</table>
+</div>
+</div>
+
+{% endblock %}

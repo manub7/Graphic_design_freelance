@@ -10,7 +10,8 @@ from django.conf import settings
 # Create your views here.
 def all_orders(request):
     """ A view to show all projects in the portofolie including sorting and search queries  """
-    design_requests = DesignRequest.objects.all()
+
+    design_requests = DesignRequest.objects.filter(is_processed = True)
     orders = Order.objects.all()
 
     query = None

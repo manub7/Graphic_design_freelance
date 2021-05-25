@@ -23,7 +23,6 @@ def design_request_list(request):
     design_requests = DesignRequest.objects.all()
     orders = Order.objects.all()
     orders = client.orders.all()
-    print(orders)
 
     if request.user.is_authenticated:
         if request.user.is_superuser:
@@ -39,18 +38,34 @@ def design_request_list(request):
     }
     return render(request, 'design_requests/design_request_list.html', context)
 
+def design_request_list_uncompleted(request):
+    """ A view to return the uncompleted design requests list """
+ 
+    if request.user.is_authenticated:
+        client = get_object_or_404(Client, user=request.user)
+        if request.user.is_superuser:
+            design_requests = DesignRequest.objects.filter(order_number__exact='')
+        else: 
+            design_requests = DesignRequest.objects.filter(order_number__exact='', client = client)
 
+    context = {
+        'design_requests': design_requests,
+    }
+
+    return render(request, 'design_requests/design_request_list_uncompleted.html', context)
 
 def add_design_requests(request):
 
+    client = Client.objects.get(user=request.user)
     categories = Category.objects.all()
     if request.method == 'POST':
         form = OrderFormDesignRequest(request.POST, request.FILES)
 
         if form.is_valid():
             design_request = form.save()
+            design_request.client = client
             design_request.save()
-            messages.success(request, 'Successfully added the design request to the list!')
+            messages.success(request, f'Successfully added the design request: "{design_request.name}" to the list!')
             return redirect(reverse('design_request_checkout', args=[design_request.id]))
         else:
             messages.error(request, 'Failed to add product. Please ensure the form is valid.')
@@ -184,54 +199,85 @@ def design_request_checkout(request, design_request_id):
 
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
+    orders = Order.objects.all()
 
-    client = Client.objects.get(user=request.user)
+    if request.user.is_authenticated:
+        client = Client.objects.get(user=request.user)
+    else:
+        messages.error(request, f'Sorry you must log in or register first ')
 
+    design_request = get_object_or_404(DesignRequest, pk=design_request_id)
+    order_match = Order.objects.filter(design_request = design_request)
+
+    
     if request.method == "POST":
-        design_request = get_object_or_404(DesignRequest, pk=design_request_id)
-        form_data = {
-            'first_name': request.POST['first_name'],
-            'last_name' : request.POST['last_name'],
-            'phone_number': request.POST['phone_number'],
-            'country': request.POST.get('country'),
-            'postcode': request.POST['postcode'],
-            'town_or_city': request.POST['town_or_city'],
-            'street_address1': request.POST['street_address1'],
-            'street_address2': request.POST['street_address2'],
-            'county': request.POST['county'],
-        }
-
-        order_form = OrderFormCheckOut(form_data)
-        if order_form.is_valid():
-            order = order_form.save(commit=False)
-            order.design_request = design_request
-            order.client = client
-            order.price = design_request.price
-            order.save()
-            design_request.order_number = order.order_number
-            design_request.save()
-            # Save the info to the user's profile if all is well
-            id_save_info = False if request.POST.get('#id-save-info') == None  else True,
-            
-            messages.success(request, f'Order successfully processed! \
-                                        Your order number is {order.order_number}. A confirmation \
-                                        email will be sent to {order.client.user.email}.')
-            if id_save_info:
-                request.session['save_info'] = 'save-info' in request.POST
-            return redirect(reverse('design_request_checkout_success', args=[order.order_number]))
+        if order_match and design_request.order_number:
+            messages.error(request, f'You have already ordered this design request ')
         else:
-            messages.error(request, f'There was an error with your form. \
-                Please double check your information.')
+        
+            form_data = {
+                'first_name': request.POST['first_name'],
+                'last_name' : request.POST['last_name'],
+                'phone_number': request.POST['phone_number'],
+                'country': request.POST.get('country'),
+                'postcode': request.POST['postcode'],
+                'town_or_city': request.POST['town_or_city'],
+                'street_address1': request.POST['street_address1'],
+                'street_address2': request.POST['street_address2'],
+                'county': request.POST['county'],
+            }
+
+            order_form = OrderFormCheckOut(form_data)
+            if order_form.is_valid():
+                order = order_form.save(commit=False)
+                order.design_request = design_request
+                order.client = client
+                order.price = design_request.price
+                order.save()
+                design_request.order_number = order.order_number
+                design_request.save()
+                # Save the info to the user's profile if all is well
+                id_save_info = False if request.POST.get('#id-save-info') == None  else True,
+                if id_save_info:
+                    request.session['save_info'] = 'save-info' in request.POST
+
+                messages.success(request, f'Order successfully processed! \
+                                            Your order number is {order.order_number}. A confirmation \
+                                            email will be sent to {order.client.user.email}.')
+                return redirect(reverse('design_request_checkout_success', args=[order.order_number]))
+            else:
+                messages.error(request, f'There was an error with your form. \
+                    Please double check your information.')
 
     else:
-        design_request = get_object_or_404(DesignRequest, pk=design_request_id)
-
+        
         stripe.api_key = stripe_secret_key
         stripe_price =round(design_request.price * 100)
         intent = stripe.PaymentIntent.create(
                     amount=stripe_price,
                     currency=settings.STRIPE_CURRENCY,
                 )
+
+        # Attempt to prefill the form with any info the user maintains in their profile
+        if request.user.is_authenticated:
+            try:
+                client = Client.objects.get(user=request.user)
+                order_form = OrderFormCheckOut(initial={
+                    'first_name': client.default_first_name,
+                    'last_name': client.default_last_name,
+                    'phone_number': client.default_phone_number,
+                    'country': client.default_country,
+                    'postcode': client.default_postcode,
+                    'town_or_city': client.default_town_or_city,
+                    'street_address1': client.default_street_address1,
+                    'street_address2': client.default_street_address2,
+                    'county': client.default_county,
+                })
+            except Client.DoesNotExist:
+                order_form = OrderFormCheckOut()
+                
+        else:
+            messages.error(request, f'Sorry you must log in or register first ')
     
     if not stripe_public_key:
         messages.warning(request, f'Stripe public key is missing. \
@@ -281,9 +327,8 @@ def design_request_checkout_success(request, order_number):
             client_form = ClientForm(profile_data, instance=client)
             if client_form.is_valid():
                 client_form.save()
-                messages.success(request, f'Order successfully processed! \
-                    Your order number is {order_number}. A confirmation \
-                    email will be sent to {order.client.user.email}.')
+                messages.success(request, f'Your profile info was updated \
+                    with the information provided for your order.')
 
     if 'save-info' in request.session:
         del request.session['save-info']
