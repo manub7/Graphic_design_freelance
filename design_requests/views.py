@@ -1,12 +1,16 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpResponse
+from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
+
 from .models import DesignRequest, Category
 from profiles.models import Client
 from profiles.forms import ClientForm
 from .forms import OrderFormDesignRequest, OrderFormCheckOut, OrderFormDesignRequestSuser
 from orders.models import Order
+
 import stripe
+import json
 
 
 
@@ -194,11 +198,29 @@ def design_request_process_request(request, design_request_id):
     return render(request, 'design_requests/design_request_process_request.html', context)
 
 
+@require_POST
+def cache_checkout_data(request):
+    try:
+        pid = request.POST.get('client_secret').split('_secret')[0]
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        stripe.PaymentIntent.modify(pid, metadata={
+            'design_request': json.dumps(request.session.get('design_request', {})),
+            'save_info': request.POST.get('save_info'),
+            'username': request.user,
+        })
+        return HttpResponse(status=200)
+    except Exception as e:
+        messages.error(request, 'Sorry, your payment cannot be \
+            processed right now. Please try again later.')
+        return HttpResponse(content=e, status=400)
+
+
 
 def design_request_checkout(request, design_request_id):
 
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
+
     orders = Order.objects.all()
 
     if request.user.is_authenticated:
@@ -253,6 +275,7 @@ def design_request_checkout(request, design_request_id):
         
         stripe.api_key = stripe_secret_key
         stripe_price =round(design_request.price * 100)
+        print(stripe_price)
         intent = stripe.PaymentIntent.create(
                     amount=stripe_price,
                     currency=settings.STRIPE_CURRENCY,
