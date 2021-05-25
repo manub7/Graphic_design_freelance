@@ -2,6 +2,7 @@
 from django.contrib import admin
 from django.urls import path 
 from . import views
+from .webhooks import webhook
 
 urlpatterns = [
     path('', views.design_request_list, name ="design_request_list"),
@@ -15,5 +16,6 @@ urlpatterns = [
     path('design_request_detail_from_profile/<int:design_request_id>/', views.design_request_detail_from_profile, name ="design_request_detail_from_profile"),
     path('update_design_request/<int:design_request_id>/', views.update_design_request, name ="update_design_request"),
     path('delete_design_request/<int:design_request_id>/', views.delete_design_request, name ="delete_design_request"),
+    path('wh/', webhook, name="webhook"),
 ]
 
