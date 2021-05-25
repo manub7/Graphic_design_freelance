@@ -14,6 +14,7 @@ import json
 
 
 
+
 # def design_requests(request, item_id):
 # """ A view that renders the design requests page """
 # return render(request, 'design_requests/design_requests.html', context )
@@ -204,7 +205,7 @@ def cache_checkout_data(request):
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.PaymentIntent.modify(pid, metadata={
-            'design_request': json.dumps(request.session.get('design_request', {})),
+            'design_request_session': json.dumps(request.session.get('form_data', {})),
             'save_info': request.POST.get('save_info'),
             'username': request.user,
         })
@@ -220,7 +221,7 @@ def design_request_checkout(request, design_request_id):
 
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
-
+    print(request.session.get('design_request_session'))
     orders = Order.objects.all()
 
     if request.user.is_authenticated:
@@ -236,7 +237,7 @@ def design_request_checkout(request, design_request_id):
         if order_match and design_request.order_number:
             messages.error(request, f'You have already ordered this design request ')
         else:
-        
+            
             form_data = {
                 'first_name': request.POST['first_name'],
                 'last_name' : request.POST['last_name'],
@@ -255,9 +256,17 @@ def design_request_checkout(request, design_request_id):
                 order.design_request = design_request
                 order.client = client
                 order.price = design_request.price
+                pid = request.POST.get('client_secret').split('_secret')[0]
+                order.stripe_pid = pid
                 order.save()
+                # Pass the order number to design request instance 
                 design_request.order_number = order.order_number
                 design_request.save()
+                
+                request.session['form_data'] = order_form.cleaned_data 
+                request.session['form_data'].update({'design_request_id':'{design_request.id}' })
+                print(request.session['form_data'])
+
                 # Save the info to the user's profile if all is well
                 id_save_info = False if request.POST.get('#id-save-info') == None  else True,
                 if id_save_info:
@@ -275,7 +284,6 @@ def design_request_checkout(request, design_request_id):
         
         stripe.api_key = stripe_secret_key
         stripe_price =round(design_request.price * 100)
-        print(stripe_price)
         intent = stripe.PaymentIntent.create(
                     amount=stripe_price,
                     currency=settings.STRIPE_CURRENCY,

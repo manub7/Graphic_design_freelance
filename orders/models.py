@@ -29,6 +29,7 @@ class Order(models.Model):
     county = models.CharField(max_length=80, null=True, blank=True)
     postcode = models.CharField(max_length=20, null=True, blank=True)
     country = CountryField(blank_label='Country', null=True, blank=True)
+    stripe_pid = models.CharField(max_length=254, null=False, blank=False, default='')
 
 
     def __str__(self):

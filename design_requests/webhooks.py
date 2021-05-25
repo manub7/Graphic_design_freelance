@@ -9,11 +9,11 @@ import stripe
 
 @require_POST
 @csrf_exempt
+
 def webhook(request):
     """Listen for webhooks from Stripe"""
     # Setup
     wh_secret = settings.STRIPE_WH_SECRET
-    print(wh_secret)
     stripe.api_key = settings.STRIPE_SECRET_KEY
 
     # Get the webhook data and verify its signature
@@ -35,7 +35,7 @@ def webhook(request):
         return HttpResponse(content=e, status=400)
 
      # Set up a webhook handler
-    handler = StripeWH_Handler(request)
+    handler = StripeWH_handler(request)
 
     # Map webhook events to relevant handler functions
     event_map = {
