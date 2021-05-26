@@ -95,8 +95,7 @@
           <legend class="fieldset-label small text-black px-2 w-auto">
             Details
           </legend>
-          {{ order_form.first_name | as_crispy_field }} 
-          {{ order_form.last_name | as_crispy_field }}
+          {{ order_form.full_name | as_crispy_field }} 
         </fieldset>
         <fieldset class="rounded px-3 mb-2">
           <legend class="fieldset-label small text-black px-2 w-auto">
@@ -162,6 +161,8 @@
     {{block.super}}
     {{ stripe_public_key|json_script:"id_stripe_public_key" }}
     {{ client_secret|json_script:"id_client_secret" }}
+    {{ client_email|json_script:"client_email" }}
+   
     <script src="{% static 'design_requests/js/stripe.js' %}"></script>
     <script type="text/javascript">
       $(document).ready(function() {

@@ -122,8 +122,7 @@ class OrderFormCheckOut(forms.ModelForm):
     class Meta:
         model = Order
         fields = (
-            'first_name',
-            'last_name',
+            'full_name',
             'phone_number',
             'street_address1',
             'street_address2',
@@ -145,8 +144,7 @@ class OrderFormCheckOut(forms.ModelForm):
 
         super().__init__(*args, **kwargs)
         placeholders = {
-            'first_name': 'First Name',
-            'last_name': 'Last Name',
+            'full_name': 'Full Name',
             'phone_number': 'Phone Number',
             'postcode': 'Postal Code',
             'town_or_city': 'Town or City',
@@ -155,7 +153,7 @@ class OrderFormCheckOut(forms.ModelForm):
             'county': 'County, State or Locality',
         }
 
-        self.fields['first_name'].widget.attrs['autofocus'] = True
+        self.fields['full_name'].widget.attrs['autofocus'] = True
         for field in self.fields:
             if field != 'country' :
                 if self.fields[field].required:

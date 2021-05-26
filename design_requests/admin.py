@@ -19,7 +19,7 @@ class DesignRequestAdmin(admin.ModelAdmin):
         'is_processed'
     )
 
-    ordering = ('category',)
+    ordering = ('-id',)
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = (

@@ -184,10 +184,11 @@ def design_request_process_request(request, design_request_id):
         if design_request_form.is_valid():
             design_request = design_request_form.save()
             design_request.save()
-            messages.success(request, 'Successfully processed the design request processing !')
+            messages.success(request, f'Successfully processed the "{design_request.name}" design request !')
             return redirect(reverse('design_request_detail', args=[design_request.id]) )
+    
         else:
-            messages.error(request, 'Failed to process the deign request. Please ensure the form is valid.')
+            messages.error(request, 'Failed to process the deisgn request. Please ensure the form is valid.')
     else:
         design_request_form = OrderFormDesignRequestSuser(instance=design_request)
         messages.info(request, f'You are processing {design_request.name}')
@@ -199,6 +200,9 @@ def design_request_process_request(request, design_request_id):
     return render(request, 'design_requests/design_request_process_request.html', context)
 
 
+
+# Order views 
+
 @require_POST
 def cache_checkout_data(request):
     try:
@@ -207,8 +211,9 @@ def cache_checkout_data(request):
         stripe.PaymentIntent.modify(pid, metadata={
             'design_request_session': json.dumps(request.session.get('form_data', {})),
             'save_info': request.POST.get('save_info'),
-            'username': request.user,
+            'client': request.user,
         })
+
         return HttpResponse(status=200)
     except Exception as e:
         messages.error(request, 'Sorry, your payment cannot be \
@@ -221,7 +226,7 @@ def design_request_checkout(request, design_request_id):
 
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
-    print(request.session.get('design_request_session'))
+    
     orders = Order.objects.all()
 
     if request.user.is_authenticated:
@@ -239,8 +244,7 @@ def design_request_checkout(request, design_request_id):
         else:
             
             form_data = {
-                'first_name': request.POST['first_name'],
-                'last_name' : request.POST['last_name'],
+                'full_name': request.POST['full_name'],
                 'phone_number': request.POST['phone_number'],
                 'country': request.POST.get('country'),
                 'postcode': request.POST['postcode'],
@@ -264,8 +268,7 @@ def design_request_checkout(request, design_request_id):
                 design_request.save()
                 
                 request.session['form_data'] = order_form.cleaned_data 
-                request.session['form_data'].update({'design_request_id':'{design_request.id}' })
-                print(request.session['form_data'])
+                request.session['form_data']['design_request_id'] =str(f"{design_request.id }")
 
                 # Save the info to the user's profile if all is well
                 id_save_info = False if request.POST.get('#id-save-info') == None  else True,
@@ -293,9 +296,8 @@ def design_request_checkout(request, design_request_id):
         if request.user.is_authenticated:
             try:
                 client = Client.objects.get(user=request.user)
-                order_form = OrderFormCheckOut(initial={
-                    'first_name': client.default_first_name,
-                    'last_name': client.default_last_name,
+                order_form = OrderFormCheckOut(initial = {
+                    'full_name': client.default_full_name,
                     'phone_number': client.default_phone_number,
                     'country': client.default_country,
                     'postcode': client.default_postcode,
@@ -314,7 +316,6 @@ def design_request_checkout(request, design_request_id):
         messages.warning(request, f'Stripe public key is missing. \
             Did you forget to set it in your environment?')
 
-    order_form = OrderFormCheckOut()
  
 
     context = {
@@ -324,6 +325,7 @@ def design_request_checkout(request, design_request_id):
         'order_form': order_form,
         'stripe_public_key':stripe_public_key,
         'client_secret': intent.client_secret,
+        'client_email' : client.user.email
     }
 
     return render(request, 'design_requests/design_request_checkout.html', context)
@@ -344,8 +346,7 @@ def design_request_checkout_success(request, order_number):
         # Save the user's info
         if save_info:
             profile_data = {
-                'default_first_name':order.first_name,
-                'default_last_name':order.last_name,
+                'default_full_name':order.full_name,
                 'default_phone_number': order.phone_number,
                 'default_country': order.country,
                 'default_postcode': order.postcode,

@@ -29,7 +29,7 @@
                                 <th scope="col">Height</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Price</th>
-                                <th scope="col">Provided source files</th>
+                                <th scope="col">Source files</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -61,17 +61,18 @@
                                 </td>
                                 <td>
                                     
-                                    <a href="" class="mr-2" target="_blank">
+                                    <a href="{{order.design_request.processed_image.url}}" download class="mr-2" target="_blank">
                                         <span class="text-primary">
-                                            <i class="fas fa-download"></i>
+                                                <i class="fas fa-download"></i>
                                         </span>
                                     </a>
-                                    <a href="" class="mr-2">
+                                    {% if not order.design_request.testimonial %}
+                                    <a href="{% url 'design_request_testimonial' order.design_request.id %}" class="mr-2">
                                         <span class="text-success">
                                             <i class="fas fa-pen-square"></i>
                                         </span>
                                     </a>
-                                
+                                    {% endif %}
                                     <a href="#" class="mr-2">
                                         <span class="text-secondary">
                                             <i class="fas fa-envelope"></i>
@@ -99,7 +100,7 @@
                                 <th scope="col">Height</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Price</th>
-                                <th scope="col">Provided source files</th>
+                                <th scope="col">Source files</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -169,7 +170,7 @@
                                         <th scope="col">Height</th>
                                         <th scope="col">Description</th>
                                         <th scope="col">Price</th>
-                                        <th scope="col">Provided source files</th>
+                                        <th scope="col">Source files</th>
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
