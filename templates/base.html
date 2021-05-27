@@ -18,6 +18,7 @@
     <!-- Bootstrap CSS -->
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato&display=swap">
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
       <link rel="stylesheet" href="{% static 'css/base.css' %}">
       <script src="https://js.stripe.com/v3/"></script>
     {% endblock %}
@@ -68,7 +69,7 @@
                         <div class="text-center">
                           <div><i class="fas fa-user fa-lg fa-white"></i></div>
                           {% if request.user.is_authenticated %}
-                          <p class="my-o">My Account</p>
+                          <p class="my-o d-none d-sm-none  d-xl-block">My Account</p>
                           {% else %}
                           <p class="my-o">Login</p>
                           {% endif %}
@@ -77,7 +78,7 @@
                       <div class="dropdown-menu border-0" aria-labelledby="user-options">
                         {% if request.user.is_authenticated %}
                             {% if request.user.is_superuser %}
-                                <a href="" class="dropdown-item">Projects Management</a>
+                                <a href="{% url 'design_request_unprocessed_list' %}" class="dropdown-item">Projects Management</a>
                             {% endif %}
                             <a href="{% url 'design_request_list' %}" class="dropdown-item">My Requests</a>
                             <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>                    
@@ -94,7 +95,7 @@
                         <a href="{% url 'add_design_requests' %}" class="text-info font-weight-bold text-black nav-link">
                             <div class="text-center">
                                 <div><i class="fas fa-pencil-alt fa-lg text-white"></i></div>
-                                <p class="my-o text-white">
+                                <p class="my-o text-white d-none d-sm-none  d-xl-block " >
                                  Make a request
                                 </p>
                             </div>
@@ -104,7 +105,7 @@
                       <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="{% url 'design_request_list_uncompleted' %}">
                           <div class="text-center">
                               <div class="col-12 text-center"><i class="far fa-folder-open fa-lg text-white"></i></div>
-                              <div class="col-12 text-center"><p class="my-0 text-white">( {{ uncomplete_items }} )</p></div>
+                              <div class="col-12 text-center d-none d-sm-none  d-xl-block"><p class="my-0 text-white">( {{ uncomplete_items }} )</p></div>
                           </div>
                       </a>
                   </li>
@@ -153,6 +154,7 @@
           <script type="text/javascript" >
             $('.toast').toast('show');
           </script>
+          <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
         {% endblock %}
 
     </body>

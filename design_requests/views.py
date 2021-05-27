@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpResponse
 from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
 
@@ -15,12 +16,9 @@ import json
 
 
 
-# def design_requests(request, item_id):
-# """ A view that renders the design requests page """
-# return render(request, 'design_requests/design_requests.html', context )
+# Design request views 
 
-# A view to create, calculate and capture a design request
-
+@login_required
 def design_request_list(request):
     """ A view to return the index page and show  images  """
     
@@ -43,6 +41,24 @@ def design_request_list(request):
     }
     return render(request, 'design_requests/design_request_list.html', context)
 
+@login_required
+def design_request_unprocessed_list(request):
+    """ A view to return the index page and show  images  """
+    
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, only site owners can do that.')
+        return redirect(reverse('home'))
+
+    client = get_object_or_404(Client, user=request.user)
+    orders = Order.objects.all()
+  
+
+    context = {
+        'orders': orders,
+    }
+    return render(request, 'design_requests/design_request_unprocessed_list.html', context)
+
+@login_required
 def design_request_list_uncompleted(request):
     """ A view to return the uncompleted design requests list """
  
@@ -59,6 +75,7 @@ def design_request_list_uncompleted(request):
 
     return render(request, 'design_requests/design_request_list_uncompleted.html', context)
 
+@login_required
 def add_design_requests(request):
 
     client = Client.objects.get(user=request.user)
@@ -85,6 +102,7 @@ def add_design_requests(request):
 
     return render(request, 'design_requests/design_requests.html', context)
 
+@login_required
 def update_design_request(request, design_request_id):
 
     design_request = get_object_or_404(DesignRequest, pk=design_request_id)
@@ -112,7 +130,7 @@ def update_design_request(request, design_request_id):
     }
     return render(request,'design_requests/update_design_request.html', context)
 
-
+@login_required
 def delete_design_request(request, design_request_id):
     
     client = get_object_or_404(Client, user=request.user)
@@ -140,7 +158,7 @@ def delete_design_request(request, design_request_id):
         messages.warning(request, f'Your design request was successfuly deleted')
         return render(request,template, context)
 
-
+@login_required
 def design_request_detail(request, design_request_id):
 
     design_request = get_object_or_404(DesignRequest, pk=design_request_id)
@@ -152,9 +170,31 @@ def design_request_detail(request, design_request_id):
         'from_design_request_list':True,
     }
     return render(request, 'design_requests/design_request_detail.html', context)
-    
 
+@login_required
+def design_request_testimonial (request, design_request_id):
 
+    design_request = get_object_or_404(DesignRequest, pk=design_request_id)
+    if request.method == 'POST':
+        design_request_form =  OrderFormDesignRequestSuser(request.POST, request.FILES,instance=design_request)
+
+        if design_request_form.is_valid():
+            design_request = design_request_form.save()       
+            design_request.save()
+            messages.success(request, 'Thank you for your testimaonial ! Successfully added the testimonial !')
+            return redirect(reverse('design_request_detail', args=[design_request.id]) )
+        else:
+            messages.error(request, 'Failed to add the testimonial. Please ensure the form is valid.')
+    else:
+        design_request_form = OrderFormDesignRequestSuser(instance=design_request)
+
+        context = {
+        'design_request_form': design_request_form,
+        'design_request_id':design_request_id,
+    }
+    return render(request, 'design_requests/design_request_testimonial.html', context)
+
+@login_required
 def design_request_detail_from_profile(request, design_request_id):
 
     design_request = get_object_or_404(DesignRequest, pk=design_request_id)
@@ -168,8 +208,7 @@ def design_request_detail_from_profile(request, design_request_id):
     }
     return render(request, 'design_requests/design_request_detail.html', context)
 
-
-
+@login_required
 def design_request_process_request(request, design_request_id):
 
     if not request.user.is_superuser:
@@ -202,7 +241,6 @@ def design_request_process_request(request, design_request_id):
 
 
 # Order views 
-
 @require_POST
 def cache_checkout_data(request):
     try:
@@ -219,7 +257,6 @@ def cache_checkout_data(request):
         messages.error(request, 'Sorry, your payment cannot be \
             processed right now. Please try again later.')
         return HttpResponse(content=e, status=400)
-
 
 
 def design_request_checkout(request, design_request_id):
@@ -330,6 +367,7 @@ def design_request_checkout(request, design_request_id):
 
     return render(request, 'design_requests/design_request_checkout.html', context)
 
+
 def design_request_checkout_success(request, order_number):
     """
     Handle successful checkouts
@@ -371,26 +409,3 @@ def design_request_checkout_success(request, order_number):
     }
 
     return render(request, template, context)
-
-def design_request_testimonial (request, design_request_id):
-
-    design_request = get_object_or_404(DesignRequest, pk=design_request_id)
-    if request.method == 'POST':
-        design_request_form =  OrderFormDesignRequestSuser(request.POST, request.FILES,instance=design_request)
-
-        if design_request_form.is_valid():
-            design_request = design_request_form.save()       
-            design_request.save()
-            messages.success(request, 'Thank you for your testimaonial ! Successfully added the testimonial !')
-            return redirect(reverse('design_request_detail', args=[design_request.id]) )
-        else:
-            messages.error(request, 'Failed to add the testimonial. Please ensure the form is valid.')
-    else:
-        design_request_form = OrderFormDesignRequestSuser(instance=design_request)
-
-        context = {
-        'design_request_form': design_request_form,
-        'design_request_id':design_request_id,
-    }
-    return render(request, 'design_requests/design_request_testimonial.html', context)
-

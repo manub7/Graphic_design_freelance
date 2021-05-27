@@ -265,8 +265,9 @@ footer {
 
 @media (min-width:414px) and  (max-width: 1023px) {
 
-
-    
+    td, th, h2 {
+        text-size-adjust: 60%;
+    }
 
     .header-container {
         padding-top: 160px;

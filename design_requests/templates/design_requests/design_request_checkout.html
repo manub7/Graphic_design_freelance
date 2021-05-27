@@ -170,4 +170,11 @@
          $('#bottom-inside-container').css('max-height',max);
       });
   </script>
+  <script type = "text/javascript" >
+    function disableBackButton()
+    {
+    window.history.forward();
+    }
+    setTimeout("disableBackButton()", 0);
+  </script>
 {% endblock %}

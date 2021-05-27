@@ -1,4 +1,8 @@
 from django.http import HttpResponse
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.conf import settings
+
 from django.shortcuts import get_object_or_404
 from orders.models import Order
 from .models import DesignRequest
@@ -17,12 +21,12 @@ class StripeWH_handler:
 
     def _send_confirmation_email(self, order):
         """Send the user a confirmation email"""
-        cust_email = order.email
+        cust_email = order.client.user.email
         subject = render_to_string(
-            'checkout/confirmation_emails/confirmation_email_subject.txt',
+            'design_requests/confirmation_emails/confirmation_email_subject.txt',
             {'order': order})
         body = render_to_string(
-            'checkout/confirmation_emails/confirmation_email_body.txt',
+            'design_requests/confirmation_emails/confirmation_email_body.txt',
             {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
         
         send_mail(
@@ -49,19 +53,18 @@ class StripeWH_handler:
         """
         intent = event.data.object
         pid = intent.id
-        print(pid)
         order = intent.metadata.design_request_session
-        #print(json.loads(order).items())
         design_request_id = json.loads(order)['design_request_id']
+        # Prevents previous design_request_id triggering a new order 
+        design_request_id = int(design_request_id) +1
         design_request = get_object_or_404(DesignRequest, id = design_request_id)    
-
         save_info = intent.metadata.save_info
-    
         client = intent.metadata.client
         client = Client.objects.get(user__username=client)
 
         shipping_details = intent.shipping
-        #Clean data in the billing details
+
+        #Clean data in the shipping details
 
         for field, value in shipping_details.address.items():
             if value == "":

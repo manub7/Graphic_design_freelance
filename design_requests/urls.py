@@ -6,6 +6,7 @@ from .webhooks import webhook
 
 urlpatterns = [
     path('', views.design_request_list, name ="design_request_list"),
+    path('design_request_unprocessed_list/', views.design_request_unprocessed_list, name ="design_request_unprocessed_list"),
     path('uncompleted/', views.design_request_list_uncompleted, name ="design_request_list_uncompleted"),
     path('add_design_requests/', views.add_design_requests, name ="add_design_requests"),
     path('design_request_detail/<int:design_request_id>/', views.design_request_detail, name ="design_request_detail"),

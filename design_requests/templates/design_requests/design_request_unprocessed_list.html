@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %} 
+  <link rel="stylesheet" href="{% static 'design_requests/css/checkout.css' %}">
+{% endblock %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+{{ form|crispy }}
+    <div class="container-fluid" id ="request_list_div">
+            <div class="overflow-auto">
+                <h2 class="logo-font text-center">MY UNPROCESSED REQUESTS </h2>
+                <div class="container-fluid mt-3">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Width</th>
+                                <th scope="col">Height</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Source files</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                                {% if not order.design_request.is_processed and order.design_request.order_number %}
+                                    <tr>
+                                        <td>{{ order.design_request.id }}</td>
+                                        <td>
+                                            <a href="{% url 'design_request_detail' order.design_request.id %}">
+                                            {{ order.design_request.name }}
+                                            </a>
+                                        </td>
+                                        <td>{{ order.design_request.category.name }}</td>
+                                        <td>{{ order.design_request.width }}</td>
+                                        <td>{{ order.design_request.height }}</td>
+                                        <td>{{ order.design_request.description }}</td>
+                                        <td>{{ order.design_request.price }}</td>
+                                        <td>
+                                            {% if order.design_request.source_img %}
+                                                <span class="text-success">
+                                                    <i class="fas fa-check"></i>
+                                                </span>
+                                            {% else %}
+                                                <span class="text-danger">
+                                                    <i class="fas fa-times"></i>
+                                                </span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if order.design_request.source_img %}
+                                            <a href="{{order.design_request.source_img.url}} download" class="mr-2" target="_blank">
+                                                <span class="text-primary">
+                                                    <i class="fas fa-download"></i>
+                                                </span>
+                                            </a>
+                                            {% endif %}
+                                            <a href="{% url 'design_request_process_request' order.design_request.id %}" class="mr-2">
+                                                <span class="text-success">
+                                                    <i class="fas fa-pen-square"></i>
+                                                </span>
+                                            </a>
+                                            
+                                        </td>
+                                    </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
