@@ -20,17 +20,17 @@
 <div class="overflow-auto">
     <h2 class="logo-font text-center"> MY UNCOMPLETED REQUESTS </h2>
     <div class="container-fluid mt-3">
-        <table class="table">
+        <table class="table" id = "request_list_table">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Name</th>
                     <th scope="col">Category</th>
-                    <th scope="col">Width</th>
-                    <th scope="col">Height</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Provided source files</th>
+                    <th scope="col" id = "th_collapsable" >Width</th>
+                    <th scope="col" id = "th_collapsable">Height</th>
+                    <th scope="col" id = "th_collapsable">Description</th>
+                    <th scope="col" id = "th_collapsable">Price</th>
+                    <th scope="col" id = "th_collapsable">Provided source files</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -45,11 +45,11 @@
                                 </a>
                             </td>
                             <td>{{ design_request.category.name }}</td>
-                            <td>{{ design_request.width }}</td>
-                            <td>{{ design_request.height }}</td>
-                            <td>{{ design_request.description }}</td>
-                            <td>{{ design_request.price }}</td>
-                            <td>
+                            <td id = "td_collapsable">{{ design_request.width }}</td>
+                            <td id = "td_collapsable">{{ design_request.height }}</td>
+                            <td id = "td_collapsable">{{ design_request.description }}</td>
+                            <td id = "td_collapsable">{{ design_request.price }}</td>
+                            <td id = "td_collapsable">
                                 {% if design_request.source_img %}
                                     <span class="text-success">
                                         <i class="fas fa-check"></i>

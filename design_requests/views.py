@@ -21,7 +21,11 @@ import json
 @login_required
 def design_request_list(request):
     """ A view to return the index page and show  images  """
-    
+    processed_requests = 0
+    unprocessed_requests = 0
+    uncomplete_requests = 0
+    uncomplete_requests_bool = False 
+
     client = get_object_or_404(Client, user=request.user)
     design_requests = DesignRequest.objects.all()
     orders = Order.objects.all()
@@ -32,12 +36,30 @@ def design_request_list(request):
             orders = Order.objects.all()
         else: 
             orders = client.orders.all()
-            
+        for order in orders: 
+            if (order.design_request.is_processed):
+                processed_requests += 1
+            elif (not order.design_request.is_processed) : 
+                unprocessed_requests += 1
+            else : 
+                processed_requests=  processed_requests
+                unprocessed_requests = unprocessed_requests
   
+        for design_request in design_requests:
+            if (not design_request.order_number and not design_request.is_processed ):
+                uncomplete_requests += 1
+            else:
+                uncomplete_requests = uncomplete_requests
+
 
     context = {
         'orders': orders,
+        'processed_requests': processed_requests,
+        'unprocessed_requests':unprocessed_requests,
+        'uncomplete_requests':uncomplete_requests,
         "design_requests": design_requests,
+       
+
     }
     return render(request, 'design_requests/design_request_list.html', context)
 
@@ -230,7 +252,7 @@ def design_request_process_request(request, design_request_id):
             messages.error(request, 'Failed to process the deisgn request. Please ensure the form is valid.')
     else:
         design_request_form = OrderFormDesignRequestSuser(instance=design_request)
-        messages.info(request, f'You are processing {design_request.name}')
+        messages.info(request, f'You are processing design request name :{design_request.name} with Id: {design_request.id}')
     
     context = {
         'design_request_form': design_request_form,

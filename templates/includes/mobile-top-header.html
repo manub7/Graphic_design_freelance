@@ -21,6 +21,7 @@
         </form>
     </div>
 </li>
+
 <li class="list-inline-item dropdown">
     <a class="text-black nav-link d-block d-lg-none" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <div class="text-center text-white">
@@ -31,9 +32,9 @@
     <div class="dropdown-menu border-0 text-white" aria-labelledby="user-options">
         {% if request.user.is_authenticated %}
             {% if request.user.is_superuser %}
-                <a href="" class="dropdown-item">Product Management</a>
+                <a href="{% url 'design_request_unprocessed_list' %}" class="dropdown-item">Product Management</a>
             {% endif %}
-            <a href="{% url 'home' %}" class="dropdown-item">My Requests</a>
+            <a href="{% url 'design_request_list' %}" class="dropdown-item">My Requests</a>
             <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
             <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
         {% else %}
@@ -42,14 +43,25 @@
         {% endif %}
     </div>
 </li>
-<li class="list-inline-item">
-    <a class="text-primary font-weight-bold text-black nav-link d-block d-lg-none" href="{% url 'add_design_requests' %}">
-        <div class="text-center text-white">
+<li class="list-inline-item d-lg-none d-xl-none">
+    <a href="{% url 'add_design_requests' %}" class="text-info font-weight-bold text-black nav-link">
+        <div class="text-center">
             <div><i class="fas fa-pencil-alt fa-lg text-white"></i></div>
-            <p class="my-0 d-none d-lg-block d-xl-none">Make a request</p>
+            <p class="my-o text-white d-none d-sm-none  d-xl-block " >
+             Make a request
+            </p>
         </div>
     </a>
 </li>
+<li class="list-inline-item d-lg-none d-xl-none ">
+    <a class="nav-link" href="{% url 'design_request_list_uncompleted' %}">
+        <div class="text-center">
+            <div class="col-12 text-center"><i class="far fa-folder-open fa-lg {% if uncomplete_requests_bool %} text-warning {% else %} text-white {% endif %} "></i></div>
+            <div class="col-12 text-center d-none d-sm-none  d-xl-block"><p class="my-0 text-white">( {{ uncomplete_items }} )</p></div>
+        </div>
+    </a>
+</li>
+
 {% else %}
 <li class="list-inline-item">
     <a class="text-white nav-link d-block d-lg-none" href="{% url 'orders' %}" id="mobile-search" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

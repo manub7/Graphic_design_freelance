@@ -65,7 +65,7 @@
     
                     <div class="mb-4">
                     {% for field in design_request_form %}
-                        {% if field.name == 'processed_image' %}
+                        {% if field.name == 'processed_image' and design_request.is_processed %}
                         <label class="form-check-label col-12 pl-0" for="processed_image">
                             Processed Image :
                         </label>
@@ -77,7 +77,7 @@
                 </div>
                 <div class="col-12 h-1 text-left mb-4" id="testimonial_div">
                     {% for field in design_request_form %}
-                        {% if field.name == 'testimonial'  %}
+                        {% if field.name == 'testimonial'  and design_request.is_processed  and design_request.testimonial  %}
                         <label class="form-check-label col-12 pl-0" for="id_testimonial">
                             Testimonial :
                         </label>

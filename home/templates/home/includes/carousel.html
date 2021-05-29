@@ -13,10 +13,7 @@
                             <div class="card-title">
                                 <a href="#"><p class="text-black text-sm-left font-small flex-center">{{ order.name}}</p></a>
                             </div>
-                            {% else %}
-                            <a href="{% url 'design_request_detail' design_request.id %}">
-                                <img class=" img-fluid" src="media/noimage.png" alt="{{ design_request.name }}">
-                            </a>
+ 
                             {% endif %}
                             
                         </div>

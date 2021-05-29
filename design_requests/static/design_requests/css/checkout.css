@@ -1,8 +1,4 @@
-@media (min-width: 414px) and (max-width: 1023px) {
-    .header-container {
-        padding-top: 140px!important ;
-    }
-}
+
 @media (min-width: 1024px) {
     .header-container {
         padding-top: 160px!important ;
@@ -25,3 +21,22 @@ textarea {
         width: 100vw;
         overflow-x: hidden;
     }
+
+@media (max-width:771px) {
+    
+    #request_list_div h2,th,td{
+        font-weight: bold;
+        font-size: 95%;
+    }
+}
+@media (max-width:487px) {
+    a, a i {
+        font-weight: bold;
+        font-size: 80%;
+    }
+    #th_collapsable, #td_collapsable { 
+        display: none;
+    }
+}
+/* check box button disabled if no processed image file present*/
+

@@ -22,7 +22,8 @@ class OrderFormDesignRequest(forms.ModelForm):
             )
 
 
-    source_img = forms.ImageField(label='attachments', required=False, widget=CustomClearableFileInput)
+    source_img = forms.ImageField(label='source_img-clear_id', required=False, widget=CustomClearableFileInput)
+    processed_image = forms.ImageField(label='processed_image-clear_id', required=False, widget=CustomClearableFileInput)
 
 
     def __init__(self, *args, **kwargs):
@@ -80,8 +81,8 @@ class OrderFormDesignRequestSuser(forms.ModelForm):
             'testimonial',
             )
     
-    source_img = forms.ImageField(label='source_img', required=False, widget=CustomClearableFileInput),
-    processed_image = forms.ImageField(label='processed_image', required=False, widget=CustomClearableFileInput),
+    source_img = forms.ImageField(label='source_img-clear_id', required=False, widget=CustomClearableFileInput)
+    processed_image = forms.ImageField(label='processed_image-clear_id', required=False, widget=CustomClearableFileInput)
 
   
 

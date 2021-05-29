@@ -7,6 +7,7 @@ from profiles.models import Client
 
 def design_requests_contents(request):
     
+    uncomplete_requests_bool = False
     design_request_list_uncomplete = []
     uncomplete_items = 0
     design_requests = DesignRequest.objects.all
@@ -21,15 +22,20 @@ def design_requests_contents(request):
             design_requests = design_requests.filter(order_number__exact='', client = client)
             design_request_list_uncomplete.append(design_requests)
             uncomplete_items = design_requests.count()
-            print(design_requests)
+            
     else: 
         design_requests = DesignRequest.objects.all
 
+    if (   uncomplete_items  > 0 ):
+            uncomplete_requests_bool = True
+    else : 
+             uncomplete_requests_bool = False
 
 
     context = {
         'design_request_list_uncomplete' : design_request_list_uncomplete,
         'uncomplete_items':uncomplete_items,
+        'uncomplete_requests_bool':uncomplete_requests_bool,
     }
 
     return context

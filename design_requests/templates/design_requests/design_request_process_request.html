@@ -31,6 +31,9 @@
                 {% endfor %}
                 </div>
                 <div class="col-md-6">
+                    <div class="container-fluid ">
+                        <h5>Source image:</h5>
+                        <hr>
                     <div class="mb-4">
                     {% for field in design_request_form %}
                         {% if field.name == 'provide_source_files' %}
@@ -44,15 +47,14 @@
                     <div class="mb-4">
                     {% for field in design_request_form %}
                         {% if field.name == 'source_img' %}
-                        <label class="form-check-label col-12  pl-0" for="processed_image">
-                            Source Image :
-                        </label>
                          {{field}}  
                         {% endif %}
                     {% endfor %}       
                     </div>
                     <hr>
-                    <div class="mb-4">
+                        <h5>Processed image:</h5>
+                        <hr>
+                    <div class="mb-4 ml-0">
                     {% for field in design_request_form %}
                         {% if field.name == 'is_processed' %}
                             {{field }} 
@@ -63,17 +65,14 @@
                     </label>
                     </div>
     
-                    <div class="mb-4">
+                    <div class="mb-4 ml-0">
                     {% for field in design_request_form %}
                         {% if field.name == 'processed_image' %}
-                        <label class="form-check-label col-12 pl-0" for="processed_image">
-                            Processed Image :
-                        </label>
                          {{field}}
                         {% endif %}
                     {% endfor %}                
                     </div>
-                
+                </div>
                 </div>
             
             <div class="col-12 text-right mt-4">
@@ -88,4 +87,10 @@
 
 </div>
     
+{% endblock %}
+{% block postloadjs %}
+          <script type="text/javascript" >
+        /* Makes the processed checkbutton visible only in the event of a file uploaded*/
+
+        </script>
 {% endblock %}

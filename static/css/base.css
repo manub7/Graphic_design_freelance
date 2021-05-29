@@ -25,10 +25,17 @@ body {
 .logo-font {
     text-transform: uppercase;
 }
-
+#logo-font {
+    font-size: 1.4rem;
+}
 #img-detail {
     height:100%;
     width: 100%;
+}
+
+.btn {
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 
 
@@ -179,9 +186,46 @@ footer {
     font-weight: lighter;
     margin-bottom: 0;
   }
+
+/* Customizeble widgets  */
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-file input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.custom-checkbox .custom-control-label::before {
+    border-radius: 0;
+    border-color: #dc3545;
+}
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    border-radius: 0;
+}
+
+/* Media screens */
+
 /*Slightly larger container on XL screens*/
 
-@media (min-width:992px) {
+@media (min-width:1470px) {
+    #logo-font {
+        font-size: 2rem;
+    }
+}
+
+@media (min-width:1024px) {
     .container {
         max-width: 80%;
     }
@@ -192,6 +236,11 @@ footer {
     .dropdown-item ,.nav-item a {
         color: black !important; 
     }
+    /* fixes the color apearance for the navbar on larger screen */
+    #navbar { 
+        background-color: white;
+    }
+
 }
 
 /* fixed top navbar only on medium and up */
@@ -261,16 +310,18 @@ footer {
          margin-top: 0 !important;
          margin-bottom: 49px !important;
      }
+     
 }
 
-@media (min-width:414px) and  (max-width: 1023px) {
+@media (min-width:300px) and  (max-width: 1023px) {
 
     td, th, h2 {
         text-size-adjust: 60%;
     }
 
+
     .header-container {
-        padding-top: 160px;
+        padding-top: 80px;
     }
 
     .fixed-top-desktop-only {
@@ -309,7 +360,9 @@ footer {
         margin-bottom: 48px;
         padding: 1rem 1rem;
     }
-     
+    .btn {
+        font-size: 70%;
+    }
     
 }
 
@@ -317,11 +370,14 @@ footer {
 
 @media (width:1024px) {
     .header-container {
-        padding-top: 160px;
+        padding-top: 140px;
     }
 
     #container-gallery {
        margin-top: 4rem;
+    }
+    #logo-font {
+        font-size: 1.2rem;
     }
 }
 
@@ -333,9 +389,4 @@ footer {
         width: fit-content !important;
     }
 }
-/* fixes the color apearance for the navbar on larger screen */
-@media (min-width:991px) {
-   #navbar { 
-       background-color: white;
-   }
-}
+

@@ -20,17 +20,17 @@
             <div class="overflow-auto">
                 <h2 class="logo-font text-center">MY UNPROCESSED REQUESTS </h2>
                 <div class="container-fluid mt-3">
-                    <table class="table">
+                    <table class="table" id = "request_list_table">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Category</th>
-                                <th scope="col">Width</th>
-                                <th scope="col">Height</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Source files</th>
+                                <th scope="col" id = "th_collapsable">Width</th>
+                                <th scope="col" id = "th_collapsable"></th>>Height</th>
+                                <th scope="col" id = "th_collapsable"></th>>Description</th>
+                                <th scope="col" id = "th_collapsable"></th>>Price</th>
+                                <th scope="col" id = "th_collapsable"></th>>Source files</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -45,11 +45,11 @@
                                             </a>
                                         </td>
                                         <td>{{ order.design_request.category.name }}</td>
-                                        <td>{{ order.design_request.width }}</td>
-                                        <td>{{ order.design_request.height }}</td>
-                                        <td>{{ order.design_request.description }}</td>
-                                        <td>{{ order.design_request.price }}</td>
-                                        <td>
+                                        <td id = "td_collapsable">{{ order.design_request.width }}</td>
+                                        <td id = "td_collapsable">{{ order.design_request.height }}</td>
+                                        <td id = "td_collapsable">{{ order.design_request.description }}</td>
+                                        <td id = "td_collapsable">{{ order.design_request.price }}</td>
+                                        <td id = "td_collapsable">
                                             {% if order.design_request.source_img %}
                                                 <span class="text-success">
                                                     <i class="fas fa-check"></i>
