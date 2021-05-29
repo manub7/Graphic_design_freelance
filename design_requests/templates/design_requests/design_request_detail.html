@@ -9,7 +9,7 @@
     <div class="container header-container">
         <div class="row mb-4">
             <div class="col">
-                <h2 class="text-center">DESIGN REQUEST</h2>
+                <h2 class="text-center">DESIGN REQUEST {{design_request.id}}</h2>
             </div>
         </div>
     </div>
@@ -30,54 +30,34 @@
                             {{ field | as_crispy_field }}
                 {% endfor %}
                 </div>
+                {% if design_request.processed_image %}
                 <div class="col-md-6">
-                    <div class="mb-4">
-                    {% for field in design_request_form %}
-                        {% if field.name == 'provide_source_files' %}
-                            {{field}}
-                        {% endif %}
-                    {% endfor %}
-                    <label class="form-check-label" for="provide_source_files">
-                        Provide source files
-                    </label>
+                    <div class="row">
+                        <div class="col-12 ">
+                            <h6>Processed image:</h6>
+                            <hr>
+                            <a href="{{ design_request.processed_image.url }}" target="_blank">
+                                <img class="card-img-top img-fluid " id="img-detail" src="{{ design_request.processed_image.url}}" alt="{{ order.design_request.name }}">
+                            </a>
+                        </div>
                     </div>
-                    <div class="mb-4">
-                    {% for field in design_request_form %}
-                        {% if field.name == 'source_img' %}
-                        <label class="form-check-label col-12  pl-0" for="processed_image">
-                            Source Image :
-                        </label>
-                         {{field}}  
-                        {% endif %}
-                    {% endfor %}       
-                    </div>
-                    <hr>
-                    <div class="mb-4">
-                    {% for field in design_request_form %}
-                        {% if field.name == 'is_processed' %}
-                            {{field }} 
-                        {% endif %}
-                    {% endfor %}
-                    <label class="form-check-label" for="is_processed">
-                        Processed 
-                    </label>
-                    </div>
-    
-                    <div class="mb-4">
-                    {% for field in design_request_form %}
-                        {% if field.name == 'processed_image' and design_request.is_processed %}
-                        <label class="form-check-label col-12 pl-0" for="processed_image">
-                            Processed Image :
-                        </label>
-                         {{field}}
-                        {% endif %}
-                    {% endfor %}                
-                    </div>
-                
                 </div>
+                {% elif design_request.source_img %}
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-12 ">
+                            <h6>Source image:</h6>
+                            <hr>
+                            <a href="{{ design_request.source_img.url }}" target="_blank">
+                                <img class="card-img-top img-fluid " id="img-detail" src="{{ design_request.source_img.url}}" alt="{{ order.design_request.name }}">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
                 <div class="col-12 h-1 text-left mb-4" id="testimonial_div">
                     {% for field in design_request_form %}
-                        {% if field.name == 'testimonial'  and design_request.is_processed  and design_request.testimonial  %}
+                        {% if field.name == 'testimonial'  and design_request.is_processed  and design_request.testimonial != False %}
                         <label class="form-check-label col-12 pl-0" for="id_testimonial">
                             Testimonial :
                         </label>
@@ -94,7 +74,7 @@
                 <a class="btn btn-primary rounded-0" href="{% url 'design_request_list' %}">Request list</a>
                 {% endif %}
                 <a class="btn btn-primary rounded-0" id="testimonial_button" href="{% url 'design_request_testimonial' design_request.id %}">Write a testimonial</a>
-                {% if user.is_superuser  %}
+                {% if user.is_superuser and design_request.order_number %}
                 <a class="btn btn-primary rounded-0" href="{% url 'design_request_process_request' design_request.id %}">
                    Process Request
                 </a>

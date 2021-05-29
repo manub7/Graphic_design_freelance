@@ -6,6 +6,14 @@
 }
 
 /* Text Area */
+#id_description {
+
+    max-height: 140px !important;
+    width: 100%;
+    overflow-y: auto;
+    word-wrap:break-word
+    
+    }
 
 textarea {
 
@@ -21,6 +29,10 @@ textarea {
         width: 100vw;
         overflow-x: hidden;
     }
+
+#img-detail {
+    max-height: 350px;
+}
 
 @media (max-width:771px) {
     

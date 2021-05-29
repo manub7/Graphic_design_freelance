@@ -133,7 +133,7 @@ body {
 /* Design request form */
 
 #attachments {
-    display:none;
+
     text-align:left;
 }
 
@@ -187,7 +187,7 @@ footer {
     margin-bottom: 0;
   }
 
-/* Customizeble widgets  */
+/* Customizeble widgets */
 
 .btn-file {
     position: relative;
@@ -214,7 +214,6 @@ footer {
     border-color: #dc3545;
     border-radius: 0;
 }
-
 /* Media screens */
 
 /*Slightly larger container on XL screens*/
@@ -321,7 +320,7 @@ footer {
 
 
     .header-container {
-        padding-top: 80px;
+        padding-top: 110px;
     }
 
     .fixed-top-desktop-only {

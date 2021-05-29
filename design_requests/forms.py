@@ -84,8 +84,6 @@ class OrderFormDesignRequestSuser(forms.ModelForm):
     source_img = forms.ImageField(label='source_img-clear_id', required=False, widget=CustomClearableFileInput)
     processed_image = forms.ImageField(label='processed_image-clear_id', required=False, widget=CustomClearableFileInput)
 
-  
-
     def __init__(self, *args, **kwargs):
         super(OrderFormDesignRequestSuser,self).__init__(*args, **kwargs)
         self.fields['processed_image'] =  forms.ImageField(label='processed_image', required=False, widget=CustomClearableFileInput),

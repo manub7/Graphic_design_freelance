@@ -42,7 +42,7 @@ class DesignRequest(models.Model):
     image_url = models.URLField(max_length=1024, null=True, blank=True)
     processed_image = models.ImageField(null=True, blank=True)
     is_processed = models.BooleanField(default=False)
-    testimonial = models.TextField(null=True, blank=True, default=False)
+    testimonial = models.TextField(null=True, blank=True)
     order_number = models.CharField(max_length=32, null=False)
 
     def __int__(self):
