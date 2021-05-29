@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-mp@surksj-s)ut2rh9@l-_1wf+tmr+q*c-91xoqk+vot^v49!z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['manub-graphic-design-freelance.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -120,15 +120,17 @@ WSGI_APPLICATION = 'graphic_design_freelance.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
-}
-#DATABASES = {
-#        'default': dj_database_url.parse('postgres://ihikzjgntybeof:30aa9ce7da84a154cb8bbc6e64af957602a3fac69a38c515486950fde098ccf3@ec2-63-34-97-163.eu-west-1.compute.amazonaws.com:5432/deq3tlnni8qfd9')
-#    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
