@@ -33,10 +33,11 @@ body {
     width: 100%;
 }
 
-.btn {
+.btn, #search_input {
     margin-top: 4px;
     margin-bottom: 4px;
 }
+
 
 
 /* Carousel styling */
@@ -214,6 +215,11 @@ footer {
     border-color: #dc3545;
     border-radius: 0;
 }
+
+.container {
+    padding-bottom: 2px;
+}
+
 /* Media screens */
 
 /*Slightly larger container on XL screens*/
@@ -293,7 +299,7 @@ footer {
     }
     .jumbotron {
         margin-bottom: 48px;
-        padding: 1rem 1rem;
+        padding: 0rem 1rem;
     }
      .carousel-inner a img {
          height : 10rem !important;
@@ -356,10 +362,9 @@ footer {
         font-size: .9rem;
     }
     .jumbotron {
-        margin-bottom: 48px;
-        padding: 1rem 1rem;
+        padding: 0rem 1rem;
     }
-    .btn {
+    td .btn  {
         font-size: 70%;
     }
     

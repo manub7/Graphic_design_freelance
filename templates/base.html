@@ -51,11 +51,11 @@
               <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
                 <form method = " GET " action="{% url 'orders' %}">
                   <div class="input-group ">
-                    <input type="text" name = "q" placeholder="Search our portofolio"  class="form-control border border-white rounded-0">
+                    <input type="text" name = "q" placeholder="Search our portofolio"  class="form-control border border-white rounded-0" id="search_input">
                     <div class="input-group-append ">
-                      <button class="form-control btn btn-black border border-black rounded-0" type="submit">
+                      <button class="form-control btn btn-black border border-black rounded-0" type="submit" >
                         <span class="icon">
-                          <i class="fas fa-search text-white "></i>
+                          <i class="fas fa-search text-white " id="search_icon"></i>
                         </span>
                       </button>
                     </div>
