@@ -159,6 +159,7 @@ def delete_design_request(request, design_request_id):
     
     client = get_object_or_404(Client, user=request.user)
     design_request = get_object_or_404(DesignRequest, pk=design_request_id)
+    order = get_object_or_404(Order, design_request=design_request)
     design_requests = DesignRequest.objects.all()
     orders = Order.objects.all()
     orders = client.orders.all()
@@ -178,6 +179,7 @@ def delete_design_request(request, design_request_id):
         return render(request,template, context)
         
     else:
+        order.delete()
         design_request.delete()
         messages.warning(request, f'Your design request was successfuly deleted')
         return render(request,template, context)
