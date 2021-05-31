@@ -163,6 +163,7 @@ def delete_design_request(request, design_request_id):
     design_requests = DesignRequest.objects.all()
     orders = Order.objects.all()
     orders = client.orders.all()
+
     template = 'design_requests/design_request_list.html'
     context = {
         'orders': orders,
@@ -176,13 +177,12 @@ def delete_design_request(request, design_request_id):
 
     if  design_request.order_number:
         messages.error(request, 'Sorry, only site owners can do that.')
-        return render(request,template, context)
-        
+        return render(request, 'design_requests/design_request_list.html', context)
     else:
-        order.delete()
         design_request.delete()
         messages.warning(request, f'Your design request was successfuly deleted')
-        return render(request,template, context)
+        return render(request, 'design_requests/design_request_list.html', context)
+
 
 @login_required
 def design_request_detail(request, design_request_id):
