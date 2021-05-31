@@ -180,7 +180,7 @@ def delete_design_request(request, design_request_id):
     else:
         design_request.delete()
         messages.warning(request, f'Your design request was successfuly deleted')
-        
+
     return render(request, template, context)
 
 
@@ -222,7 +222,7 @@ def design_request_testimonial (request, design_request_id):
 
 @login_required
 def design_request_detail_from_profile(request, design_request_id):
-    """ A view for  design requests detail with a button for the profile view t """
+    """ A view for  design requests detail with a button for the profile view  """
     design_request = get_object_or_404(DesignRequest, pk=design_request_id)
     design_request_id = design_request_id
     design_request_form =  OrderFormDesignRequest(instance=design_request)
@@ -230,6 +230,7 @@ def design_request_detail_from_profile(request, design_request_id):
     context = {
         'design_request_form': design_request_form,
         'design_request_id':design_request_id,
+        'design_request':design_request,
         'from_profile':True,
     }
     return render(request, 'design_requests/design_request_detail.html', context)
