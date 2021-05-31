@@ -16,27 +16,21 @@
         })
 
         
-        $('#width').on('input',calc);
-        $('#height').on('input',calc);
-
-
-        function calc () {
-
-            var width = parseFloat($('#width').val(),2);
-
-            if ($('#height').val() === '') {
-                var height = 1
-            }
-            else {
-                var height = parseFloat($('#height').val(),2);
-            }
-            var size = width*height*3/1024
-            var price_factor = JSON.parse({{price_factor}})
-
-            var total = size * parseInt(price_factor) / 1000
-
-            $('#total').val(total.toFixed(2))
-        }     
+    $('#width').on('input',calc);
+    $('#height').on('input',calc);
+    function calc () {
+        var width = parseFloat($('#width').val(),2);
+        if ($('#height').val() === '') {
+            var height = 1
+        }
+        else {
+            var height = parseFloat($('#height').val(),2);
+        }
+        var size = width*height*3/1024
+        var price_factor = JSON.parse({{price_factor}})
+        var total = size * parseInt(price_factor) / 1000
+        $('#total').val(total.toFixed(2))
+    }     
 
     </script>
   
