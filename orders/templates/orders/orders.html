@@ -46,35 +46,35 @@
                 </div>
 
                 <div class="row">
-                    {% for order in orders %}
-                        {% if  order.design_request.is_processed %}
+                    {% for design_request in design_requests %}
+                        {% if  design_request.is_processed %}
                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
                             <div class="card h-100 border-0">
-                                {% if order.design_request.processed_image %}
-                                <a href="{{ order.design_request.processed_image.url }}">
-                                    <img class="card-img-top img-fluid.max-width: 100%" style="height: 200px" src="{{ order.design_request.processed_image.url}}" alt="{{ design_request.name }}">
+                                {% if design_request.processed_image %}
+                                <a href="{{ design_request.processed_image.url }}">
+                                    <img class="card-img-top img-fluid.max-width: 100%" style="height: 200px" src="{{ design_request.processed_image.url}}" alt="{{ design_request.name }}">
                                 </a>
                                 {% endif %}
                                 <div class="card-body pb-0">
-                                    <a href="{% url 'order_detail' order.design_request.id %}">
+                                    <a href="{% url 'order_detail' design_request.id %}">
                                         <p class="mb-0">{{ design_request.name }}</p>
                                     </a>
                                 </div>
                                 <div class="card-footer bg-white pt-0 border-0 text-left">
                                     <div class="row">
                                         <div class="col">
-                                            <p class="lead mb-0 text-left font-weight-bold">£{{ order.design_request.price }}</p>
-                                            {% if order.design_request.category %}
+                                            <p class="lead mb-0 text-left font-weight-bold">£{{design_request.price }}</p>
+                                            {% if design_request.category %}
                                             <p class="small mt-1 mb-0">
                                                 <a class="text-muted" href="{% url 'orders' %}?category={{ design_request.category.name }}">
-                                                    {{ order.design_request.category.name }}
+                                                    {{ design_request.category.name }}
                                                 </a>
                                             </p>
                                             {% endif %}
                                             {% if order.design_request.size %}
                                             <p class="small mt-1 mb-0">
                                                 <a class="text-muted" href="{% url 'orders' %}?category={{ design_request.category.name }}">
-                                                    <i class="fas fa-ruler-combined mr-1"></i>{{ order.design_request.height }} x {{ order.design_request.width }} px
+                                                    <i class="fas fa-ruler-combined mr-1"></i>{{design_request.height }} x {{ design_request.width }} px
                                                 </a>
                                             </p>
                                             {% endif %}
