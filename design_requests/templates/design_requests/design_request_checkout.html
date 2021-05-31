@@ -96,12 +96,12 @@
             Details
           </legend>
           {{ order_form.full_name | as_crispy_field }} 
+          {{ order_form.phone_number | as_crispy_field }} 
         </fieldset>
         <fieldset class="rounded px-3 mb-2">
           <legend class="fieldset-label small text-black px-2 w-auto">
             Billing Address
           </legend>
-            {{ order_form.phone_number | as_crispy_field }} 
             {{ order_form.street_address1 | as_crispy_field }} 
             {{ order_form.street_address2 | as_crispy_field }} 
             {{ order_form.town_or_city | as_crispy_field }} 
@@ -181,6 +181,11 @@
   </script>
   <script type="text/javascript">
   /* Makes all input fields on the page required */
-    $('input').attr('required',true)
+    $('#id_full_name').attr('required',true)
+    $('#id_phone_number').attr('required',true)
+    $('#id_street_address1').attr('required',true)
+    $('#id_town_or_city').attr('required',true)
+    $('#id_postcode').attr('required',true)
+    $('#id_country').attr('required',true)
   </script>
 {% endblock %}

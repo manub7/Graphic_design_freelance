@@ -241,7 +241,7 @@ def design_request_process_request(request, design_request_id):
 
     design_request = get_object_or_404(DesignRequest, pk=design_request_id)
     order = get_object_or_404(Order, design_request = design_request)
-    
+
     if request.method == 'POST':
         design_request_form =  OrderFormDesignRequestSuser(request.POST, request.FILES,instance=design_request)
 
@@ -252,7 +252,7 @@ def design_request_process_request(request, design_request_id):
             messages.success(request, f'Successfully processed the "{design_request.name}" design request !')
             send_mail (
                 'Design request status is now processed',
-                'Your design request:"{design_request.name}" with id : "{design_request.id}" has been sccessfully processed !',
+                'Your design request:"{design_request.name}" with id : "{design_request.id}" has been sccessfully processed! Please log in our website to check the design request. ',
                 settings.DEFAULT_FROM_EMAIL,
                 [cust_email]
             )
