@@ -3,12 +3,14 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
+from django.core.mail import send_mail
 
 from .models import DesignRequest, Category
 from profiles.models import Client
 from profiles.forms import ClientForm
 from .forms import OrderFormDesignRequest, OrderFormCheckOut, OrderFormDesignRequestSuser
 from orders.models import Order
+
 
 import stripe
 import json
@@ -238,14 +240,22 @@ def design_request_process_request(request, design_request_id):
         return redirect(reverse('home'))
 
     design_request = get_object_or_404(DesignRequest, pk=design_request_id)
-
+    order = get_object_or_404(Order, design_request = design_request)
+    
     if request.method == 'POST':
         design_request_form =  OrderFormDesignRequestSuser(request.POST, request.FILES,instance=design_request)
 
         if design_request_form.is_valid():
+            cust_email = order.client.user.email
             design_request = design_request_form.save()
             design_request.save()
             messages.success(request, f'Successfully processed the "{design_request.name}" design request !')
+            send_mail (
+                'Design request status is now processed',
+                'Your design request:"{design_request.name}" with id : "{design_request.id}" has been sccessfully processed !',
+                settings.DEFAULT_FROM_EMAIL,
+                [cust_email]
+            )
             return redirect(reverse('design_request_detail', args=[design_request.id]) )
     
         else:
