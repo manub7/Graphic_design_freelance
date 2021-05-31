@@ -1,10 +1,4 @@
 
-@media (min-width: 1024px) {
-    .header-container {
-        padding-top: 160px!important ;
-    }
-}
-
 /* Text Area */
 #id_description {
 
@@ -34,6 +28,13 @@ textarea {
     max-height: 350px;
 }
 
+#attachments {
+    display: none;
+}
+
+/* check box button disabled if no processed image file present*/
+
+/* Media Screens */
 @media (max-width:771px) {
     
     #request_list_div h2,th,td{
@@ -50,5 +51,13 @@ textarea {
         display: none;
     }
 }
-/* check box button disabled if no processed image file present*/
+
+
+@media (min-width: 1024px) {
+    .header-container {
+        padding-top: 160px!important ;
+    }
+}
+
+
 

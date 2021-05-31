@@ -164,6 +164,7 @@
     {{ client_email|json_script:"client_email" }}
    
     <script src="{% static 'design_requests/js/stripe.js' %}"></script>
+
     <script type="text/javascript">
       $(document).ready(function() {
          max = $(document).height() - $('#bottom-inside-container').offset().top;
@@ -171,10 +172,15 @@
       });
   </script>
   <script type = "text/javascript" >
+  /* Prevents user from reaccessing the checkout page after checkout process is done. This is to prevent double orders */
     function disableBackButton()
     {
     window.history.forward();
     }
     setTimeout("disableBackButton()", 0);
+  </script>
+  <script type="text/javascript">
+  /* Makes all input fields on the page required */
+    $('input').attr('required',true)
   </script>
 {% endblock %}

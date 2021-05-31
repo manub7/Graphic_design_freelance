@@ -336,7 +336,8 @@ def design_request_checkout(request, design_request_id):
 
                 messages.success(request, f'Order successfully processed! \
                                             Your order number is {order.order_number}. A confirmation \
-                                            email will be sent to {order.client.user.email}.')
+                                            email will be sent to {order.client.user.email}.\
+                                            This is a demonstrative function, your accound will not be charged with any amount')
                 return redirect(reverse('design_request_checkout_success', args=[order.order_number]))
             else:
                 messages.error(request, f'There was an error with your form. \

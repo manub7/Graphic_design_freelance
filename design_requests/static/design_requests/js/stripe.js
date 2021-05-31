@@ -6,11 +6,8 @@
     https://stripe.com/docs/stripe-js
 */
 var clientEmail = $('#client_email').text().slice(1, -1);
-print(clientEmail)
 var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
-console.log(stripePublicKey)
 var clientSecret = $('#id_client_secret').text().slice(1, -1);
-console.log(clientSecret)
 var stripe = Stripe(stripePublicKey);
 var elements = stripe.elements();
 var style = {
