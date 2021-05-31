@@ -26,7 +26,7 @@
     </div>
     {% if not request.user.is_authenticated %}
     <div class="register-section mt-2 ">
-        <div class="jumbotron-fluid pt-2">
+        <div class="jumbotron mt-4">
         <div class="container">
             <h1 class="display-4"><a class="btn btn-secondary" href="{% url 'account_signup' %}">Register</a></h1>
             <p class="lead">Register now to make a request for graphical designs that addresses your needs!</p>
@@ -38,7 +38,7 @@
         <div class="jumbotron  ">
         <div class="container">
             <h1 class="display-4"><a class="btn btn-secondary" href="{% url 'design_request_list' %}">My requests</a></h1>
-            <p class="lead">Register now to make a request for graphical designs that addresses your needs!</p>
+            <p class="lead"> Check your design requests</p>
         </div>
         </div>
     </div>

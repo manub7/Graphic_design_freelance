@@ -67,7 +67,7 @@ def design_request_list(request):
 
 @login_required
 def design_request_unprocessed_list(request):
-    """ A view to return the index page and show  images  """
+    """ A view to return the unprocessed design request available only to the superuser  """
     
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only site owners can do that.')
@@ -101,7 +101,7 @@ def design_request_list_uncompleted(request):
 
 @login_required
 def add_design_requests(request):
-
+    """ A view to add  design requests and redirect to the design request list """
     client = Client.objects.get(user=request.user)
     categories = Category.objects.all()
     if request.method == 'POST':
@@ -128,7 +128,7 @@ def add_design_requests(request):
 
 @login_required
 def update_design_request(request, design_request_id):
-
+    """ A view to update design requests and redirect to the design request detail """
     design_request = get_object_or_404(DesignRequest, pk=design_request_id)
     design_request_id = design_request_id
   
@@ -156,10 +156,9 @@ def update_design_request(request, design_request_id):
 
 @login_required
 def delete_design_request(request, design_request_id):
-    
+    """ A view to delete design requests and redirect to the design request list """
     client = get_object_or_404(Client, user=request.user)
     design_request = get_object_or_404(DesignRequest, pk=design_request_id)
-    order = get_object_or_404(Order, design_request=design_request)
     design_requests = DesignRequest.objects.all()
     orders = Order.objects.all()
     orders = client.orders.all()
@@ -177,16 +176,17 @@ def delete_design_request(request, design_request_id):
 
     if  design_request.order_number:
         messages.error(request, 'Sorry, only site owners can do that.')
-        return render(request, 'design_requests/design_request_list.html', context)
+        return render(request, 'template', context)
     else:
         design_request.delete()
         messages.warning(request, f'Your design request was successfuly deleted')
-        return render(request, 'design_requests/design_request_list.html', context)
+        
+    return render(request, template, context)
 
 
 @login_required
 def design_request_detail(request, design_request_id):
-
+    """ A view to  design requests details  """
     design_request = get_object_or_404(DesignRequest, pk=design_request_id)
     design_request_form =  OrderFormDesignRequest(instance=design_request)
 
@@ -199,7 +199,7 @@ def design_request_detail(request, design_request_id):
 
 @login_required
 def design_request_testimonial (request, design_request_id):
-
+    """ A view to render and capture the design request testimonial if any """
     design_request = get_object_or_404(DesignRequest, pk=design_request_id)
     if request.method == 'POST':
         design_request_form =  OrderFormDesignRequestSuser(request.POST, request.FILES,instance=design_request)
@@ -222,7 +222,7 @@ def design_request_testimonial (request, design_request_id):
 
 @login_required
 def design_request_detail_from_profile(request, design_request_id):
-
+    """ A view for  design requests detail with a button for the profile view t """
     design_request = get_object_or_404(DesignRequest, pk=design_request_id)
     design_request_id = design_request_id
     design_request_form =  OrderFormDesignRequest(instance=design_request)
@@ -236,7 +236,7 @@ def design_request_detail_from_profile(request, design_request_id):
 
 @login_required
 def design_request_process_request(request, design_request_id):
-
+    """ A view to process the  design requests and redirect to the design request detail """
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only site owners can do that.')
         return redirect(reverse('home'))
@@ -295,7 +295,7 @@ def cache_checkout_data(request):
 
 
 def design_request_checkout(request, design_request_id):
-
+    """ A view for order checkout  """
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
     
@@ -406,7 +406,7 @@ def design_request_checkout(request, design_request_id):
 
 def design_request_checkout_success(request, order_number):
     """
-    Handle successful checkouts
+    A view that Handles successful checkouts
     """
     save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
