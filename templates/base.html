@@ -97,7 +97,7 @@
                       </a>
 
 
-                      <div class="dropdown-menu border-0" aria-labelledby="user-options">
+                      <div class="dropdown-menu dropdown-menu-end border-0" aria-labelledby="user-options">
                         {% if request.user.is_authenticated %}
                             {% if request.user.is_superuser %}
                                 <a href="{% url 'design_request_unprocessed_list' %}" class="dropdown-item">Projects Management</a>
