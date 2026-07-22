@@ -1,24 +1,43 @@
 {% extends "account/base.html" %}
 
 {% load i18n %}
+{% load socialaccount %}
 
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block inner_content %}
-<hr>
-<h2 class="logo-font mb-4">{% trans "Sign Up" %}</h2>
-<hr>
 
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+<div class="auth-card-header">
+  <h1 class="auth-title">{% trans "Create your account" %}</h1>
+  <p class="auth-subtitle">{% trans "Join to start requesting custom designs" %}</p>
+</div>
 
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+{% get_providers as socialaccount_providers %}
+
+{% if socialaccount_providers %}
+<div class="auth-social">
+  <ul class="socialaccount_providers list-unstyled">
+    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+  </ul>
+</div>
+
+{% include "socialaccount/snippets/login_extra.html" %}
+
+<div class="auth-divider"><span>{% trans "or sign up with email" %}</span></div>
+{% endif %}
+
+<form class="auth-form" id="signup_form" method="post" action="{% url 'account_signup' %}">
   {% csrf_token %}
   {{ form|crispy }}
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
-  <a class="btn btn-outline-black rounded-0" href="{% url 'account_login' %}">Back to Login</a>
-  <button type="submit">{% trans "Sign Up" %}</button>
+  <button type="submit" class="btn btn-primary btn-block auth-submit rounded-0">{% trans "Sign Up" %}</button>
 </form>
+
+<div class="auth-footer">
+  <span>{% trans "Already have an account?" %}</span>
+  <a href="{% url 'account_login' %}">{% trans "Sign in" %}</a>
+</div>
 
 {% endblock %}

@@ -394,3 +394,224 @@ footer {
     }
 }
 
+/* ---------------------------------------------------- */
+/* Auth pages (login / signup / password reset / etc.)  */
+/* ---------------------------------------------------- */
+
+.auth-page {
+    display: flex;
+    align-items: center;
+    min-height: calc(100vh - 160px);
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+}
+
+.auth-back-home {
+    display: inline-flex;
+    align-items: center;
+    color: #6c757d;
+    font-size: .85rem;
+    text-decoration: none;
+    margin-bottom: .85rem;
+    transition: color .15s ease;
+}
+
+.auth-back-home:hover {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.auth-card {
+    background: #fff;
+    border-top: 4px solid #007bff;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, .08);
+    padding: 2.25rem 2rem;
+    width: 100%;
+}
+
+.auth-card-header {
+    text-align: center;
+    margin-bottom: 1.75rem;
+}
+
+.auth-title {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    font-size: 1.5rem;
+    margin-bottom: .35rem;
+}
+
+.auth-subtitle {
+    color: #6c757d;
+    font-size: .92rem;
+    margin-bottom: 0;
+}
+
+.auth-social {
+    margin-bottom: 1.25rem;
+}
+
+.socialaccount_providers {
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.btn-social-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+    width: 100%;
+    padding: .65rem 1rem;
+    background: #fff;
+    border: 1px solid #dadce0;
+    color: #3c4043;
+    font-weight: 600;
+    font-size: .92rem;
+    text-decoration: none;
+    transition: box-shadow .15s ease, background-color .15s ease;
+}
+
+.btn-social-login:hover {
+    background: #f8f9fa;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .15);
+    color: #3c4043;
+    text-decoration: none;
+}
+
+.btn-social-icon {
+    flex-shrink: 0;
+}
+
+.auth-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #adb5bd;
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    margin: 1.5rem 0;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.auth-divider span {
+    padding: 0 .85rem;
+}
+
+.auth-form .form-group {
+    margin-bottom: 1.15rem;
+}
+
+.auth-form label {
+    font-size: .8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: #495057;
+    margin-bottom: .4rem;
+}
+
+.auth-form .form-control {
+    padding: .65rem .85rem;
+    border: 1px solid #ced4da;
+    font-size: .95rem;
+}
+
+.auth-form .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, .15);
+}
+
+.auth-submit {
+    padding: .7rem 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    margin-top: .5rem;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: .9rem;
+    color: #6c757d;
+}
+
+.auth-footer a {
+    font-weight: 600;
+    color: #007bff;
+}
+
+.auth-footer-sep {
+    margin: 0 .5rem;
+}
+
+@media (max-width: 441px) {
+    .auth-card {
+        padding: 1.75rem 1.25rem;
+    }
+    .auth-page {
+        padding-top: 1rem;
+    }
+}
+
+/* Buttons referenced by other allauth pages (email management, password
+   reset, logout) that were previously unstyled browser defaults. */
+
+.btn-outline-black {
+    display: inline-block;
+    color: #212529;
+    border: 1px solid #212529;
+    background: transparent;
+    padding: .375rem .75rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color .15s ease, color .15s ease;
+}
+
+.btn-outline-black:hover {
+    background-color: #212529;
+    color: #fff;
+    text-decoration: none;
+}
+
+.primaryAction {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: .55rem 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    cursor: pointer;
+    transition: background-color .15s ease;
+}
+
+.primaryAction:hover {
+    background-color: #0062cc;
+}
+
+.secondaryAction {
+    background: none;
+    border: none;
+    color: #007bff;
+    font-weight: 600;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.secondaryAction:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
