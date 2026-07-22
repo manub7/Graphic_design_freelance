@@ -26,11 +26,11 @@ class Client(models.Model):
 @receiver(post_save, sender=User)
 def create_or_update_user_profile(sender, instance, created, **kwargs):
     """
-    Create or update the user profile
-    """
+    Create or update the user profile.
 
-    if created:
-        
-        Client.objects.create(user=instance)
-        #Existing users: just save the profile
-    instance.client.save()
+    Uses get_or_create so this never raises Client.DoesNotExist - which would
+    otherwise break user creation for any path that doesn't guarantee a Client
+    already exists (e.g. Google sign-in, or pre-existing users).
+    """
+    client, _ = Client.objects.get_or_create(user=instance)
+    client.save()

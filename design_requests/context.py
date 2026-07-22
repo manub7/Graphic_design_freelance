@@ -1,18 +1,20 @@
 from decimal import Decimal
 from django.conf import settings
-from django.shortcuts import get_object_or_404
 from .models import DesignRequest, Category
 from profiles.models import Client
 
 
 def design_requests_contents(request):
-    
+
     uncomplete_requests_bool = False
     design_request_list_uncomplete = []
     uncomplete_items = 0
     design_requests = DesignRequest.objects.all
     if request.user.is_authenticated:
-        client = get_object_or_404(Client, user=request.user)
+        # Runs on every page for logged-in users. Use get_or_create so a user
+        # without a Client row (e.g. created via Google sign-in or before the
+        # profile signal existed) never triggers a site-wide 404/500.
+        client, _ = Client.objects.get_or_create(user=request.user)
         design_requests = DesignRequest.objects.all()
         if request.user.is_superuser:
             

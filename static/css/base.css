@@ -399,8 +399,8 @@ footer {
 /* ---------------------------------------------------- */
 
 .auth-page {
-    padding-top: 1.5rem;
-    padding-bottom: 3rem;
+    padding-top: 1rem;
+    padding-bottom: 1.5rem;
 }
 
 /* Centered, width-capped column - robust on every screen size:
@@ -431,31 +431,31 @@ footer {
     background: #fff;
     border-top: 4px solid #007bff;
     box-shadow: 0 10px 40px rgba(0, 0, 0, .08);
-    padding: 2.25rem 2rem;
+    padding: 1.5rem 1.75rem;
     width: 100%;
 }
 
 .auth-card-header {
     text-align: center;
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.15rem;
 }
 
 .auth-title {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .03em;
-    font-size: 1.5rem;
-    margin-bottom: .35rem;
+    font-size: 1.3rem;
+    margin-bottom: .25rem;
 }
 
 .auth-subtitle {
     color: #6c757d;
-    font-size: .92rem;
+    font-size: .88rem;
     margin-bottom: 0;
 }
 
 .auth-social {
-    margin-bottom: 1.25rem;
+    margin-bottom: .85rem;
 }
 
 .socialaccount_providers {
@@ -469,7 +469,7 @@ footer {
     justify-content: center;
     gap: .6rem;
     width: 100%;
-    padding: .65rem 1rem;
+    padding: .55rem 1rem;
     background: #fff;
     border: 1px solid #dadce0;
     color: #3c4043;
@@ -498,7 +498,7 @@ footer {
     font-size: .8rem;
     text-transform: uppercase;
     letter-spacing: .04em;
-    margin: 1.5rem 0;
+    margin: 1rem 0;
 }
 
 .auth-divider::before,
@@ -513,20 +513,20 @@ footer {
 }
 
 .auth-form .form-group {
-    margin-bottom: 1.15rem;
+    margin-bottom: .7rem;
 }
 
 .auth-form label {
-    font-size: .8rem;
+    font-size: .78rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .03em;
     color: #495057;
-    margin-bottom: .4rem;
+    margin-bottom: .25rem;
 }
 
 .auth-form .form-control {
-    padding: .65rem .85rem;
+    padding: .5rem .8rem;
     border: 1px solid #ced4da;
     font-size: .95rem;
 }
@@ -537,17 +537,17 @@ footer {
 }
 
 .auth-submit {
-    padding: .7rem 1rem;
+    padding: .6rem 1rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .03em;
-    margin-top: .5rem;
+    margin-top: .35rem;
 }
 
 .auth-footer {
     text-align: center;
-    margin-top: 1.5rem;
-    font-size: .9rem;
+    margin-top: 1rem;
+    font-size: .88rem;
     color: #6c757d;
 }
 
@@ -562,10 +562,10 @@ footer {
 
 @media (max-width: 441px) {
     .auth-card {
-        padding: 1.75rem 1.25rem;
+        padding: 1.25rem 1.15rem;
     }
     .auth-page {
-        padding-top: 1rem;
+        padding-top: .5rem;
     }
 }
 

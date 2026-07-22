@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Something went wrong &middot; Graphic Design Freelance</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: #f4f6f9; color: #212529;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Lato', Arial, sans-serif;
+      padding: 1.5rem;
+    }
+    .err-card {
+      background: #fff; border-top: 4px solid #dc3545; box-shadow: 0 10px 40px rgba(0,0,0,.08);
+      max-width: 520px; width: 100%; padding: 2.25rem 2rem; text-align: center;
+    }
+    .err-code { font-size: 3rem; font-weight: 700; color: #dc3545; margin: 0; line-height: 1; }
+    h1 { font-size: 1.4rem; text-transform: uppercase; letter-spacing: .03em; margin: .75rem 0 .5rem; }
+    p { color: #495057; font-size: .95rem; line-height: 1.5; margin: .5rem 0; }
+    .details {
+      background: #f8f9fa; border: 1px solid #e9ecef; text-align: left;
+      font-size: .82rem; color: #6c757d; padding: .85rem 1rem; margin: 1.25rem 0;
+    }
+    .details strong { color: #495057; }
+    .btn {
+      display: inline-block; background: #007bff; color: #fff; text-decoration: none;
+      padding: .65rem 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: .03em;
+      margin: .35rem;
+    }
+    .btn.secondary { background: #6c757d; }
+    .btn:hover { opacity: .9; }
+  </style>
+</head>
+<body>
+  <div class="err-card">
+    <p class="err-code">500</p>
+    <h1>Something went wrong</h1>
+    <p>The server hit an unexpected error while handling your request. This is on
+       our side, not yours &mdash; the team has been notified.</p>
+
+    <div class="details">
+      <p style="margin-top:0"><strong>What you can do</strong></p>
+      <p>&bull; Try again in a moment &mdash; it may have been temporary.</p>
+      <p>&bull; If it keeps happening, note the time below and contact the site owner.</p>
+      <p style="margin-bottom:0"><strong>Time:</strong> <span id="ts"></span></p>
+    </div>
+
+    <p style="font-size:.8rem; color:#adb5bd;">Site owner: the full error and traceback are in your
+       Render dashboard &rarr; the service &rarr; <strong>Logs</strong> tab, timestamped above.</p>
+
+    <a class="btn" href="/">Back to home</a>
+    <a class="btn secondary" href="javascript:location.reload()">Retry</a>
+  </div>
+  <script>document.getElementById('ts').textContent = new Date().toString();</script>
+</body>
+</html>
