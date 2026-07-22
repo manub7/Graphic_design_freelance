@@ -14,3 +14,7 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'graphic_design_freelance.settings')
 
 application = get_wsgi_application()
+
+# Keep the Render free-tier service from spinning down (no-op off Render).
+from graphic_design_freelance.keepalive import start_keepalive  # noqa: E402
+start_keepalive()

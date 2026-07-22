@@ -1,0 +1,296 @@
+[
+ {
+  "model": "design_requests.category",
+  "pk": 1,
+  "fields": {
+   "name": "Icon"
+  }
+ },
+ {
+  "model": "design_requests.category",
+  "pk": 2,
+  "fields": {
+   "name": "Logo"
+  }
+ },
+ {
+  "model": "design_requests.category",
+  "pk": 3,
+  "fields": {
+   "name": "Poster"
+  }
+ },
+ {
+  "model": "design_requests.designrequest",
+  "pk": 21,
+  "fields": {
+   "client": null,
+   "category": 3,
+   "name": "Sunset",
+   "height": "1080",
+   "width": "1920",
+   "description": "Beautiful sunset in the park, photo taken in one of the beauty spots",
+   "size": "6075",
+   "price": "164.02",
+   "provide_source_files": false,
+   "source_img": "",
+   "image_url": null,
+   "processed_image": "design_work-1_fDtWupp.jpg",
+   "is_processed": true,
+   "testimonial": "Wonderfull image designed according to my needs delivered in a fast and effective manner.",
+   "order_number": "6DA33929AF674D7590DE59B43BE6A90C"
+  }
+ },
+ {
+  "model": "design_requests.designrequest",
+  "pk": 22,
+  "fields": {
+   "client": null,
+   "category": 3,
+   "name": "Fantasy forest",
+   "height": "1080",
+   "width": "1920",
+   "description": "Beautiful fantasy forest poster found only in our imagination",
+   "size": "6075",
+   "price": "164.02",
+   "provide_source_files": false,
+   "source_img": "",
+   "image_url": null,
+   "processed_image": "design_work-2_9JNcoTt.jpg",
+   "is_processed": true,
+   "testimonial": "Very pleased with the outcome, I definitely recommend this website",
+   "order_number": "91A481E1BECC4B80A439835E72393EE8"
+  }
+ },
+ {
+  "model": "design_requests.designrequest",
+  "pk": 24,
+  "fields": {
+   "client": null,
+   "category": 3,
+   "name": "Malten Lava",
+   "height": "1080",
+   "width": "1590",
+   "description": "Malten lava effect poster",
+   "size": "5031",
+   "price": "135.81",
+   "provide_source_files": false,
+   "source_img": "",
+   "image_url": null,
+   "processed_image": "design_work-4_Bfdo8xK.jpg",
+   "is_processed": true,
+   "testimonial": "I love this picture done by the most creative team.",
+   "order_number": "DCC239FCEA654C8FA60F44F900D0F152"
+  }
+ },
+ {
+  "model": "design_requests.designrequest",
+  "pk": 25,
+  "fields": {
+   "client": null,
+   "category": 1,
+   "name": "Social network",
+   "height": "1080",
+   "width": "2363",
+   "description": "Social network icon representing people comunicating love",
+   "size": "7477",
+   "price": "201.85",
+   "provide_source_files": false,
+   "source_img": "",
+   "image_url": null,
+   "processed_image": "icon-1_jApJk4A.jpeg",
+   "is_processed": true,
+   "testimonial": "Very quick feedback and response times",
+   "order_number": "BC2E91BACBD34C4AB992F99CF031EC3E"
+  }
+ },
+ {
+  "model": "design_requests.designrequest",
+  "pk": 26,
+  "fields": {
+   "client": null,
+   "category": 2,
+   "name": "Underground logo",
+   "height": "2400",
+   "width": "3000",
+   "description": "Undeground logo design",
+   "size": "21094",
+   "price": "569.51",
+   "provide_source_files": false,
+   "source_img": "",
+   "image_url": null,
+   "processed_image": "icon-2_1tn082u.jpeg",
+   "is_processed": true,
+   "testimonial": "Your testimonial here",
+   "order_number": "320BBFA05D234608BE814999169922FA"
+  }
+ },
+ {
+  "model": "design_requests.designrequest",
+  "pk": 27,
+  "fields": {
+   "client": null,
+   "category": 1,
+   "name": "Heart Locker",
+   "height": "2348",
+   "width": "2456",
+   "description": "Heart design on solid metal lockers",
+   "size": "16895",
+   "price": "456.14",
+   "provide_source_files": false,
+   "source_img": "",
+   "image_url": null,
+   "processed_image": "icon-3_WpU6W6x.jpeg",
+   "is_processed": true,
+   "testimonial": "It came out better than I expected",
+   "order_number": "FBE5766B963E40888838B66318B2000A"
+  }
+ },
+ {
+  "model": "design_requests.designrequest",
+  "pk": 28,
+  "fields": {
+   "client": null,
+   "category": 2,
+   "name": "Fire logo",
+   "height": "2312",
+   "width": "2568",
+   "description": "Beautiful Fire logo with red neon effect",
+   "size": "17394",
+   "price": "469.64",
+   "provide_source_files": false,
+   "source_img": "",
+   "image_url": null,
+   "processed_image": "logo-2_xGOAjlX.jpeg",
+   "is_processed": true,
+   "testimonial": "",
+   "order_number": "BE3688E37B2F4FA69D1B4C003424EC5C"
+  }
+ },
+ {
+  "model": "design_requests.designrequest",
+  "pk": 29,
+  "fields": {
+   "client": null,
+   "category": 1,
+   "name": "Neon Butterfly",
+   "height": "2589",
+   "width": "2383",
+   "description": "Neon butterfly logo with rainbow color effect",
+   "size": "18075",
+   "price": "488.00",
+   "provide_source_files": false,
+   "source_img": "",
+   "image_url": null,
+   "processed_image": "logo-3_0UA8SOL.jpeg",
+   "is_processed": true,
+   "testimonial": "Love this soft colors neon logo",
+   "order_number": "335328C3ABB942B4AC89E61D0D7D41A2"
+  }
+ },
+ {
+  "model": "design_requests.designrequest",
+  "pk": 61,
+  "fields": {
+   "client": null,
+   "category": 1,
+   "name": "test _profile_fill form",
+   "height": "5181",
+   "width": "5625",
+   "description": "5561dsmdkmsalkfmalskmf",
+   "size": "85380",
+   "price": "2305.26",
+   "provide_source_files": false,
+   "source_img": "",
+   "image_url": null,
+   "processed_image": "icon-2_WVi1pQ8.jpeg",
+   "is_processed": true,
+   "testimonial": "False",
+   "order_number": "FB1129DC27584AC0AE2455A25E20BB28"
+  }
+ },
+ {
+  "model": "design_requests.designrequest",
+  "pk": 66,
+  "fields": {
+   "client": null,
+   "category": 1,
+   "name": "test stripe",
+   "height": "3306",
+   "width": "5152",
+   "description": "fadfdfafasfasfas",
+   "size": "49900",
+   "price": "1347.27",
+   "provide_source_files": false,
+   "source_img": "",
+   "image_url": null,
+   "processed_image": "design_work-1_YYSWz4h.jpg",
+   "is_processed": true,
+   "testimonial": "",
+   "order_number": "07B4AA2FC1ED4650A9E6BCF5C14BA15A"
+  }
+ },
+ {
+  "model": "design_requests.designrequest",
+  "pk": 68,
+  "fields": {
+   "client": null,
+   "category": 1,
+   "name": "test loading over layer",
+   "height": "1080",
+   "width": "1920",
+   "description": "ffdsfdsfdsf",
+   "size": "6075",
+   "price": "164.02",
+   "provide_source_files": false,
+   "source_img": "",
+   "image_url": null,
+   "processed_image": "design_work-1_R7U9tjj.jpg",
+   "is_processed": true,
+   "testimonial": "",
+   "order_number": "BB0AA14E6485403ABBACA3F963895393"
+  }
+ },
+ {
+  "model": "design_requests.designrequest",
+  "pk": 82,
+  "fields": {
+   "client": null,
+   "category": 1,
+   "name": "Emanuel Teodor",
+   "height": "65",
+   "width": "70",
+   "description": "khjknkjnkjnkjnkjn",
+   "size": "13",
+   "price": "0.35",
+   "provide_source_files": false,
+   "source_img": "",
+   "image_url": null,
+   "processed_image": "13FEC2CF-C0CB-4F02-88B7-DACE949FB780.jpeg",
+   "is_processed": true,
+   "testimonial": "False",
+   "order_number": "BF032F43CF124A23972A310DB26ACC7D"
+  }
+ },
+ {
+  "model": "design_requests.designrequest",
+  "pk": 113,
+  "fields": {
+   "client": null,
+   "category": 1,
+   "name": "Test css",
+   "height": "78",
+   "width": "75",
+   "description": "lkoaskdoiaskdoiaskfpoaskf",
+   "size": "17",
+   "price": "0.46",
+   "provide_source_files": false,
+   "source_img": "",
+   "image_url": null,
+   "processed_image": "",
+   "is_processed": true,
+   "testimonial": "False",
+   "order_number": ""
+  }
+ }
+]
