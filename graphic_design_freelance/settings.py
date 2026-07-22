@@ -151,6 +151,10 @@ LOGIN_REDIRECT_URL = '/'
 SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
 SOCIALACCOUNT_QUERY_EMAIL = True
 
+# Skip allauth's intermediate "you are about to sign in with Google"
+# confirmation page - clicking the button redirects straight to Google.
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {

@@ -4,7 +4,7 @@ html {
 }
 
 body {
-    height: calc(100vh - 164px);
+    min-height: calc(100vh - 164px);
     font-family: 'Lato';
 }
 
@@ -283,7 +283,7 @@ footer {
         color: white; 
     }
     body {
-        height: calc(100vh - 84px);
+        min-height: calc(100vh - 84px);
     }
     .display-4.logo-font.text-black {
         font-size: 2rem;
@@ -347,7 +347,7 @@ footer {
         color: white; 
     }
     body {
-        height: calc(100vh - 84px);
+        min-height: calc(100vh - 84px);
     }
     .display-4.logo-font.text-black {
         font-size: 2rem;
