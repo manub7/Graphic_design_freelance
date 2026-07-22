@@ -14,9 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path ,include
+from django.urls import path, include, re_path
 from django.conf import settings
-from django.conf.urls.static import static
+from django.views.static import serve as media_serve
 
 
 urlpatterns = [
@@ -26,4 +26,14 @@ urlpatterns = [
     path('orders/', include('orders.urls')),
     path('design_requests/', include('design_requests.urls')),
     path('profile/', include('profiles.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+# Serve uploaded/portfolio media. Django's static() helper only works when
+# DEBUG=True, which is why images were 404ing (blank gallery) in production.
+# Serve them explicitly unless media is offloaded to S3/Supabase (USE_AWS),
+# in which case MEDIA_URL is an absolute https URL and needs no local route.
+if not settings.MEDIA_URL.startswith('http'):
+    urlpatterns += [
+        re_path(r'^media/(?P<path>.*)$', media_serve,
+                {'document_root': settings.MEDIA_ROOT}),
+    ]

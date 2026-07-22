@@ -398,18 +398,34 @@ footer {
 /* Auth pages (login / signup / password reset / etc.)  */
 /* ---------------------------------------------------- */
 
+/* The fixed site header overlaps the top of the page, so the auth content
+   needs top padding to clear it: ~56px below the lg breakpoint, ~152px at
+   and above it (where the tall blue bar appears). These paddings OWN the
+   clearance - .auth-page must not inherit .header-container's, which is why
+   the auth base template no longer uses that class. */
 .auth-page {
-    padding-top: 1rem;
-    padding-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 72px;
+    padding-bottom: 2rem;
 }
 
-/* Centered, width-capped column - robust on every screen size:
-   caps at 460px on large/ultra-wide, and becomes full-width (minus the
-   container gutter) on phones. No grid math, no viewport-height calc. */
+@media (min-width: 992px) {
+    .auth-page {
+        padding-top: 168px;
+    }
+}
+
+/* Centered, width-capped card. margin:auto centers it vertically in the
+   leftover flex space WITHOUT clipping a tall form: when the card is taller
+   than the space the auto margins collapse to 0 and the page just scrolls
+   (body min-height allows it). Caps at 460px; full-width minus gutter on
+   phones. */
 .auth-wrap {
     max-width: 460px;
     width: 100%;
-    margin: 0 auto;
+    margin: auto;
 }
 
 .auth-back-home {
@@ -563,9 +579,6 @@ footer {
 @media (max-width: 441px) {
     .auth-card {
         padding: 1.25rem 1.15rem;
-    }
-    .auth-page {
-        padding-top: .5rem;
     }
 }
 
