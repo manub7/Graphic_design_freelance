@@ -4,15 +4,13 @@
 
 {% block content %}
     <div class="container header-container auth-page">
-        <div class="row justify-content-center">
-            <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
-                <a href="{% url 'home' %}" class="auth-back-home">
-                    <i class="fas fa-arrow-left mr-1"></i>{% trans "Back to home" %}
-                </a>
-                <div class="auth-card">
-                    {% block inner_content %}
-                    {% endblock %}
-                </div>
+        <div class="auth-wrap">
+            <a href="{% url 'home' %}" class="auth-back-home">
+                <i class="fas fa-arrow-left mr-1"></i>{% trans "Back to home" %}
+            </a>
+            <div class="auth-card">
+                {% block inner_content %}
+                {% endblock %}
             </div>
         </div>
     </div>

@@ -399,11 +399,17 @@ footer {
 /* ---------------------------------------------------- */
 
 .auth-page {
-    display: flex;
-    align-items: center;
-    min-height: calc(100vh - 160px);
-    padding-top: 2rem;
+    padding-top: 1.5rem;
     padding-bottom: 3rem;
+}
+
+/* Centered, width-capped column - robust on every screen size:
+   caps at 460px on large/ultra-wide, and becomes full-width (minus the
+   container gutter) on phones. No grid math, no viewport-height calc. */
+.auth-wrap {
+    max-width: 460px;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .auth-back-home {
