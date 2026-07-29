@@ -27,17 +27,10 @@ class OrderFormDesignRequest(forms.ModelForm):
 
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
         """
         Add placeholders and classes, remove auto-generated
         labels and set autofocus on first field
         """
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        category = Category.objects.filter(name=self.fields['category'])
-        self.fields['category'] = category
-        
-
         super().__init__(*args, **kwargs)
         placeholders = {
             'category':'Category',
@@ -50,9 +43,9 @@ class OrderFormDesignRequest(forms.ModelForm):
             'is_processed': 'Is Processed',
             'processed_image': 'Processed Image',
             'testimonial':"Your testimonial",
-            
+
         }
-        
+
         self.fields['category'].widget.attrs['autofocus'] = True
         for field in self.fields:
             if field != 'country':
@@ -80,16 +73,11 @@ class OrderFormDesignRequestSuser(forms.ModelForm):
             'processed_image',
             'testimonial',
             )
-    
+
     source_img = forms.ImageField(label='source_img-clear_id', required=False, widget=CustomClearableFileInput)
     processed_image = forms.ImageField(label='processed_image-clear_id', required=False, widget=CustomClearableFileInput)
 
     def __init__(self, *args, **kwargs):
-        super(OrderFormDesignRequestSuser,self).__init__(*args, **kwargs)
-        self.fields['processed_image'] =  forms.ImageField(label='processed_image', required=False, widget=CustomClearableFileInput),
-
-        
-
         super(OrderFormDesignRequestSuser,self).__init__(*args, **kwargs)
         placeholders = {
             'category':'Category',
@@ -102,9 +90,9 @@ class OrderFormDesignRequestSuser(forms.ModelForm):
             'is_processed': 'Is Processed',
             'processed_image': 'Processed Image',
             'testimonial':"Your testimonial",
-            
+
         }
-        
+
         self.fields['category'].widget.attrs['autofocus'] = True
         for field in self.fields:
             if field != 'country':
@@ -133,14 +121,10 @@ class OrderFormCheckOut(forms.ModelForm):
 
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
         """
         Add placeholders and classes, remove auto-generated
         labels and set autofocus on first field
         """
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
         super().__init__(*args, **kwargs)
         placeholders = {
             'full_name': 'Full Name',

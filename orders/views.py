@@ -25,7 +25,7 @@ def all_orders(request):
             sort = sortkey
             if sortkey == 'name':
                 sortkey = 'lower_name'
-                orders = orders.annotate(lower_name=Lower('name'))
+                design_requests = design_requests.annotate(lower_name=Lower('name'))
             if sortkey == 'category':
                 sortkey = 'category__name'
             if 'direction' in request.GET:

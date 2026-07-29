@@ -47,12 +47,13 @@
                                 <td id = "th_collapsable">£{{ order.design_request.price }}</td>
 
                                 <td id="td-actions" >
-                                    
+                                    {% if order.design_request.processed_image %}
                                     <a href="{{order.design_request.processed_image.url}}" download class="mr-2" target="_blank">
                                         <span class="text-primary">
                                                 <i class="fas fa-download"></i>
                                         </span>
                                     </a>
+                                    {% endif %}
                                     {% if not order.design_request.testimonial %}
                                     <a href="{% url 'design_request_testimonial' order.design_request.id %}" class="mr-2">
                                         <span class="text-success">

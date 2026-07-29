@@ -1,15 +1,16 @@
 import uuid
 from django.db import models
 from profiles.models import Client
-from django.conf import settings
-from decimal import *
 from design_requests.models import DesignRequest
-from profiles.models import Client
 from django_countries.fields import CountryField
 
 
-def order_directory_path (instance,filename):
+def order_directory_path(instance, filename):
+    """Kept for historical migration 0012_order_upload.py, which imports this
+    at module-load time even though the field it applied to was later removed
+    (0013_remove_order_upload.py). Do not delete."""
     return 'media/'.format(filename)
+
 
 class Order(models.Model):
     
@@ -31,10 +32,6 @@ class Order(models.Model):
     stripe_pid = models.CharField(max_length=254, null=False, blank=False, default='')
 
 
-    def __str__(self):
-        return self.name
-
-   
     def _generate_order_number(self):
         """
         Generate a random, unique order number using UUID

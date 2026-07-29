@@ -19,10 +19,6 @@ class Category(models.Model):
         return self.name
 
 
-def order_directory_path(instance, filename):
-    return 'media/'.format(filename)
-
-
 class DesignRequest(models.Model):
 
     client = models.ForeignKey(Client, on_delete=models.SET_NULL,

@@ -9,7 +9,6 @@ from .models import DesignRequest
 from .forms import OrderFormCheckOut
 from profiles.models import Client
 
-import time
 import json
 
 
@@ -55,9 +54,8 @@ class StripeWH_handler:
         pid = intent.id
         order = intent.metadata.design_request_session
         design_request_id = json.loads(order)['design_request_id']
-        # Prevents previous design_request_id triggering a new order 
-        design_request_id = int(design_request_id) +1
-        design_request = get_object_or_404(DesignRequest, id = design_request_id)    
+        design_request_id = int(design_request_id)
+        design_request = get_object_or_404(DesignRequest, id = design_request_id)
         save_info = intent.metadata.save_info
         client = intent.metadata.client
         client = Client.objects.get(user__username=client)
@@ -70,69 +68,53 @@ class StripeWH_handler:
             if value == "":
                 shipping_details.address[field] = None
 
-        order_exists = False
-        attempt= 1
-        while attempt <= 5:
-            try:
-                order = Order.objects.get(
-
-                    full_name__iexact = shipping_details.name,
-                    phone_number__iexact=shipping_details.phone,
-                    country__iexact=shipping_details.address.country,
-                    postcode__iexact=shipping_details.address.postal_code,
-                    town_or_city__iexact=shipping_details.address.city,
-                    street_address1__iexact=shipping_details.address.line1,
-                    street_address2__iexact=shipping_details.address.line2,
-                    county__iexact=shipping_details.address.state,
-                    design_request = design_request,
-                    stripe_pid=pid,
-
-                    )
-                order_exists = True
-                break
-                return HttpResponse(
-                    content = f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
-                    status = 200)
-
-            except Order.DoesNotExist:
-                attempt += 1
-                time.sleep(0)
-            # Create the order 
-        if order_exists == True:
+        try:
+            order = Order.objects.get(
+                full_name__iexact = shipping_details.name,
+                phone_number__iexact=shipping_details.phone,
+                country__iexact=shipping_details.address.country,
+                postcode__iexact=shipping_details.address.postal_code,
+                town_or_city__iexact=shipping_details.address.city,
+                street_address1__iexact=shipping_details.address.line1,
+                street_address2__iexact=shipping_details.address.line2,
+                county__iexact=shipping_details.address.state,
+                design_request = design_request,
+                stripe_pid=pid,
+                )
             self._send_confirmation_email(order)
             return HttpResponse(
                 content = f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
                 status = 200)
-        else:
-                order = None
-                try:
-                    order = Order.objects.create(
-                        phone_number=shipping_details.phone,
-                        country=shipping_details.address.country,
-                        postcode=shipping_details.address.postal_code,
-                        full_name = shipping_details.name,
-                        town_or_city = shipping_details.address.city,
-                        street_address1=shipping_details.address.line1,
-                        street_address2=shipping_details.address.line2,
-                        county = shipping_details.address.state,
-                        design_request=design_request,
-                        client=client,
-                        price = design_request.price,
-                        stripe_pid = pid,
-                        )
 
-                    # Pass the order number to design request instance 
+        except Order.DoesNotExist:
+            order = None
+            try:
+                order = Order.objects.create(
+                    phone_number=shipping_details.phone,
+                    country=shipping_details.address.country,
+                    postcode=shipping_details.address.postal_code,
+                    full_name = shipping_details.name,
+                    town_or_city = shipping_details.address.city,
+                    street_address1=shipping_details.address.line1,
+                    street_address2=shipping_details.address.line2,
+                    county = shipping_details.address.state,
+                    design_request=design_request,
+                    client=client,
+                    price = design_request.price,
+                    stripe_pid = pid,
+                    )
 
-                except Exception as e :
-                    if order:
-                        order.delete()
-                    return HttpResponse(
-                        content = f'Webhook received: {event["type"]} | ERROR: {e}', 
-                        status=500)
+            except Exception as e :
+                if order:
+                    order.delete()
+                return HttpResponse(
+                    content = f'Webhook received: {event["type"]} | ERROR: {e}',
+                    status=500)
+
         self._send_confirmation_email(order)
         return HttpResponse(
-                        content = f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook', 
-                        status=500) 
+                        content = f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
+                        status=200)
 
 
     def handle_payment_intent_payment_failed(self,event):
